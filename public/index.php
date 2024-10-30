@@ -1,16 +1,12 @@
-<!doctype html>
-<html>
+<?php
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="./css/output.css" rel="stylesheet">
-</head>
+require_once __DIR__ . '/../vendor/autoload.php';
 
-<body>
-    <h1 class="text-3xl font-bold underline">
-        Hello world!
-    </h1>
-</body>
+use app\controllers\SiteController;
+use app\core\Application;
 
-</html>
+$app = new Application(dirname(__DIR__));
+
+$app->router->get("/", [SiteController::class, "home"]);
+
+$app->run();
