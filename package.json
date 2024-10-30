@@ -1,0 +1,16 @@
+{
+  "name": "pbl",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "css:watch" : "npx tailwindcss -i ./public/css/input.css -o ./public/css/output.css --watch --poll",
+    "php:dev": "php -S localhost:5000 -t public"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "tailwindcss": "^3.4.14"
+  }
+}
