@@ -1,15 +1,15 @@
 {
     "name": "daniu/pbl",
-    "autoload": {
-        "psr-4": {
-            "Daniu\\Pbl\\": "./"
-        }
-    },
     "authors": [
         {
             "name": "Nerots",
             "email": "daniuyan71@gmail.com"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "app\\": "./"
+        }
+    },
     "require": {}
 }
