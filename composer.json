@@ -1,15 +1,19 @@
 {
-    "name": "daniu/pbl",
-    "authors": [
-        {
-            "name": "Nerots",
-            "email": "daniuyan71@gmail.com"
-        }
-    ],
-    "autoload": {
-        "psr-4": {
-            "app\\": "./"
-        }
-    },
-    "require": {}
+  "name": "daniu/pbl",
+  "authors": [
+    {
+      "name": "Nerots",
+      "email": "daniuyan71@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "app\\": "./",
+      "app\\models\\migrations\\": "./models/migrations/"
+    }
+  },
+  "require": {
+    "ext-pdo": "*",
+    "ext-sqlsrv": "*"
+  }
 }

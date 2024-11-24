@@ -2,86 +2,133 @@
 
 namespace app\core;
 
-use const app\constant\BASE_LAYOUT;
+use app\constant\HttpMethod;
 
 class Router
 {
-    protected array $routes = [];
-    public Request $request;
-    public Response $response;
+    private static RouteNode $root;
+    private static Request $request;
+    private static Response $response;
+    private static View $view;
 
-    public function __construct(Request $request, Response $response)
+    public function __construct()
     {
-        $this->request = $request;
-        $this->response = $response;
+        self::$root = new RouteNode();
+        self::$request = new Request();
+        self::$response = new Response();
+        self::$view = new View();
     }
 
-    public function get(string $path, $callback): void
+    public static function get($path, $callback): void
     {
-        $this->routes["get"][$path] = $callback;
+        self::addRoute($path, HttpMethod::GET, $callback);
     }
 
-    public function post(string $path, $callback): void
+    public static function post($path, $callback): void
     {
-        $this->routes["post"][$path] = $callback;
+        self::addRoute($path, HttpMethod::POST, $callback);
     }
 
-    public function resolve(): string
+    public static function run(): void
     {
-        $path = $this->request->getPath();
-        $method = $this->request->getMethod();
-        $callback = $this->routes[$method][$path] ?? false;
+        $path = trim(self::$request->getUrl(), "/");
+        $method = self::$request->getMethod();
 
-        if (!$callback) {
-            $this->response->setStatusCode(404);
-            return $this->renderView("_404");
+        $route = self::findRoute($path, $method);
+
+        if (!$route || !is_array($route["handler"])) {
+            self::$response->setStatusCode(404);
+            self::$view->renderException("_404", ["title" => "Not Found"]);
+            return;
         }
 
-        if (is_string($callback)) {
-            return $this->renderView($callback);
+        [$controllerClass, $handler] = $route["handler"];
+        $controller = new $controllerClass();
+
+        // Check if the controller class exists
+        if (!class_exists($controllerClass)) {
+            self::$response->setStatusCode(404);
+            self::$view->renderException("_404", ["title" => "Not Found"]);
+            return;
         }
 
-        if (is_array($callback)) {
-            Application::$app->baseController = new $callback[0]();
-
-            $callback[0] = Application::$app->baseController;
+        // Check if the method exists in the controller
+        if (!method_exists($controllerClass, $handler)) {
+            self::$response->setStatusCode(404);
+            self::$view->renderException("_404", ["title" => "Not Found"]);
+            return;
         }
 
-        return call_user_func($callback, $this->request);
+        call_user_func([$controller, $handler], self::$request, self::$response, ...$route["params"]);
     }
 
-    public function renderView(string $pathToView, array $params = []): array|string
+    private static function addRoute(string $path, string $method, $callback): void
     {
+        $currentNode = self::$root;
 
-        $layoutContent = $this->layoutContent();
-        $viewContent = $this->renderOnlyView($pathToView, $params);
+        // filter out empty string
+        $routeParts = array_filter(explode("/", $path), fn($value) => !empty($value));
 
-        return str_replace("{{content}}", $viewContent, $layoutContent);
-    }
-    public function renderContent(string $viewContent)
-    {
+        $dynamicParams = [];
 
-        $layoutContent = $this->layoutContent();
-        return str_replace("{{content}}", $viewContent, $layoutContent);
-    }
+        foreach ($routeParts as $segment) {
+            // handle dynamic routes
+            $isDynamic = $segment[0] === ":";
+            $key = $isDynamic ? ":" : strtolower($segment);
 
-    protected function layoutContent(): bool|string
-    {
-        $layout = Application::$app->baseController->layout ?? BASE_LAYOUT;
 
-        ob_start();
-        include_once Application::$ROOT_DIR . "/views/layouts/$layout.php";
-        return ob_get_clean();
-    }
+            if ($isDynamic) {
+                $dynamicParams[] = substr($segment, 1);
+            }
 
-    protected function renderOnlyView(string $pathToView, array $params = []): bool|string
-    {
-        foreach ($params as $key => $value) {
-            $$key = $value;
+            if (!isset($currentNode->children[$key])) {
+                $currentNode->children[$key] = new RouteNode();
+            }
+
+            $currentNode = $currentNode->children[$key];
         }
 
-        ob_start();
-        include_once Application::$ROOT_DIR . "/views/$pathToView.php";
-        return ob_get_clean();
+        // Set the handler for this route and method
+        $currentNode->handler[$method] = $callback;
+        // Assign dynamic parameters to the current node
+        $currentNode->params = $dynamicParams;
+    }
+
+    private static function findRoute(string $path, string $method): ?array
+    {
+        $currentNode = self::$root;
+
+        $segments = array_filter(explode("/", $path), function ($value) {
+            return !empty($value);
+        });
+
+        $extractedParams = [];
+
+        foreach ($segments as $segment) {
+            $childNode = $currentNode->children[strtolower($segment)];
+
+            if ($childNode) {
+                $currentNode = $childNode;
+            } else if (($childNode = $currentNode->children[":"])) {
+                $extractedParams[] = $segment;
+                $currentNode = $childNode;
+            } else {
+                return null;
+            }
+        }
+
+        $params = [];
+
+        for ($i = 0; $i < count($extractedParams); $i++) {
+            $key = $currentNode->params[$i];
+            $value = $extractedParams[$i];
+
+            $params[$key] = $value;
+        }
+
+        return [
+            "params" => $params,
+            "handler" => $currentNode->handler[$method],
+        ];
     }
 }
