@@ -4,7 +4,7 @@ namespace app\models\championLevel;
 
 class RegencyLevel
 {
-    public static string $table = "regency_level";
-    public static string $id = "id";
-    public static string $nim = "nim";
+    public const TABLE = "regency_level";
+    public const ID = "id";
+    public const NIM = "nim";
 }

@@ -4,10 +4,10 @@ namespace app\models\users;
 
 class Lecturer
 {
-    public static string $table = "lecturer";
-    public static string $id = "id";
-    public static string $nidn = "nidn";
-    public static string $nama = "name";
+    public const TABLE = "lecturer";
+    public const ID = "id";
+    public const NIDN = "nidn";
+    public const NAMA = "name";
 
 
 }

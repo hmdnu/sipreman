@@ -4,9 +4,9 @@ namespace app\models\users;
 
 class User
 {
-    public static string $table = "user";
-    public static string $id = "id";
-    public static string $noInduk = "no_induk";
-    public static string $password = "password";
+    public const TABLE = "user";
+    public const ID = "id";
+    public const NO_INDUK = "no_induk";
+    public const PASSWORD = "password";
 
 }

@@ -4,10 +4,10 @@ namespace app\models\prestasiCore;
 
 class Loa
 {
-    public static string $table = "loa";
-    public static string $id = "id";
-    public static string $date = "date";
-    public static string $loaNumber = "loa_number";
-    public static string $pdfPath = "pdf_path";
+    public const TABLE = "loa";
+    public const ID = "id";
+    public const DATE = "date";
+    public const LOA_NUMBER = "loa_number";
+    public const PDF_PATH = "pdf_path";
 
 }

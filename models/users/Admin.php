@@ -4,10 +4,10 @@ namespace app\models\users;
 
 class Admin
 {
-    public static string $table = "admin";
-    public static string $id = "id";
-    public static string $nip = "nip";
-    public static string $name = "name";
+    public const TABLE = "admin";
+    public const ID = "id";
+    public const NIP = "nip";
+    public const NAME = "name";
 
   
 }

@@ -4,19 +4,19 @@ namespace app\models\prestasiCore;
 
 class Prestasi
 {
-    public static string $id = "id";
-    public static string $table = "prestasi";
-    public static string $competitionName = "competition_name";
-    public static string $categoryName = "category_name";
-    public static string $competitionLevel = "competition_level";
-    public static string $place = "place";
-    public static string $dateStartCompetition = "date_start_competition";
-    public static string $dateEndCompetition = "date_end_competition";
-    public static string $competitionSource = "competition_source"; // link to comp
-    public static string $totalCollegeAttended = "total_college";
-    public static string $totalParticipant = "total_participant";
-    public static string $isValidate = "is_validate";
-    public static string $attachmentId = "attachment_id";
-    public static string $supervisorId = "supervisor_id";
+    public const ID = "id";
+    public const TABLE = "prestasi";
+    public const COMPETITION_NAME = "competition_name";
+    public const CATEGORY_NAME = "category_name";
+    public const COMPETITION_LEVEL = "competition_level";
+    public const PLACE = "place";
+    public const DATE_START_COMPETITION = "date_start_competition";
+    public const DATE_END_COMPETITION = "date_end_competition";
+    public const COMPETITION_SOURCE = "competition_source"; // link to comp
+    public const TOTAL_COLLEGE = "total_college";
+    public const TOTAL_PARTICIPANT = "total_participant";
+    public const IS_VALIDATE = "is_validate";
+    public const ATTACHMENT_ID = "attachment_id";
+    public const SUPERVISOR_ID = "supervisor_id";
 
 }

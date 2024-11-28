@@ -4,13 +4,13 @@ namespace app\models\prestasiCore;
 
 class Attachment
 {
-    public static string $table = "attachment";
-    public static string $id = "id";
-    public static string $loaId = "loa_id";
-    public static string $certificatePath = "certificate_path";
-    public static string $documentationPhotoPath = "documentation_photo_path";
-    public static string $posterPath = "poster_path";
-    public static string $creationPath = "creation_path";
-    public static string $caption = "caption";
+    public const TABLE = "attachment";
+    public const ID = "id";
+    public const LOA_ID = "loa_id";
+    public const CERTIFICATE_PATH = "certificate_path";
+    public const DOCUMENTATION_PHOTO_PATH = "documentation_photo_path";
+    public const POSTER_PATH = "poster_path";
+    public const CREATION_PATH = "creation_path";
+    public const CAPTION = "caption";
 
 }

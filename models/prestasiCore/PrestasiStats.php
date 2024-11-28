@@ -4,10 +4,10 @@ namespace app\models\prestasiCore;
 
 class PrestasiStats
 {
-    public static string $table = "prestasi";
-    public static string $id = "id";
-    public static string $majorId = "major_id";
-    public static string $studyProgramId = "study_program_id";
-    public static string $totalVictoryAll = "total_victory_all";
-    public static string $year = "year";
+    public const TABLE = "prestasi_statistic";
+    public const ID = "id";
+    public const MAJOR_ID = "major_id";
+    public const STUDY_PROGRAM_ID = "study_program_id";
+    public const TOTAL_VICTORY_ALL = "total_victory_all";
+    public const YEAR = "year";
 }

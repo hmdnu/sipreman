@@ -5,13 +5,13 @@ namespace app\models\users;
 
 class Student
 {
-    public static string $table = "student";
-    public static string $id = "id";
-    public static string $nim = "nim";
-    public static string $name = "name";
-    public static string $prestasiId = "prestasi_id";
-    public static string $studyProgramId = "study_program_id";
-    public static string $majorId = "major_id";
+    public const TABLE = "student";
+    public const ID = "id";
+    public const NIM = "nim";
+    public const NAME = "name";
+    public const PRESTASI_ID = "prestasi_id";
+    public const STUDY_PROGRAM_ID = "study_program_id";
+    public const MAJOR_ID = "major_id";
 
 
 }

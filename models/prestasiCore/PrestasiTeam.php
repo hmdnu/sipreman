@@ -4,10 +4,10 @@ namespace app\models\prestasiCore;
 
 class PrestasiTeam
 {
-    public static string $table = "prestasi_team";
-    public static string $id = "id";
-    public static string $isLeader = "is_leader";
-    public static string $isMember = "is_member";
-    public static string $supervisorId = "supervisor_id";
+    public const TABLE = "prestasi_team";
+    public const ID = "id";
+    public const IS_LEADER = "is_leader";
+    public const IS_MEMBER = "is_member";
+    public const SUPERVISOR_ID = "supervisor_id";
 
 }

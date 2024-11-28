@@ -4,10 +4,8 @@ namespace app\models;
 
 class Major
 {
-    public static string $table = "major";
-    public static string $id = "id";
-    public static string $majorName = "major_name";
-    public static string $totalVictoryMajor = "total_victory_major";
-
-
+    public const TABLE = "major";
+    public const ID = "id";
+    public const MAJOR_NAME = "major_name";
+    public const TOTAL_VICTORY_MAJOR = "total_victory_major";
 }
