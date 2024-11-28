@@ -2,7 +2,10 @@
 
 namespace app\models;
 
-class BaseMigration
+abstract class BaseMigration
 {
+    abstract public function up($db);
+
+    abstract public function down($db);
 
 }
