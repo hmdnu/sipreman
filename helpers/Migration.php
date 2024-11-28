@@ -42,6 +42,7 @@ class Migration
                 }
 
                 echo "\n";
+                return;
             } else {
                 echo "applied migration $file\n";
             }
