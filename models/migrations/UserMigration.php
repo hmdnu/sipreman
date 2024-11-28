@@ -1,7 +1,5 @@
 <?php
 
-
-use app\core\Database;
 use app\models\BaseMigration;
 use app\models\users\User;
 
