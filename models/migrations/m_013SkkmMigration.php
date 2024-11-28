@@ -3,18 +3,18 @@
 use app\models\BaseMigration;
 use app\models\prestasiCore\Skkm;
 
-class SkkmMigration_013 extends BaseMigration
+class m_013SkkmMigration extends BaseMigration
 {
     public function up($db)
     {
-        $table = Skkm::$table;
-        $id = Skkm::$id;
-        $nim = Skkm::$nim;
-        $prestasiId = Skkm::$prestasiId;
-        $certificateNumber = Skkm::$certificateNumber;
-        $level = Skkm::$level;
-        $certificatePath = Skkm::$certificatePath;
-        $point = Skkm::$point;
+        $table = Skkm::TABLE;
+        $id = Skkm::ID;
+        $nim = Skkm::NIM;
+        $prestasiId = Skkm::PRESTASI_ID;
+        $certificateNumber = Skkm::CERTIFICATE_NUMBER;
+        $level = Skkm::LEVEL;
+        $certificatePath = Skkm::CERTIFICATE_PATH;
+        $point = Skkm::POINT;
 
         $tsql = "
             IF NOT EXISTS (
@@ -26,8 +26,8 @@ class SkkmMigration_013 extends BaseMigration
                 CREATE TABLE [$table] (
                     [$id] nvarchar PRIMARY KEY,
                     [$nim] nvarchar,
-                    [$prestasiId] nvarchar,
-                    [$certificateNumber] nvarchar,
+                    [$prestasiId] nvarchar UNIQUE,
+                    [$certificateNumber] nvarchar UNIQUE,
                     [$level] nvarchar,
                     [$certificatePath] nvarchar,
                     [$point] int
@@ -40,7 +40,7 @@ class SkkmMigration_013 extends BaseMigration
 
     public function down($db)
     {
-        $table = Skkm::$table;
+        $table = Skkm::TABLE;
         $tsql = "DROP TABLE IF EXISTS [$table]";
         return sqlsrv_query($db, $tsql);
     }

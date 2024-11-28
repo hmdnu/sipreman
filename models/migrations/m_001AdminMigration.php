@@ -3,14 +3,14 @@
 use app\models\BaseMigration;
 use app\models\users\Admin;
 
-class AdminMigration_001 extends BaseMigration
+class m_001AdminMigration extends BaseMigration
 {
     public function up($db)
     {
-        $table = Admin::$table;
-        $id = Admin::$id;
-        $nip = Admin::$nip;
-        $name = Admin::$name;
+        $table = Admin::TABLE;
+        $id = Admin::ID;
+        $nip = Admin::NIP;
+        $name = Admin::NAME;
 
         $tsql = "
             IF NOT EXISTS (
@@ -30,7 +30,7 @@ class AdminMigration_001 extends BaseMigration
 
     public function down($db)
     {
-        $table = Admin::$table;
+        $table = Admin::TABLE;
         $tsql = "DROP TABLE IF EXISTS $table;";
         return sqlsrv_query($db, $tsql);
     }

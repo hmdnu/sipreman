@@ -4,13 +4,13 @@
 use app\models\BaseMigration;
 use app\models\championLevel\InternationalLevel;
 
-class InternationalChampMigration_003 extends BaseMigration
+class m_003InternationalChampMigration extends BaseMigration
 {
     public function up($db)
     {
-        $table = InternationalLevel::$table;
-        $id = InternationalLevel::$id;
-        $nim = InternationalLevel::$nim;
+        $table = InternationalLevel::TABLE;
+        $id = InternationalLevel::ID;
+        $nim = InternationalLevel::NIM;
 
         $tsql = "
             IF NOT EXISTS (
@@ -31,7 +31,7 @@ class InternationalChampMigration_003 extends BaseMigration
 
     public function down($db)
     {
-        $table = InternationalLevel::$table;
+        $table = InternationalLevel::TABLE;
         $tsql = "DROP TABLE IF EXISTS $table";
         return sqlsrv_query($db, $tsql);
     }

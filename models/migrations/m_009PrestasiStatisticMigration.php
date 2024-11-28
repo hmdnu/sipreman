@@ -4,16 +4,16 @@
 use app\models\BaseMigration;
 use app\models\prestasiCore\PrestasiStats;
 
-class PrestasiStatisticMigration_009 extends BaseMigration
+class m_009PrestasiStatisticMigration extends BaseMigration
 {
     public function up($db)
     {
-        $table = PrestasiStats::$table;
-        $id = PrestasiStats::$id;
-        $majorId = PrestasiStats::$majorId;
-        $studyProgramId = PrestasiStats::$studyProgramId;
-        $totalVictoryAll = PrestasiStats::$totalVictoryAll;
-        $year = PrestasiStats::$year;
+        $table = PrestasiStats::TABLE;
+        $id = PrestasiStats::ID;
+        $majorId = PrestasiStats::MAJOR_ID;
+        $studyProgramId = PrestasiStats::STUDY_PROGRAM_ID;
+        $totalVictoryAll = PrestasiStats::TOTAL_VICTORY_ALL;
+        $year = PrestasiStats::YEAR;
 
         $tsql = "
             IF NOT EXISTS (
@@ -24,8 +24,8 @@ class PrestasiStatisticMigration_009 extends BaseMigration
             BEGIN
                 CREATE TABLE [$table] (
                     [$id] nvarchar PRIMARY KEY,
-                    [$majorId] nvarchar,
-                    [$studyProgramId] nvarchar,
+                    [$majorId] nvarchar UNIQUE,
+                    [$studyProgramId] nvarchar UNIQUE,
                     [$totalVictoryAll] int,
                     [$year] int
                 )
@@ -37,7 +37,7 @@ class PrestasiStatisticMigration_009 extends BaseMigration
 
     public function down($db)
     {
-        $table = PrestasiStats::$table;
+        $table = PrestasiStats::TABLE;
         $tsql = "DROP TABLE IF EXISTS [$table]";
         return sqlsrv_query($db, $tsql);
     }

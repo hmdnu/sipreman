@@ -4,17 +4,17 @@
 use app\models\BaseMigration;
 use app\models\users\Student;
 
-class StudentMigration_014 extends BaseMigration
+class m_014StudentMigration extends BaseMigration
 {
     public function up($db)
     {
-        $table = Student::$table;
-        $id = Student::$id;
-        $nim = Student::$nim;
-        $name = Student::$name;
-        $prestasiId = Student::$prestasiId;
-        $studyProgramId = Student::$studyProgramId;
-        $majorId = Student::$majorId;
+        $table = Student::TABLE;
+        $id = Student::ID;
+        $nim = Student::NIM;
+        $name = Student::NAME;
+        $prestasiId = Student::PRESTASI_ID;
+        $studyProgramId = Student::STUDY_PROGRAM_ID;
+        $majorId = Student::MAJOR_ID;
 
         $tsql = "
             IF NOT EXISTS (
@@ -26,10 +26,10 @@ class StudentMigration_014 extends BaseMigration
                 CREATE TABLE $table (
                     [$id] nvarchar PRIMARY KEY,
                     [$name] nvarchar,
-                    [$nim] nvarchar,
-                    [$prestasiId] nvarchar,
-                    [$studyProgramId] nvarchar,
-                    [$majorId] nvarchar,
+                    [$nim] nvarchar UNIQUE,
+                    [$prestasiId] nvarchar UNIQUE,
+                    [$studyProgramId] nvarchar UNIQUE,
+                    [$majorId] nvarchar UNIQUE,
                 )
             END;";
 
@@ -38,7 +38,7 @@ class StudentMigration_014 extends BaseMigration
 
     public function down($db)
     {
-        $table = Student::$table;
+        $table = Student::TABLE;
         $tsql = "DROP TABLE IF EXIST $table;";
 
         return sqlsrv_query($db, $tsql);

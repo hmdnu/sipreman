@@ -3,25 +3,25 @@
 use app\models\BaseMigration;
 use app\models\Major;
 
-class MajorMigration_006 extends BaseMigration
+class m_006MajorMigration extends BaseMigration
 {
     public function up($db)
     {
-        $table = Major::$table;
-        $id = Major::$id;
-        $majorName = Major::$majorName;
-        $totalMajorVictory = Major::$totalVictoryMajor;
+        $table = Major::TABLE;
+        $id = Major::ID;
+        $majorName = Major::MAJOR_NAME;
+        $totalMajorVictory = Major::TOTAL_VICTORY_MAJOR;
 
         $tsql = "
-            IF EXISTS (
+            IF NOT EXISTS (
                 SELECT * 
                 FROM sysobjects WHERE name = '$table' AND xtype = 'U' 
             )
             BEGIN
                 CREATE TABLE $table (
-                    $id nvarchar PRIMARY KEY,
-                    $majorName nvarchar,
-                    $totalMajorVictory int,
+                    [$id] nvarchar PRIMARY KEY,
+                    [$majorName] nvarchar,
+                    [$totalMajorVictory] int,
                 )
             END;";
 
@@ -30,7 +30,7 @@ class MajorMigration_006 extends BaseMigration
 
     public function down($db)
     {
-        $table = Major::$table;
+        $table = Major::TABLE;
         $tsql = "DROP TABLE IF EXISTS $table;";
         return sqlsrv_query($db, $tsql);
     }

@@ -3,14 +3,14 @@
 use app\models\BaseMigration;
 use app\models\users\User;
 
-class UserMigration_016 extends BaseMigration
+class m_016UserMigration extends BaseMigration
 {
     public function up($db)
     {
-        $table = User::$table;
-        $id = User::$id;
-        $noInduk = User::$noInduk;
-        $password = User::$password;
+        $table = User::TABLE;
+        $id = User::ID;
+        $noInduk = User::NO_INDUK;
+        $password = User::PASSWORD;
 
         $tsql = "
             IF NOT EXISTS (
@@ -31,7 +31,7 @@ class UserMigration_016 extends BaseMigration
 
     public function down($db)
     {
-        $table = User::$table;
+        $table = User::TABLE;
         $tsql = "DROP TABLE IF EXISTS [$table]";
         return sqlsrv_query($db, $tsql);
     }

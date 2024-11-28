@@ -4,15 +4,15 @@ use app\models\BaseMigration;
 use app\models\users\Lecturer;
 use app\models\users\User;
 
-class LecturerMigration_004 extends BaseMigration
+class m_004LecturerMigration extends BaseMigration
 {
     public function up($db)
     {
-        $table = Lecturer::$table;
-        $id = Lecturer::$id;
-        $nidn = Lecturer::$nidn;
-        $nama = Lecturer::$nama;
-        $noInduk = User::$noInduk;
+        $table = Lecturer::TABLE;
+        $id = Lecturer::ID;
+        $nidn = Lecturer::NIDN;
+        $nama = Lecturer::NAMA;
+        $noInduk = User::NO_INDUK;
 
         $tsql = "
             IF NOT EXISTS (
@@ -22,9 +22,9 @@ class LecturerMigration_004 extends BaseMigration
             )
             BEGIN
                 CREATE TABLE $table (
-                    [$id] VARCHAR(16) PRIMARY KEY,
-                    [$nidn] VARCHAR(255) UNIQUE,
-                    [$nama] VARCHAR(255),
+                    [$id] nvarchar PRIMARY KEY,
+                    [$nidn] nvarchar UNIQUE,
+                    [$nama] nvarchar,
                 )
             END;";
 
@@ -33,7 +33,7 @@ class LecturerMigration_004 extends BaseMigration
 
     public function down($db)
     {
-        $table = Lecturer::$table;
+        $table = Lecturer::TABLE;
         $tsql = "DROP TABLE IF EXIST $table;";
 
         return sqlsrv_query($db, $tsql);

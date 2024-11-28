@@ -4,18 +4,18 @@
 use app\models\BaseMigration;
 use app\models\prestasiCore\Attachment;
 
-class AttachmentMigration_002 extends BaseMigration
+class m_002AttachmentMigration extends BaseMigration
 {
     public function up($db)
     {
-        $table = Attachment::$table;
-        $id = Attachment::$id;
-        $loaId = Attachment::$loaId;
-        $certificationPath = Attachment::$certificatePath;
-        $documentationPath = Attachment::$documentationPhotoPath;
-        $posterPath = Attachment::$posterPath;
-        $creationPath = Attachment::$creationPath;
-        $caption = Attachment::$caption;
+        $table = Attachment::TABLE;
+        $id = Attachment::ID;
+        $loaId = Attachment::LOA_ID;
+        $certificationPath = Attachment::CERTIFICATE_PATH;
+        $documentationPath = Attachment::DOCUMENTATION_PHOTO_PATH;
+        $posterPath = Attachment::POSTER_PATH;
+        $creationPath = Attachment::CREATION_PATH;
+        $caption = Attachment::CAPTION;
 
         $tsql = "
             IF NOT EXISTS (
@@ -39,7 +39,7 @@ class AttachmentMigration_002 extends BaseMigration
 
     public function down($db)
     {
-        $table = Attachment::$table;
+        $table = Attachment::TABLE;
         $tsql = "DROP TABLE IF EXISTS $table;";
         return sqlsrv_query($db, $tsql);
     }

@@ -3,24 +3,24 @@
 use app\models\BaseMigration;
 use app\models\prestasiCore\Prestasi;
 
-class PrestasiMigration_008 extends BaseMigration
+class m_008PrestasiMigration extends BaseMigration
 {
     public function up($db)
     {
-        $table = Prestasi::$table;
-        $id = Prestasi::$id;
-        $attachmentId = Prestasi::$attachmentId;
-        $competitionName = Prestasi::$competitionName;
-        $categoryName = Prestasi::$categoryName;
-        $competitionLevel = Prestasi::$competitionLevel;
-        $place = Prestasi::$place;
-        $dateStartCompetition = Prestasi::$dateStartCompetition;
-        $dateEndCompetition = Prestasi::$dateEndCompetition;
-        $competitionSource = Prestasi::$competitionSource;
-        $totalCollegeAttended = Prestasi::$totalCollegeAttended;
-        $totalParticipant = Prestasi::$totalParticipant;
-        $supervisorId = Prestasi::$supervisorId;
-        $isValidate = Prestasi::$isValidate;
+        $table = Prestasi::TABLE;
+        $id = Prestasi::ID;
+        $attachmentId = Prestasi::ATTACHMENT_ID;
+        $competitionName = Prestasi::COMPETITION_NAME;
+        $categoryName = Prestasi::CATEGORY_NAME;
+        $competitionLevel = Prestasi::COMPETITION_LEVEL;
+        $place = Prestasi::PLACE;
+        $dateStartCompetition = Prestasi::DATE_START_COMPETITION;
+        $dateEndCompetition = Prestasi::DATE_END_COMPETITION;
+        $competitionSource = Prestasi::COMPETITION_SOURCE;
+        $totalCollegeAttended = Prestasi::TOTAL_COLLEGE;
+        $totalParticipant = Prestasi::TOTAL_PARTICIPANT;
+        $supervisorId = Prestasi::SUPERVISOR_ID;
+        $isValidate = Prestasi::IS_VALIDATE;
 
         $tsql = "
             IF NOT EXISTS (
@@ -31,7 +31,7 @@ class PrestasiMigration_008 extends BaseMigration
             BEGIN
                 CREATE TABLE [$table] (
                     [$id] nvarchar PRIMARY KEY,
-                    [$attachmentId] nvarchar,
+                    [$attachmentId] nvarchar UNIQUE,
                     [$competitionName] nvarchar,
                     [$categoryName] nvarchar,
                     [$competitionLevel] nvarchar,
@@ -41,7 +41,7 @@ class PrestasiMigration_008 extends BaseMigration
                     [$competitionSource] nvarchar,
                     [$totalCollegeAttended] int,
                     [$totalParticipant] int,
-                    [$supervisorId] nvarchar,
+                    [$supervisorId] nvarchar UNIQUE,
                     [$isValidate] tinyint
                 )
             END;
@@ -52,7 +52,7 @@ class PrestasiMigration_008 extends BaseMigration
 
     public function down($db)
     {
-        $table = Prestasi::$table;
+        $table = Prestasi::TABLE;
         $tsql = "DROP TABLE IF EXISTS [$table]";
         return sqlsrv_query($db, $tsql);
     }
