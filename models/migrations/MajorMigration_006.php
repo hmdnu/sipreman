@@ -3,7 +3,7 @@
 use app\models\BaseMigration;
 use app\models\Major;
 
-class MajorMigration extends BaseMigration
+class MajorMigration_006 extends BaseMigration
 {
     public function up($db)
     {

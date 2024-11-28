@@ -4,7 +4,7 @@
 use app\models\BaseMigration;
 use app\models\users\Student;
 
-class StudentMigration extends BaseMigration
+class StudentMigration_014 extends BaseMigration
 {
     public function up($db)
     {

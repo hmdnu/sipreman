@@ -3,7 +3,7 @@
 use app\models\BaseMigration;
 use app\models\users\User;
 
-class UserMigration extends BaseMigration
+class UserMigration_016 extends BaseMigration
 {
     public function up($db)
     {

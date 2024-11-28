@@ -1,16 +1,15 @@
 <?php
 
 use app\models\BaseMigration;
-use app\models\StudyProgram;
+use app\models\championLevel\ProvinceLevel;
 
-class StudyProgramMigration extends BaseMigration
+class ProvinceChampMigration_011 extends BaseMigration
 {
     public function up($db)
     {
-        $table = StudyProgram::$table;
-        $id = StudyProgram::$id;
-        $studyProgramName = StudyProgram::$studyProgramName;
-        $totalVictoryStudyProgram = StudyProgram::$totalVictoryStudyProgram;
+        $table = ProvinceLevel::$table;
+        $id = ProvinceLevel::$id;
+        $nim = ProvinceLevel::$nim;
 
         $tsql = "
             IF NOT EXISTS (
@@ -21,8 +20,7 @@ class StudyProgramMigration extends BaseMigration
             BEGIN
                 CREATE TABLE [$table] (
                     [$id] nvarchar PRIMARY KEY,
-                    [$studyProgramName] nvarchar,
-                    [$totalVictoryStudyProgram] int
+                    [$nim] nvarchar
                 )
             END;
         ";
@@ -32,7 +30,7 @@ class StudyProgramMigration extends BaseMigration
 
     public function down($db)
     {
-        $table = StudyProgram::$table;
+        $table = ProvinceLevel::$table;
         $tsql = "DROP TABLE IF EXISTS [$table]";
         return sqlsrv_query($db, $tsql);
     }

@@ -4,7 +4,7 @@
 use app\models\BaseMigration;
 use app\models\prestasiCore\Attachment;
 
-class AttachmentMigration extends BaseMigration
+class AttachmentMigration_002 extends BaseMigration
 {
     public function up($db)
     {

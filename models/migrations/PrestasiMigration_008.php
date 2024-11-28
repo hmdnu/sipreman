@@ -3,7 +3,7 @@
 use app\models\BaseMigration;
 use app\models\prestasiCore\Prestasi;
 
-class PrestasiMigration extends BaseMigration
+class PrestasiMigration_008 extends BaseMigration
 {
     public function up($db)
     {

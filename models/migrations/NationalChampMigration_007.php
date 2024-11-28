@@ -1,18 +1,15 @@
 <?php
 
-
 use app\models\BaseMigration;
-use app\models\prestasiCore\Loa;
+use app\models\championLevel\NationalLevel;
 
-class LoaMigration extends BaseMigration
+class NationalChampMigration_007 extends BaseMigration
 {
     public function up($db)
     {
-        $table = Loa::$table;
-        $id = Loa::$id;
-        $loaNumber = Loa::$loaNumber;
-        $date = Loa::$date;
-        $loaPdfPath = Loa::$pdfPath;
+        $table = NationalLevel::$table;
+        $id = NationalLevel::$id;
+        $nim = NationalLevel::$nim;
 
         $tsql = "
             IF NOT EXISTS (
@@ -23,18 +20,17 @@ class LoaMigration extends BaseMigration
             BEGIN
                 CREATE TABLE $table (
                     [$id] nvarchar PRIMARY KEY,
-                    [$loaNumber] nvarchar,
-                    [$date] date,
-                    [$loaPdfPath] nvarchar
+                    [$nim] nvarchar
                 )
-           END;";
+            END;
+        ";
 
         return sqlsrv_query($db, $tsql);
     }
 
     public function down($db)
     {
-        $table = Loa::$table;
+        $table = NationalLevel::$table;
         $tsql = "DROP TABLE IF EXISTS $table";
         return sqlsrv_query($db, $tsql);
     }

@@ -1,15 +1,18 @@
 <?php
 
-use app\models\BaseMigration;
-use app\models\championLevel\RegencyLevel;
 
-class RegencyChampMigration extends BaseMigration
+use app\models\BaseMigration;
+use app\models\prestasiCore\PrestasiTeam;
+
+class PrestasiTeamMigration_010 extends BaseMigration
 {
     public function up($db)
     {
-        $table = RegencyLevel::$table;
-        $id = RegencyLevel::$id;
-        $nim = RegencyLevel::$nim;
+        $table = PrestasiTeam::$table;
+        $id = PrestasiTeam::$id;
+        $isLeader = PrestasiTeam::$isLeader;
+        $isMember = PrestasiTeam::$isMember;
+        $supervisorId = PrestasiTeam::$supervisorId;
 
         $tsql = "
             IF NOT EXISTS (
@@ -20,7 +23,9 @@ class RegencyChampMigration extends BaseMigration
             BEGIN
                 CREATE TABLE [$table] (
                     [$id] nvarchar PRIMARY KEY,
-                    [$nim] nvarchar
+                    [$isLeader] bit,
+                    [$isMember] bit,
+                    [$supervisorId] nvarchar
                 )
             END;
         ";
@@ -30,7 +35,7 @@ class RegencyChampMigration extends BaseMigration
 
     public function down($db)
     {
-        $table = RegencyLevel::$table;
+        $table = PrestasiTeam::$table;
         $tsql = "DROP TABLE IF EXISTS [$table]";
         return sqlsrv_query($db, $tsql);
     }

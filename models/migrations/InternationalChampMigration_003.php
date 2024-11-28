@@ -4,7 +4,7 @@
 use app\models\BaseMigration;
 use app\models\championLevel\InternationalLevel;
 
-class InternationalChampMigration extends BaseMigration
+class InternationalChampMigration_003 extends BaseMigration
 {
     public function up($db)
     {

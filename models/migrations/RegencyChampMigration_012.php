@@ -1,19 +1,15 @@
 <?php
 
-
 use app\models\BaseMigration;
-use app\models\prestasiCore\PrestasiStats;
+use app\models\championLevel\RegencyLevel;
 
-class PrestasiStatisticMigration extends BaseMigration
+class RegencyChampMigration_012 extends BaseMigration
 {
     public function up($db)
     {
-        $table = PrestasiStats::$table;
-        $id = PrestasiStats::$id;
-        $majorId = PrestasiStats::$majorId;
-        $studyProgramId = PrestasiStats::$studyProgramId;
-        $totalVictoryAll = PrestasiStats::$totalVictoryAll;
-        $year = PrestasiStats::$year;
+        $table = RegencyLevel::$table;
+        $id = RegencyLevel::$id;
+        $nim = RegencyLevel::$nim;
 
         $tsql = "
             IF NOT EXISTS (
@@ -24,10 +20,7 @@ class PrestasiStatisticMigration extends BaseMigration
             BEGIN
                 CREATE TABLE [$table] (
                     [$id] nvarchar PRIMARY KEY,
-                    [$majorId] nvarchar,
-                    [$studyProgramId] nvarchar,
-                    [$totalVictoryAll] int,
-                    [$year] int
+                    [$nim] nvarchar
                 )
             END;
         ";
@@ -37,7 +30,7 @@ class PrestasiStatisticMigration extends BaseMigration
 
     public function down($db)
     {
-        $table = PrestasiStats::$table;
+        $table = RegencyLevel::$table;
         $tsql = "DROP TABLE IF EXISTS [$table]";
         return sqlsrv_query($db, $tsql);
     }

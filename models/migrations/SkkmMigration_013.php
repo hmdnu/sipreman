@@ -3,7 +3,7 @@
 use app\models\BaseMigration;
 use app\models\prestasiCore\Skkm;
 
-class SkkmMigration extends BaseMigration
+class SkkmMigration_013 extends BaseMigration
 {
     public function up($db)
     {
