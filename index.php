@@ -8,16 +8,9 @@ use app\core\Router;
 require_once "helpers/env.php";
 require_once "vendor/autoload.php";
 
-$config = [
-    "serverName" => getenv("SERVER_NAME"),
-    "connection" => [
-        "database" => getenv("DB_NAME"),
-        "uid" => getenv("UID"),
-        "PWD" => getenv("PWD")
-    ]
-];
+use app\constant\Config;
 
-$db = new Database($config);
+$db = new Database(Config::getConfig());
 $db->connect();
 
 $app = new Router();
