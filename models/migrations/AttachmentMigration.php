@@ -24,7 +24,7 @@ class AttachmentMigration extends BaseMigration
             WHERE name = '$table' AND xtype = 'U')
         BEGIN
             CREATE TABLE $table (
-                [$id] nvarchar NOT PRIMARY KEY,
+                [$id] nvarchar PRIMARY KEY,
                 [$loaId] nvarchar,
                 [$certificationPath] nvarchar,
                 [$documentationPath] nvarchar,
