@@ -1,9 +1,7 @@
 <?php
 
 
-use app\core\Database;
 use app\models\BaseMigration;
-use app\models\prestasiCore\Prestasi;
 use app\models\users\Student;
 
 class StudentMigration extends BaseMigration
@@ -17,11 +15,6 @@ class StudentMigration extends BaseMigration
         $prestasiId = Student::$prestasiId;
         $studyProgramId = Student::$studyProgramId;
         $majorId = Student::$majorId;
-        $tablePrestasi = Prestasi::$table;
-        $tableProdi = "prodi";
-        $tableJurusan = "jurusan";
-
-        $db = Database::getConnection();
 
         $tsql = "
             IF NOT EXISTS (
@@ -31,25 +24,23 @@ class StudentMigration extends BaseMigration
             )
             BEGIN
                 CREATE TABLE $table (
-                    $id VARCHAR(16) PRIMARY KEY,
-                    $name VARCHAR(225) NOT NULL,
-                    $nim VARCHAR(225) NOT NULL,
-                    $prestasiId VARCHAR(16) NOT NULL,
-                    $studyProgramId VARCHAR(16) NOT NULL,
-                    $majorId VARCHAR(16) NOT NULL,
-                    CONSTRAINT FK_User_$nim FOREIGN KEY ($nim) REFERENCES [user] (no_induk),
-                    CONSTRAINT FK_Prestasi_$prestasiId FOREIGN KEY ($prestasiId) REFERENCES $tablePrestasi (id),
-                    CONSTRAINT FK_Prodi_$studyProgramId FOREIGN KEY ($studyProgramId) REFERENCES $tableProdi (id),
-                    CONSTRAINT FK_Jurusan_$majorId FOREIGN KEY ($majorId) REFERENCES $tableJurusan (id)
+                    [$id] nvarchar PRIMARY KEY,
+                    [$name] nvarchar,
+                    [$nim] nvarchar,
+                    [$prestasiId] nvarchar,
+                    [$studyProgramId] nvarchar,
+                    [$majorId] nvarchar,
                 )
             END;";
 
         return sqlsrv_query($db, $tsql);
     }
 
-    public function down($db): void
+    public function down($db)
     {
         $table = Student::$table;
-        Database::getConnection()->prepare("DROP TABLE IF EXIST $table ;");
+        $tsql = "DROP TABLE IF EXIST $table;";
+
+        return sqlsrv_query($db, $tsql);
     }
 }
