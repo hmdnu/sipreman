@@ -1,9 +1,9 @@
 <?php
 
-use app\core\Database;
+use app\models\BaseMigration;
 use app\models\users\Admin;
 
-class AdminMigration
+class AdminMigration extends BaseMigration
 {
     public function up($db)
     {
@@ -19,20 +19,19 @@ class AdminMigration
             WHERE name = '$table' AND xtype = 'U')
         BEGIN
             CREATE TABLE $table (
-                $id VARCHAR(16) PRIMARY KEY NOT NULL,
-                $nip VARCHAR(225) UNIQUE NOT NULL,
-                $name VARCHAR(225) NOT NULL,
-                CONSTRAINT FK_admin_$nip FOREIGN KEY ($nip) REFERENCES [user] (no_induk)
+                [$id] nvarchar PRIMARY KEY,
+                [$nip] nvarchar UNIQUE,
+                [$name] nvarchar
             )
         END;";
 
         return sqlsrv_query($db, $tsql);
     }
 
-    public function down(): void
+    public function down($db)
     {
         $table = Admin::$table;
-        Database::getConnection()->prepare("DROP TABLE IF EXISTS $table")->execute();
+        $tsql = "DROP TABLE IF EXISTS $table;";
+        return sqlsrv_query($db, $tsql);
     }
-
 }

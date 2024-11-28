@@ -1,11 +1,10 @@
 <?php
 
-
-use app\core\Database;
+use app\models\BaseMigration;
 use app\models\users\Lecturer;
 use app\models\users\User;
 
-class LecturerMigration
+class LecturerMigration extends BaseMigration
 {
     public function up($db)
     {
@@ -14,7 +13,6 @@ class LecturerMigration
         $nidn = Lecturer::$nidn;
         $nama = Lecturer::$nama;
         $noInduk = User::$noInduk;
-//        $db = Database::getConnection();
 
         $tsql = "
             IF NOT EXISTS (
@@ -24,20 +22,21 @@ class LecturerMigration
             )
             BEGIN
                 CREATE TABLE $table (
-                    $id VARCHAR(16) PRIMARY KEY,
-                    $nidn VARCHAR(255) UNIQUE NOT NULL,
-                    $nama VARCHAR(255) NOT NULL,
-                    CONSTRAINT FK_User_$nidn FOREIGN KEY ($nidn) REFERENCES [user] ($noInduk)
+                    [$id] VARCHAR(16) PRIMARY KEY,
+                    [$nidn] VARCHAR(255) UNIQUE,
+                    [$nama] VARCHAR(255),
                 )
             END;";
 
         return sqlsrv_query($db, $tsql);
     }
 
-    public function down(): void
+    public function down($db)
     {
-        $tableName = Lecturer::$tableName;
-        Database::getConnection()->prepare("DROP TABLE IF EXIST $tableName")->execute();
+        $table = Lecturer::$table;
+        $tsql = "DROP TABLE IF EXIST $table;";
+
+        return sqlsrv_query($db, $tsql);
     }
 
 }

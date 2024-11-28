@@ -2,10 +2,10 @@
 
 
 use app\core\Database;
-use app\core\Migration;
+use app\models\BaseMigration;
 use app\models\users\User;
 
-class UserMigration
+class UserMigration extends BaseMigration
 {
     public function up($db)
     {
@@ -21,19 +21,21 @@ class UserMigration
                 WHERE name = '$table' AND xtype = 'U'
             )
             BEGIN 
-                CREATE TABLE $table (
-                    $id VARCHAR(16) PRIMARY KEY NOT NULL,
-                    $noInduk VARCHAR(225) UNIQUE NOT NULL,
-                    $password VARCHAR(255) NOT NULL
-                ) 
+               CREATE TABLE [$table] (
+                  [$id] nvarchar PRIMARY KEY,
+                  [$noInduk] nvarchar UNIQUE,
+                  [$password] nvarchar
+                )
             END;";
 
         return sqlsrv_query($db, $tsql);
     }
 
-    public function down(): void
+    public function down($db)
     {
-        Database::getConnection()->prepare("DROP TABLE IF EXISTS user")->execute();
+        $table = User::$table;
+        $tsql = "DROP TABLE IF EXISTS [$table]";
+        return sqlsrv_query($db, $tsql);
     }
 
 }

@@ -2,11 +2,11 @@
 
 
 use app\core\Database;
-use app\core\Migration;
+use app\models\BaseMigration;
 use app\models\prestasiCore\Prestasi;
 use app\models\users\Student;
 
-class MahasiswaMigration
+class StudentMigration extends BaseMigration
 {
     public function up($db)
     {
@@ -21,7 +21,7 @@ class MahasiswaMigration
         $tableProdi = "prodi";
         $tableJurusan = "jurusan";
 
-//        $db = Database::getConnection();
+        $db = Database::getConnection();
 
         $tsql = "
             IF NOT EXISTS (
@@ -47,7 +47,7 @@ class MahasiswaMigration
         return sqlsrv_query($db, $tsql);
     }
 
-    public function down(): void
+    public function down($db): void
     {
         $table = Student::$table;
         Database::getConnection()->prepare("DROP TABLE IF EXIST $table ;");
