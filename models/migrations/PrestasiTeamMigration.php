@@ -1,6 +1,5 @@
 <?php
 
-namespace app\models\migrations;
 
 use app\models\BaseMigration;
 use app\models\prestasiCore\PrestasiTeam;
