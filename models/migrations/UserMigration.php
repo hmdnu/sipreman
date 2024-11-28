@@ -13,7 +13,7 @@ class UserMigration extends BaseMigration
         $password = User::$password;
 
         $tsql = "
-            IF NOT EXIST (
+            IF NOT EXISTS (
                 SELECT * 
                 FROM sysobjects
                 WHERE name = '$table' AND xtype = 'U'
