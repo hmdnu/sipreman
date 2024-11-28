@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace app\models\prestasiCore;
 
 class PrestasiStats
 {
