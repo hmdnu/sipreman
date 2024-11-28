@@ -9,17 +9,17 @@ class PrestasiMigration extends BaseMigration
     {
         $table = Prestasi::$table;
         $id = Prestasi::$id;
-        $attachment_id = Prestasi::$attachment_id;
-        $competition_name = Prestasi::$competition_name;
-        $category = Prestasi::$category;
-        $champion_level = Prestasi::$champion_level;
+        $attachmentId = Prestasi::$attachmentId;
+        $competitionName = Prestasi::$competitionName;
+        $categoryName = Prestasi::$categoryName;
+        $competitionLevel = Prestasi::$competitionLevel;
         $place = Prestasi::$place;
-        $start_comp_date = Prestasi::$start_comp_date;
-        $end_comp_date = Prestasi::$end_comp_date;
-        $competition_source = Prestasi::$competition_source;
-        $total_college_attended = Prestasi::$total_college_attended;
-        $total_participant = Prestasi::$total_participant;
-        $supervisor_id = Prestasi::$supervisor_id;
+        $dateStartCompetition = Prestasi::$dateStartCompetition;
+        $dateEndCompetition = Prestasi::$dateEndCompetition;
+        $competitionSource = Prestasi::$competitionSource;
+        $totalCollegeAttended = Prestasi::$totalCollegeAttended;
+        $totalParticipant = Prestasi::$totalParticipant;
+        $supervisorId = Prestasi::$supervisorId;
         $isValidate = Prestasi::$isValidate;
 
         $tsql = "
@@ -29,19 +29,19 @@ class PrestasiMigration extends BaseMigration
                 WHERE name = '$table' AND xtype = 'U'
             )
             BEGIN
-                CREATE TABLE $table (
-                    [$id] nvarchar(255) PRIMARY KEY,
-                    [$attachment_id] nvarchar(255),
-                    [$competition_name] nvarchar(255),
-                    [$category] nvarchar(255),
-                    [$champion_level] nvarchar(255),
-                    [$place] nvarchar(255),
-                    [$start_comp_date] date,
-                    [$end_comp_date] date,
-                    [$competition_source] nvarchar(255),
-                    [$total_college_attended] int,
-                    [$total_participant] int,
-                    [$supervisor_id] nvarchar(255),
+                CREATE TABLE [$table] (
+                    [$id] nvarchar PRIMARY KEY,
+                    [$attachmentId] nvarchar,
+                    [$competitionName] nvarchar,
+                    [$categoryName] nvarchar,
+                    [$competitionLevel] nvarchar,
+                    [$place] nvarchar,
+                    [$dateStartCompetition] date,
+                    [$dateEndCompetition] date,
+                    [$competitionSource] nvarchar,
+                    [$totalCollegeAttended] int,
+                    [$totalParticipant] int,
+                    [$supervisorId] nvarchar,
                     [$isValidate] tinyint
                 )
             END;
@@ -53,7 +53,7 @@ class PrestasiMigration extends BaseMigration
     public function down($db)
     {
         $table = Prestasi::$table;
-        $tsql = "DROP TABLE IF EXISTS $table";
+        $tsql = "DROP TABLE IF EXISTS [$table]";
         return sqlsrv_query($db, $tsql);
     }
 }
