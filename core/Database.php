@@ -2,26 +2,23 @@
 
 namespace app\core;
 
-use PDOException;
-
 class Database
 {
     private static $conn;
     private array $config;
 
-    public function __construct(array $config = [])
+    public function __construct(array $config)
     {
         $this->config = $config;
     }
 
-    public function connect()
+    public function connect(): void
     {
-        try {
-            $connection = sqlsrv_connect($this->config["serverName"], $this->config["connection"]);
-            self::$conn = $connection;
+        $connection = sqlsrv_connect($this->config["serverName"], $this->config["connection"]);
+        self::$conn = $connection;
 
-        } catch (PDOException $e) {
-            die("Connection failed: " . $e->getMessage());
+        if (!$connection) {
+            die(print_r(sqlsrv_errors(), true));
         }
     }
 
