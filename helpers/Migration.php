@@ -1,53 +1,54 @@
 <?php
 
+namespace app\helpers;
+
 require_once "vendor/autoload.php";
 require_once "helpers/env.php";
 
-function migrate(): array
+use app\core\Database;
+
+class Migration
 {
-    $migrations = [];
-    // read all migration files
-    $migrationPath = realpath(dirname(__FILE__) . '/../models/migrations');
-    $files = scandir($migrationPath);
+    private Database $database;
 
-    // instantiate each class migration
-    try {
-        foreach ($files as $file) {
-            if ($file === "." || $file === "..") {
-                continue;
-            }
-            require_once $migrationPath . '/' . $file;
-            $className = pathinfo($file, PATHINFO_FILENAME);
-            $migrations[] = $className;
-        }
-
-    } catch (Exception $e) {
-        var_dump($e);
+    public function __construct(array $config)
+    {
+        $this->database = new Database($config);
+        $this->database->connect();
     }
 
-    return $migrations;
-}
-
-function down(): void
-{
-
-    // read all migration files
-    $migrationPath = realpath(dirname(__FILE__) . '/../models/migrations/');
-    $files = scandir($migrationPath);
-
-// instantiate each class migration
-    try {
+    public function migrate(): void
+    {
+        $migrationPath = realpath(__DIR__ . '/../models/migrations');
+        $files = scandir($migrationPath);
         foreach ($files as $file) {
-            if ($file !== "." && $file !== "..") {
-                $className = pathinfo($file, PATHINFO_FILENAME);
-                $instance = new $className();
+            if ($file === '.' || $file === '..') {
+                continue;
+            }
 
-                echo "rollback migration " . $file . "\n";
-                $instance->down();
-                echo "rollback applied " . $file . "\n";
+            require_once $migrationPath . "/" . $file;
+            $className = pathinfo($file, PATHINFO_FILENAME);
+            $migration = new $className();
+
+            echo "applying migration $file\n";
+            $query = $migration->up($this->database->getConnection());
+
+            if (!$query) {
+                echo "failed to apply migration $file\n";
+                $errMessage = sqlsrv_errors();
+
+                foreach ($errMessage as $message) {
+                    echo $message["message"] . "\n";
+                }
+
+                echo "\n";
+            } else {
+                echo "applied migration $file\n";
             }
         }
-    } catch (Exception $e) {
-        var_dump($e);
+    }
+
+    public function rollback()
+    {
     }
 }
