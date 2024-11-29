@@ -19,14 +19,14 @@ class Router
         self::$view = new View();
     }
 
-    public static function get($path, $callback): void
+    public static function get($path, $callback, $middlewares = []): void
     {
-        self::addRoute($path, HttpMethod::GET, $callback);
+        self::addRoute($path, HttpMethod::GET, $callback, $middlewares);
     }
 
-    public static function post($path, $callback): void
+    public static function post($path, $callback, $middlewares = []): void
     {
-        self::addRoute($path, HttpMethod::POST, $callback);
+        self::addRoute($path, HttpMethod::POST, $callback, $middlewares);
     }
 
     public static function run(): void
@@ -59,10 +59,16 @@ class Router
             return;
         }
 
+        // call the middlewares
+        foreach ($route["middlewares"] as $middleware) {
+            $instance = new $middleware();
+            $instance->before();
+        }
+
         call_user_func([$controller, $handler], self::$request, self::$response, ...$route["params"]);
     }
 
-    private static function addRoute(string $path, string $method, $callback): void
+    private static function addRoute(string $path, string $method, $callback, array $middlewares): void
     {
         $currentNode = self::$root;
 
@@ -92,6 +98,8 @@ class Router
         $currentNode->handler[$method] = $callback;
         // Assign dynamic parameters to the current node
         $currentNode->params = $dynamicParams;
+        // Assign middlewares to the current node
+        $currentNode->middlewares = $middlewares;
     }
 
     private static function findRoute(string $path, string $method): ?array
@@ -129,6 +137,7 @@ class Router
         return [
             "params" => $params,
             "handler" => $currentNode->handler[$method],
+            "middlewares" => $currentNode->middlewares,
         ];
     }
 }
