@@ -1,6 +1,6 @@
 <?php
 
-namespace app\core;
+namespace app\cores;
 
 class Request
 {
@@ -15,7 +15,7 @@ class Request
         return $_SERVER['REQUEST_URI'];
     }
 
-    public function getBody()
+    public function body()
     {
 
 
