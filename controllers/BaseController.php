@@ -2,9 +2,9 @@
 
 namespace app\controllers;
 
-use app\core\Request;
-use app\core\Response;
-use app\core\View;
+use app\cores\Request;
+use app\cores\Response;
+use app\cores\View;
 
 class BaseController
 {
