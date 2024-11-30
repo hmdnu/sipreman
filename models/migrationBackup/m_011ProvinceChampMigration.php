@@ -1,9 +1,11 @@
 <?php
 
+namespace app\models\migrationBackup;
+
 use app\models\BaseMigration;
 use app\models\championLevel\ProvinceLevel;
 
-class m_011ProvinceChampMigration extends BaseMigration
+class m_011ProvinceChampMigration implements BaseMigration
 {
     public function up($db)
     {
@@ -25,13 +27,13 @@ class m_011ProvinceChampMigration extends BaseMigration
             END;
         ";
 
-        return sqlsrv_query($db, $tsql);
+        return $db->prepare($tsql);
     }
 
     public function down($db)
     {
         $table = ProvinceLevel::TABLE;
         $tsql = "DROP TABLE IF EXISTS [$table]";
-        return sqlsrv_query($db, $tsql);
+        return $db->prepare($tsql);
     }
 }

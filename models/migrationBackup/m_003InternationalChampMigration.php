@@ -1,10 +1,12 @@
 <?php
 
 
+namespace app\models\migrationBackup;
+
 use app\models\BaseMigration;
 use app\models\championLevel\InternationalLevel;
 
-class m_003InternationalChampMigration extends BaseMigration
+class m_003InternationalChampMigration implements BaseMigration
 {
     public function up($db)
     {
@@ -26,14 +28,14 @@ class m_003InternationalChampMigration extends BaseMigration
             END;
         ";
 
-        return sqlsrv_query($db, $tsql);
+        return $db->prepare($tsql);
     }
 
     public function down($db)
     {
         $table = InternationalLevel::TABLE;
         $tsql = "DROP TABLE IF EXISTS $table";
-        return sqlsrv_query($db, $tsql);
+        return $db->prepare($tsql);
     }
 
 }

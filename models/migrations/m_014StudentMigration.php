@@ -1,46 +1,32 @@
 <?php
 
 
+use app\cores\Blueprint;
+use app\cores\Schema;
 use app\models\BaseMigration;
 use app\models\users\Student;
 
-class m_014StudentMigration extends BaseMigration
+class m_014StudentMigration implements BaseMigration
 {
-    public function up($db)
+    public function up(): array
     {
-        $table = Student::TABLE;
-        $id = Student::ID;
-        $nim = Student::NIM;
-        $name = Student::NAME;
-        $prestasiId = Student::PRESTASI_ID;
-        $studyProgramId = Student::STUDY_PROGRAM_ID;
-        $majorId = Student::MAJOR_ID;
+        return Schema::createTableIfNotExist("student", function (Blueprint $table) {
+            $table->string("id");
+            $table->string("nim");
+            $table->string("name");
+            $table->string("prestasi_id");
+            $table->string("study_program_id");
+            $table->string("major_id");
 
-        $tsql = "
-            IF NOT EXISTS (
-                SELECT * 
-                FROM sysobjects 
-                WHERE name = '$table' AND xtype = 'U'
-            )
-            BEGIN
-                CREATE TABLE $table (
-                    [$id] nvarchar PRIMARY KEY,
-                    [$name] nvarchar,
-                    [$nim] nvarchar UNIQUE,
-                    [$prestasiId] nvarchar UNIQUE,
-                    [$studyProgramId] nvarchar UNIQUE,
-                    [$majorId] nvarchar UNIQUE,
-                )
-            END;";
-
-        return sqlsrv_query($db, $tsql);
+            $table->primary("id");
+            $table->unique("nim");
+            $table->unique("prestasi_id");
+            $table->unique("major_id");
+        });
     }
 
-    public function down($db)
+    public function down(): array
     {
-        $table = Student::TABLE;
-        $tsql = "DROP TABLE IF EXIST $table;";
-
-        return sqlsrv_query($db, $tsql);
+        return Schema::dropTableIfExist("student");
     }
 }

@@ -1,10 +1,12 @@
 <?php
 
 
+namespace app\models\migrationBackup;
+
 use app\models\BaseMigration;
 use app\models\prestasiCore\PrestasiStats;
 
-class m_009PrestasiStatisticMigration extends BaseMigration
+class m_009PrestasiStatisticMigration implements BaseMigration
 {
     public function up($db)
     {
@@ -32,13 +34,13 @@ class m_009PrestasiStatisticMigration extends BaseMigration
             END;
         ";
 
-        return sqlsrv_query($db, $tsql);
+        return $db->prepare($tsql);
     }
 
     public function down($db)
     {
         $table = PrestasiStats::TABLE;
         $tsql = "DROP TABLE IF EXISTS [$table]";
-        return sqlsrv_query($db, $tsql);
+        return $db->prepare($tsql);
     }
 }

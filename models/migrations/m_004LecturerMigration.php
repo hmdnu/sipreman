@@ -1,42 +1,25 @@
 <?php
 
+use app\cores\Blueprint;
+use app\cores\Schema;
 use app\models\BaseMigration;
-use app\models\users\Lecturer;
-use app\models\users\User;
 
-class m_004LecturerMigration extends BaseMigration
+class m_004LecturerMigration implements BaseMigration
 {
-    public function up($db)
+    public function up(): array
     {
-        $table = Lecturer::TABLE;
-        $id = Lecturer::ID;
-        $nidn = Lecturer::NIDN;
-        $nama = Lecturer::NAMA;
-        $noInduk = User::NO_INDUK;
+        return Schema::createTableIfNotExist("lecturer", function (Blueprint $table) {
+            $table->string("id");
+            $table->string("nidn");
+            $table->string("name");
 
-        $tsql = "
-            IF NOT EXISTS (
-                SELECT * 
-                FROM sysobjects 
-                WHERE name = '$table' AND xtype = 'U'
-            )
-            BEGIN
-                CREATE TABLE $table (
-                    [$id] nvarchar PRIMARY KEY,
-                    [$nidn] nvarchar UNIQUE,
-                    [$nama] nvarchar,
-                )
-            END;";
-
-        return sqlsrv_query($db, $tsql);
+            $table->primary("id");
+            $table->unique("nidn");
+        });
     }
 
-    public function down($db)
+    public function down(): array
     {
-        $table = Lecturer::TABLE;
-        $tsql = "DROP TABLE IF EXIST $table;";
-
-        return sqlsrv_query($db, $tsql);
+        return Schema::dropTableIfExist("lecturer");
     }
-
 }

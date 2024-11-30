@@ -1,9 +1,11 @@
 <?php
 
+namespace app\models\migrationBackup;
+
 use app\models\BaseMigration;
 use app\models\Major;
 
-class m_006MajorMigration extends BaseMigration
+class m_006MajorMigration implements BaseMigration
 {
     public function up($db)
     {
@@ -25,13 +27,13 @@ class m_006MajorMigration extends BaseMigration
                 )
             END;";
 
-        return sqlsrv_query($db, $tsql);
+        return $db->prepare($tsql);
     }
 
     public function down($db)
     {
         $table = Major::TABLE;
         $tsql = "DROP TABLE IF EXISTS $table;";
-        return sqlsrv_query($db, $tsql);
+        return $db->prepare($tsql);
     }
 }

@@ -1,25 +1,24 @@
 <?php
 
+namespace app\models\migrationBackup;
+
+use app\cores\Blueprint;
+use app\cores\Schema;
 use app\models\BaseMigration;
 use app\models\users\Lecturer;
 use app\models\users\User;
 
-class m_019LecturerRelation extends BaseMigration
+class m_019LecturerRelation implements BaseMigration
 {
-    public function up($db)
+    public function up(): array
     {
-        $lecturerTable = Lecturer::TABLE;
-        $nidn = Lecturer::NIDN;
-        $userTable = User::TABLE;
-        $noInduk = User::NO_INDUK;
-
-        $tsql = "ALTER TABLE [lecturer] ADD FOREIGN KEY ([nidn]) REFERENCES [user] ([no_induk])";
-
-        return sqlsrv_query($db, $tsql);
+        return Schema::alterTable("lecturer", function (Blueprint $table) {
+            $table->alterAddForeignKey("nidn", "user", "no_induk");
+        });
     }
 
-    public function down($db)
+    public function down(): array
     {
+        return [];
     }
-
 }

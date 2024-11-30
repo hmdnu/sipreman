@@ -1,10 +1,11 @@
 <?php
 
+namespace app\models\migrationBackup;
 
 use app\models\BaseMigration;
 use app\models\prestasiCore\Attachment;
 
-class m_002AttachmentMigration extends BaseMigration
+class m_002AttachmentMigration implements BaseMigration
 {
     public function up($db)
     {
@@ -34,14 +35,14 @@ class m_002AttachmentMigration extends BaseMigration
             )
         END;";
 
-        return sqlsrv_query($db, $tsql);
+        return $db->prepare($tsql);
     }
 
     public function down($db)
     {
         $table = Attachment::TABLE;
         $tsql = "DROP TABLE IF EXISTS $table;";
-        return sqlsrv_query($db, $tsql);
+        return $db->prepare($tsql);
     }
 
 }

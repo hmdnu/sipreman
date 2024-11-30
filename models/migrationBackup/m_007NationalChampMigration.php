@@ -1,9 +1,11 @@
 <?php
 
+namespace app\models\migrationBackup;
+
 use app\models\BaseMigration;
 use app\models\championLevel\NationalLevel;
 
-class m_007NationalChampMigration extends BaseMigration
+class m_007NationalChampMigration implements BaseMigration
 {
     public function up($db)
     {
@@ -25,13 +27,13 @@ class m_007NationalChampMigration extends BaseMigration
             END;
         ";
 
-        return sqlsrv_query($db, $tsql);
+        return $db->prepare($tsql);
     }
 
     public function down($db)
     {
         $table = NationalLevel::TABLE;
         $tsql = "DROP TABLE IF EXISTS $table";
-        return sqlsrv_query($db, $tsql);
+        return $db->prepare($tsql);
     }
 }

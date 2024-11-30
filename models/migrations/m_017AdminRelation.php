@@ -1,25 +1,21 @@
 <?php
 
+use app\cores\Blueprint;
+use app\cores\Schema;
 use app\models\BaseMigration;
-use app\models\users\Admin;
-use app\models\users\User;
 
-class m_017AdminRelation extends BaseMigration
+
+class m_017AdminRelation implements BaseMigration
 {
-    public function up($db)
+    public function up(): array
     {
-        $adminTable = Admin::TABLE;
-        $nip = Admin::NIP;
-        $userTable = User::TABLE;
-        $noInduk = User::NO_INDUK;
-
-        $tsql = "ALTER TABLE [$adminTable] ADD FOREIGN KEY ([$nip]) REFERENCES [$userTable] ([$noInduk])";
-
-        return sqlsrv_query($db, $tsql);
+        return Schema::alterTable("admin", function (Blueprint $table) {
+            $table->alterAddForeignKey("nip", "user", "no_induk");
+        });
     }
 
-    public function down($db)
+    public function down(): array
     {
-        
+        return [];
     }
 }

@@ -1,9 +1,11 @@
 <?php
 
+namespace app\models\migrationBackup;
+
 use app\models\BaseMigration;
 use app\models\prestasiCore\Skkm;
 
-class m_013SkkmMigration extends BaseMigration
+class m_013SkkmMigration implements BaseMigration
 {
     public function up($db)
     {
@@ -35,13 +37,13 @@ class m_013SkkmMigration extends BaseMigration
             END;
         ";
 
-        return sqlsrv_query($db, $tsql);
+        return $db->prepare($tsql);
     }
 
     public function down($db)
     {
         $table = Skkm::TABLE;
         $tsql = "DROP TABLE IF EXISTS [$table]";
-        return sqlsrv_query($db, $tsql);
+        return $db->prepare($tsql);
     }
 }

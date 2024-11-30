@@ -1,9 +1,11 @@
 <?php
 
+namespace app\models\migrationBackup;
+
 use app\models\BaseMigration;
 use app\models\StudyProgram;
 
-class m_015StudyProgramMigration extends BaseMigration
+class m_015StudyProgramMigration implements BaseMigration
 {
     public function up($db)
     {
@@ -29,13 +31,13 @@ class m_015StudyProgramMigration extends BaseMigration
             END;
         ";
 
-        return sqlsrv_query($db, $tsql);
+        return $db->prepare($tsql);
     }
 
     public function down($db)
     {
         $table = StudyProgram::TABLE;
         $tsql = "DROP TABLE IF EXISTS [$table]";
-        return sqlsrv_query($db, $tsql);
+        return $db->prepare($tsql);
     }
 }

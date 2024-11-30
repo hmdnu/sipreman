@@ -1,11 +1,13 @@
 <?php
 
+namespace app\models\migrationBackup;
+
 use app\models\BaseMigration;
 use app\models\prestasiCore\Attachment;
 use app\models\prestasiCore\Prestasi;
 use app\models\users\Lecturer;
 
-class m_020PrestasiRelation extends BaseMigration
+class m_020PrestasiRelation implements BaseMigration
 {
     public function up($db)
     {
@@ -20,7 +22,7 @@ class m_020PrestasiRelation extends BaseMigration
         $tsql = "ALTER TABLE [$prestasiTable] ADD FOREIGN KEY ([$attachmentIdFK]) REFERENCES [$attachmentTable] ([$attachmentId])
                 ALTER TABLE [$prestasiTable] ADD FOREIGN KEY ([$supervisorIdFK]) REFERENCES [$lecturerTable] ([$nidn]);";
 
-        return sqlsrv_query($db, $tsql);
+        return $db->prepare($tsql);
     }
 
     public function down($db)

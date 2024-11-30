@@ -1,10 +1,12 @@
 <?php
 
 
+namespace app\models\migrationBackup;
+
 use app\models\BaseMigration;
 use app\models\prestasiCore\Loa;
 
-class m_005LoaMigration extends BaseMigration
+class m_005LoaMigration implements BaseMigration
 {
     public function up($db)
     {
@@ -29,13 +31,13 @@ class m_005LoaMigration extends BaseMigration
                 )
            END;";
 
-        return sqlsrv_query($db, $tsql);
+        return $db->prepare($tsql);
     }
 
     public function down($db)
     {
         $table = Loa::TABLE;
         $tsql = "DROP TABLE IF EXISTS $table";
-        return sqlsrv_query($db, $tsql);
+        return $db->prepare($tsql);
     }
 }

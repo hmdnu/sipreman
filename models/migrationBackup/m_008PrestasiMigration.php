@@ -1,9 +1,11 @@
 <?php
 
+namespace app\models\migrationBackup;
+
 use app\models\BaseMigration;
 use app\models\prestasiCore\Prestasi;
 
-class m_008PrestasiMigration extends BaseMigration
+class m_008PrestasiMigration implements BaseMigration
 {
     public function up($db)
     {
@@ -47,13 +49,13 @@ class m_008PrestasiMigration extends BaseMigration
             END;
         ";
 
-        return sqlsrv_query($db, $tsql);
+        return $db->prepare($tsql);
     }
 
     public function down($db)
     {
         $table = Prestasi::TABLE;
         $tsql = "DROP TABLE IF EXISTS [$table]";
-        return sqlsrv_query($db, $tsql);
+        return $db->prepare($tsql);
     }
 }
