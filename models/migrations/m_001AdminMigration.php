@@ -1,37 +1,25 @@
 <?php
 
 use app\models\BaseMigration;
-use app\models\users\Admin;
+use app\cores\Schema;
+use app\cores\Blueprint;
 
-class m_001AdminMigration extends BaseMigration
+class m_001AdminMigration implements BaseMigration
 {
-    public function up($db)
+    public function up(): array
     {
-        $table = Admin::TABLE;
-        $id = Admin::ID;
-        $nip = Admin::NIP;
-        $name = Admin::NAME;
+        return Schema::createTableIfNotExist("admin", function (Blueprint $table) {
+            $table->string("id");
+            $table->string("nip");
+            $table->string("name");
 
-        $tsql = "
-            IF NOT EXISTS (
-            SELECT * 
-            FROM sysobjects 
-            WHERE name = '$table' AND xtype = 'U')
-        BEGIN
-            CREATE TABLE $table (
-                [$id] nvarchar PRIMARY KEY,
-                [$nip] nvarchar UNIQUE,
-                [$name] nvarchar
-            )
-        END;";
-
-        return sqlsrv_query($db, $tsql);
+            $table->primary("id");
+            $table->unique("nip");
+        });
     }
 
-    public function down($db)
+    public function down(): array
     {
-        $table = Admin::TABLE;
-        $tsql = "DROP TABLE IF EXISTS $table;";
-        return sqlsrv_query($db, $tsql);
+        return Schema::dropTableIfExist("Admin");
     }
 }
