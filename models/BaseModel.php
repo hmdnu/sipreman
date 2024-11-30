@@ -2,7 +2,7 @@
 
 namespace app\models;
 
-use app\core\Database;
+use app\cores\Database;
 
 abstract class BaseModel extends Database
 {
