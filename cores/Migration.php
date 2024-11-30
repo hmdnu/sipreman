@@ -1,11 +1,9 @@
 <?php
 
-namespace app\helpers;
+namespace app\cores;
 
 require_once "vendor/autoload.php";
 require_once "helpers/env.php";
-
-use app\core\Database;
 
 class Migration
 {
@@ -14,7 +12,6 @@ class Migration
     public function __construct(array $config)
     {
         $this->database = new Database($config);
-        $this->database->connect();
     }
 
     public function migrate(): void
@@ -31,11 +28,11 @@ class Migration
             $migration = new $className();
 
             echo "applying migration $file\n";
-            $query = $migration->up($this->database->getConnection());
+            $query = $migration->up();
 
-            if (!$query) {
+            if (isset($query["errors"])) {
                 echo "failed to apply migration $file\n";
-                $errMessage = sqlsrv_errors();
+                $errMessage = $query["errors"];
 
                 foreach ($errMessage as $message) {
                     echo $message["message"] . "\n";
