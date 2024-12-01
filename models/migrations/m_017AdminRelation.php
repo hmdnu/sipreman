@@ -16,6 +16,6 @@ class m_017AdminRelation implements BaseMigration
 
     public function down(): array
     {
-        return [];
+      return [];
     }
 }

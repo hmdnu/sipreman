@@ -4,12 +4,13 @@ use app\cores\Blueprint;
 use app\cores\Schema;
 use app\models\BaseMigration;
 
-class m_019LecturerRelation implements BaseMigration
+class m_029RegencyChamp implements BaseMigration
 {
+
     public function up(): array
     {
-        return Schema::alterTable("lecturer", function (Blueprint $table) {
-            $table->alterAddForeignKey("nidn", "user", "no_induk");
+        return Schema::alterTable("regency_champ", function (Blueprint $table) {
+            $table->alterAddForeignKey("nim", "student", "nim");
         });
     }
 
