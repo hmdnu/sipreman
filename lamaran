@@ -2,11 +2,12 @@
 
 <?php
 
+use app\constant\Config;
 use app\cores\Migration;
 
 require_once "vendor/autoload.php";
 
-$config = \app\constant\Config::getConfig();
+$config = Config::getConfig();
 
 $commands = [
     "tailwind" => function () {
@@ -24,7 +25,10 @@ $commands = [
             $migration = new Migration($config);
             $migration->rollback();
         }
-    ]
+    ],
+    "seeder" => function () use ($config) {
+
+    }
 ];
 
 function execute($command): void
