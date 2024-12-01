@@ -113,11 +113,11 @@ class Router
         $extractedParams = [];
 
         foreach ($segments as $segment) {
-            $childNode = $currentNode->children[strtolower($segment)];
+            $childNode = $currentNode->children[strtolower($segment)] ?? null;
 
             if ($childNode) {
                 $currentNode = $childNode;
-            } else if (($childNode = $currentNode->children[":"])) {
+            } else if (($childNode = $currentNode->children[":"] ?? null)) {
                 $extractedParams[] = $segment;
                 $currentNode = $childNode;
             } else {
