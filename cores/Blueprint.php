@@ -29,6 +29,26 @@ class Blueprint
         $this->columns[] = "[$column] int";
     }
 
+    public function tinyInt(string $column): void
+    {
+        $this->columns[] = "[$column] tinyint";
+    }
+
+    public function date(string $column): void
+    {
+        $this->columns[] = "[$column] date";
+    }
+
+    public function datetime(string $column): void
+    {
+        $this->columns[] = "[$column] datetime";
+    }
+
+    public function decimal(string $column): void
+    {
+        $this->columns[] = "[$column] decimal";
+    }
+
     public function unique($column): void
     {
         $this->constraints[] = "UNIQUE([$column])";
@@ -48,14 +68,15 @@ class Blueprint
         string $columnName, string $referenceTable,
         string $referenceColumn, string $onDelete = 'CASCADE', string $onUpdate = 'CASCADE'): void
     {
-        $this->alterations = [
-            "table" => $this->tableName,
-            "column" => $columnName,
-            "referenceTable" => $referenceTable,
-            "referenceColumn" => $referenceColumn,
-            "onDelete" => $onDelete,
-            "onUpdate" => $onUpdate
-        ];
+        $this->alterations[] = "ALTER TABLE [$this->tableName]
+                ADD FOREIGN KEY ([$columnName]) 
+                REFERENCES [$referenceTable] ([$referenceColumn]) 
+                ON DELETE $onDelete ON UPDATE $onUpdate;";
+    }
+
+    public function alterDropConstraint(string $constraintColumn): void
+    {
+        $this->alterations[] = "ALTER TABLE [$this->tableName] DROP CONSTRAINT [$constraintColumn]";
     }
 
 
