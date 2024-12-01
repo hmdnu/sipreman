@@ -33,7 +33,7 @@ class Schema
     public static function dropTableIfExist(string $tableName): array
     {
         $blueprint = new Blueprint();
-        $tsql = "DROP TABLE IF EXISTS $tableName;";
+        $tsql = "DROP TABLE IF EXISTS [$tableName];";
         return $blueprint->execute($tsql);
     }
 
@@ -41,13 +41,12 @@ class Schema
     {
         $blueprint = new Blueprint($tableName);
         $callback($blueprint);
-        $alteration = $blueprint->getAlterations();
+        $alterationQueries = $blueprint->getAlterations();
 
-        $tsql = "ALTER TABLE [{$alteration["table"]}]
-                ADD FOREIGN KEY ([{$alteration["column"]}]) 
-                REFERENCES [{$alteration["referenceTable"]}] ([{$alteration["referenceColumn"]}]) 
-                ON DELETE {$alteration["onDelete"]} ON UPDATE {$alteration["onUpdate"]};";
+        foreach ($alterationQueries as $query) {
+            return $blueprint->execute($query);
+        }
 
-        return $blueprint->execute($tsql);
+        return [];
     }
 }
