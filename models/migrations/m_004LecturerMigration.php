@@ -9,12 +9,10 @@ class m_004LecturerMigration implements BaseMigration
     public function up(): array
     {
         return Schema::createTableIfNotExist("lecturer", function (Blueprint $table) {
-            $table->string("id");
             $table->string("nidn");
             $table->string("name");
 
-            $table->primary("id");
-            $table->unique("nidn");
+            $table->primary("nidn");
         });
     }
 
