@@ -15,10 +15,12 @@ class m_010PrestasiTeamMigration implements BaseMigration
             $table->tinyInt("is_member");
             $table->string("supervisor_id");
             $table->string("prestasi_id");
+            $table->string("nim");
 
             $table->primary("id");
             $table->unique("prestasi_id");
             $table->unique("supervisor_id");
+            $table->unique("nim");
         });
     }
 

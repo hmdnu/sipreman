@@ -4,7 +4,6 @@
 use app\cores\Blueprint;
 use app\cores\Schema;
 use app\models\BaseMigration;
-use app\models\users\Student;
 
 class m_014StudentMigration implements BaseMigration
 {

@@ -9,7 +9,7 @@ class m_026InternationalChamp implements BaseMigration
     public function up(): array
     {
         return Schema::alterTable("international_champ", function (Blueprint $table) {
-            $table->alterAddForeignKey("nim", "student", "nim");
+            $table->alterAddForeignKey("nim", "student", "nim", "fk_nim_international_champ");
         });
     }
 

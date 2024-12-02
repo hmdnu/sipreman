@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models\championLevel;
+namespace app\models\database\championLevel;
 
 class NationalLevel
 {

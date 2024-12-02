@@ -24,7 +24,14 @@ class m_002AttachmentMigration implements BaseMigration
 
     public function down(): array
     {
-        return Schema::dropTableIfExist("attachment");
+        $query = [];
+
+        $query[0] = Schema::alterTable("prestasi", function (Blueprint $table) {
+            $table->alterDropConstraint("FK_prestasi_id");
+        });
+        $query[1] = Schema::dropTableIfExist("attachment");
+
+        return $query;
     }
 
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models\prestasiCore;
+namespace app\models\database\prestasiCore;
 
 class Attachment
 {
