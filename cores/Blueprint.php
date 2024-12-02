@@ -66,7 +66,7 @@ class Blueprint
 
     public function alterAddForeignKey(
         string $columnName, string $referenceTable,
-        string $referenceColumn, string $onDelete = 'CASCADE', string $onUpdate = 'CASCADE'): void
+        string $referenceColumn, string $onDelete = "NO ACTION", string $onUpdate = "NO ACTION"): void
     {
         $this->alterations[] = "ALTER TABLE [$this->tableName]
                 ADD FOREIGN KEY ([$columnName]) 
