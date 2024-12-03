@@ -19,7 +19,7 @@ class m_008PrestasiMigration implements BaseMigration
             $table->date("date_start_competition");
             $table->date("date_end_competition");
             $table->string("competition_source");
-            $table->int("total_college_attended");
+            $table->int("total_college");
             $table->int("total_participant");
             $table->string("supervisor_id");
             $table->tinyInt("is_validate");
