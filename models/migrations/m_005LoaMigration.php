@@ -14,7 +14,7 @@ class m_005LoaMigration implements BaseMigration
             $table->string("id");
             $table->string("loa_number");
             $table->date("date");
-            $table->string("loa_pdf_path");
+            $table->string("pdf_path");
 
             $table->primary("id");
             $table->unique("loa_number");
