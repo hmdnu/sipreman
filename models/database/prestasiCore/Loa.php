@@ -2,7 +2,11 @@
 
 namespace app\models\database\prestasiCore;
 
-class Loa
+use app\cores\Blueprint;
+use app\cores\Schema;
+use app\models\BaseModel;
+
+class Loa extends BaseModel
 {
     public const TABLE = "loa";
     public const ID = "id";
@@ -10,4 +14,15 @@ class Loa
     public const LOA_NUMBER = "loa_number";
     public const PDF_PATH = "pdf_path";
 
+    public static function insert(array $data): array
+    {
+        return Schema::insertInto(self::TABLE, function (Blueprint $table) use ($data){
+            $table->insert([self::ID, self::DATE, self::LOA_NUMBER, self::PDF_PATH], $data);
+        });
+    }
+
+    public static function deleteAll(): array
+    {
+        return Schema::deleteFrom(self::TABLE);
+    }
 }
