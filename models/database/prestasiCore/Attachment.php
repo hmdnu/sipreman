@@ -2,6 +2,8 @@
 
 namespace app\models\database\prestasiCore;
 
+use app\models\BaseModel;
+
 class Attachment
 {
     public const TABLE = "attachment";

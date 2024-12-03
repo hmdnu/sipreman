@@ -6,6 +6,7 @@ class Prestasi
 {
     public const ID = "id";
     public const TABLE = "prestasi";
+    public const NIM = "nim";
     public const COMPETITION_NAME = "competition_name";
     public const CATEGORY_NAME = "category_name";
     public const COMPETITION_LEVEL = "competition_level";

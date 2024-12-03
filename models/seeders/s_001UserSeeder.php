@@ -1,12 +1,9 @@
 <?php
 
-use app\cores\Blueprint;
-use app\cores\Schema;
-use app\helpers\UUID;
 use app\models\BaseSeeder;
 use app\models\database\users\User;
 
-class UserSeeder implements BaseSeeder
+class s_001UserSeeder implements BaseSeeder
 {
     public function create(): array
     {
@@ -17,7 +14,6 @@ class UserSeeder implements BaseSeeder
 
         for ($i = 0; $i < count($noInduk); $i++) {
             $res[$i] = User::insert([
-                "id" => UUID::generate(),
                 "no_induk" => $noInduk[$i],
                 "password" => password_hash($password[$i], PASSWORD_BCRYPT),]);
         }

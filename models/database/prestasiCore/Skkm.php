@@ -2,6 +2,8 @@
 
 namespace app\models\database\prestasiCore;
 
+use app\models\BaseModel;
+
 class Skkm
 {
     public const TABLE = "skkm";
@@ -12,6 +14,7 @@ class Skkm
     public const LEVEL = "level";
     public const CERTIFICATE_PATH = "certificate_path";
     public const POINT = "point";
+
 
 
 }
