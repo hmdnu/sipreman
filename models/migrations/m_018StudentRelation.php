@@ -10,7 +10,6 @@ class m_018StudentRelation implements BaseMigration
     {
         return Schema::alterTable("student", function (Blueprint $table) {
             $table->alterAddForeignKey("nim", "user", "no_induk", "fk_nim_student");
-            $table->alterAddForeignKey("prestasi_id", "prestasi", "id", "fk_prestasi_student");
             $table->alterAddForeignKey("study_program_id", "study_program", "id", "fk_study_program_student");
             $table->alterAddForeignKey("major_id", "major", "id", "fk_major_student");
         });

@@ -10,6 +10,7 @@ class m_008PrestasiMigration implements BaseMigration
     {
         return Schema::createTableIfNotExist("prestasi", function (Blueprint $table) {
             $table->string("id");
+            $table->string("nim");
             $table->string("attachment_id");
             $table->string("competition_name");
             $table->string("category_name");
@@ -26,6 +27,7 @@ class m_008PrestasiMigration implements BaseMigration
             $table->primary("id");
             $table->unique("attachment_id");
             $table->unique("supervisor_id");
+            $table->unique("nim");
         });
     }
 
