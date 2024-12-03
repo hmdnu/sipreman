@@ -13,11 +13,13 @@ class PrestasiTeam extends BaseModel
     public const IS_LEADER = "is_leader";
     public const IS_MEMBER = "is_member";
     public const SUPERVISOR_ID = "supervisor_id";
+    public const NIM = "nim";
+    public const PRESTASI_ID = "prestasi_id";
 
     public static function insert(array $data): array
     {
         return Schema::insertInto(self::TABLE, function(Blueprint $table) use ($data){
-            $table->insert([self::ID, self::IS_LEADER, self::IS_MEMBER, self::SUPERVISOR_ID], $data);
+            $table->insert([self::ID, self::IS_LEADER, self::IS_MEMBER, self::SUPERVISOR_ID, self::NIM, self::PRESTASI_ID], $data);
         });
     }
 
