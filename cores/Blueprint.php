@@ -10,10 +10,11 @@ class Blueprint
     private array $columns = [];
     private array $constraints = [];
     private array $alterations = [];
+    private array $insertions = [];
 
     private Database $db;
 
-    public function __construct(string $tableName = "")
+    public function __construct(string $tableName)
     {
         $this->tableName = $tableName;
         $this->db = new Database(Config::getConfig());
@@ -97,6 +98,22 @@ class Blueprint
         ];
     }
 
+    public function insert(array $columns, array $values): void
+    {
+        $quotedValues = array_map(function ($value) {
+            return is_string($value) ? "'" . str_replace("'", "''", $value) . "'" : $value;
+        }, $values);
+
+        $columnsSql = implode(", ", $columns);
+        $valuesSql = implode(", ", $quotedValues);
+
+        $this->insertions[] = "INSERT INTO [$this->tableName] ($columnsSql) VALUES ($valuesSql);";
+    }
+
+    public function getInsertions(): array
+    {
+        return $this->insertions;
+    }
 
     public function execute($query): array
     {
