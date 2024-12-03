@@ -15,8 +15,8 @@ class m_013SkkmMigration implements BaseMigration
             $table->string("prestasi_id");
             $table->string("certificate_number");
             $table->string("level"); // level of championship
-            $table->string("certification_path");
-            $table->decimal("points");
+            $table->string("certificate_path");
+            $table->decimal("point");
 
             $table->primary("id");
             $table->unique("nim");

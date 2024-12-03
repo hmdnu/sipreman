@@ -9,7 +9,7 @@ class m_003InternationalChampMigration implements BaseMigration
 {
     public function up(): array
     {
-        return Schema::createTableIfNotExist("international_champ", function (Blueprint $table) {
+        return Schema::createTableIfNotExist("international_level", function (Blueprint $table) {
             $table->string("id");
             $table->string("nim");
 

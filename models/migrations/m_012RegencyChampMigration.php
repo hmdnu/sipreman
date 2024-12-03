@@ -8,7 +8,7 @@ class m_012RegencyChampMigration implements BaseMigration
 {
     public function up(): array
     {
-        return Schema::createTableIfNotExist("regency_champ", function (Blueprint $table) {
+        return Schema::createTableIfNotExist("regency_level", function (Blueprint $table) {
             $table->string("id");
             $table->string("nim");
 
