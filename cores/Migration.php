@@ -16,10 +16,10 @@ class Migration
 
     public function migrate(): void
     {
-        $migrationPath = realpath(__DIR__ . '/../models/migrations');
+        $migrationPath = realpath(__DIR__ . "/../models/migrations");
         $files = scandir($migrationPath);
         foreach ($files as $file) {
-            if ($file === '.' || $file === '..') {
+            if ($file === "." || $file === "..") {
                 continue;
             }
 
