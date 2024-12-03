@@ -6,7 +6,7 @@ class Schema
 {
     public static function createTableIfNotExist(string $tableName, callable $callback): array
     {
-        $blueprint = new Blueprint();
+        $blueprint = new Blueprint($tableName);
         $callback($blueprint);
         $query = $blueprint->getColumnsAndConstraints();
         $column = $query["columns"];
@@ -30,9 +30,22 @@ class Schema
         return $blueprint->execute($tsql);
     }
 
+    public static function insertInto(string $tableName, callable $callback): array
+    {
+        $blueprint = new Blueprint($tableName);
+        $callback($blueprint);
+        $tsql = $blueprint->getInsertions();
+
+        foreach ($tsql as $query) {
+            return $blueprint->execute($query);
+        }
+
+        return [];
+    }
+
     public static function dropTableIfExist(string $tableName): array
     {
-        $blueprint = new Blueprint();
+        $blueprint = new Blueprint($tableName);
         $tsql = "DROP TABLE IF EXISTS [$tableName];";
         return $blueprint->execute($tsql);
     }
@@ -41,12 +54,19 @@ class Schema
     {
         $blueprint = new Blueprint($tableName);
         $callback($blueprint);
-        $alterationQueries = $blueprint->getAlterations();
+        $tsql = $blueprint->getAlterations();
 
-        foreach ($alterationQueries as $query) {
+        foreach ($tsql as $query) {
             return $blueprint->execute($query);
         }
 
         return [];
+    }
+
+    public static function deleteFrom(string $tableName): array
+    {
+        $blueprint = new Blueprint($tableName);
+        $tsql = "DELETE FROM [$tableName];";
+        return $blueprint->execute($tsql);
     }
 }
