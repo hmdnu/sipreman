@@ -7,6 +7,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title><?php echo \app\cores\View::getTitle() ?></title>
     <link rel="stylesheet" href="/public/css/output.css">
-
+    <script src="/public/js/jquery.min.js"></script>
 </head>
 <body>
