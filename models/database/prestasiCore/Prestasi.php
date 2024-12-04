@@ -18,7 +18,7 @@ class Prestasi extends BaseModel
     public const DATE_START_COMPETITION = "date_start_competition";
     public const DATE_END_COMPETITION = "date_end_competition";
     public const COMPETITION_SOURCE = "competition_source"; // link to comp
-    public const TOTAL_COLLEGE_ATTENDED = "total_college_ATTENDED";
+    public const TOTAL_COLLEGE_ATTENDED = "total_college_attended";
     public const TOTAL_PARTICIPANT = "total_participant";
     public const IS_VALIDATE = "is_validate";
     public const ATTACHMENT_ID = "attachment_id";
