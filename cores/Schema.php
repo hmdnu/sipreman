@@ -34,10 +34,10 @@ class Schema
     {
         $blueprint = new Blueprint($tableName);
         $callback($blueprint);
-        $tsql = $blueprint->getInsertions();
+        $insertions = $blueprint->getInsertions();
 
-        foreach ($tsql as $query) {
-            return $blueprint->execute($query);
+        foreach ($insertions as $insertion) {
+            return $blueprint->execute($insertion["query"], $insertion["params"]);
         }
 
         return [];
@@ -68,5 +68,29 @@ class Schema
         $blueprint = new Blueprint($tableName);
         $tsql = "DELETE FROM [$tableName];";
         return $blueprint->execute($tsql);
+    }
+
+    public static function selectFrom(string $tableName, callable $callback): array
+    {
+        $blueprint = new Blueprint($tableName);
+        $callback($blueprint);
+        $selections = $blueprint->getSelection();
+
+        return $blueprint->execute($selections["query"]);
+    }
+
+    public static function selectWhereFrom(string $tableName, callable $callback): array
+    {
+        $blueprint = new Blueprint($tableName);
+        $callback($blueprint);
+        $selections = $blueprint->getSelection();
+
+        return $blueprint->execute($selections["query"], $selections["params"]);
+    }
+
+    public static function query(string $tableName, string $query): array
+    {
+        $blueprint = new Blueprint($query);
+        return $blueprint->execute($query);
     }
 }

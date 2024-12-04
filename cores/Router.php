@@ -13,6 +13,7 @@ class Router
 
     public function __construct()
     {
+        new Session();
         self::$root = new RouteNode();
         self::$request = new Request();
         self::$response = new Response();

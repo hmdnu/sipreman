@@ -10,6 +10,7 @@ class m_016UserMigration implements BaseMigration
     {
         return Schema::createTableIfNotExist("user", function (Blueprint $table) {
             $table->string("no_induk");
+            $table->string("role");
             $table->string("password");
 
             $table->primary("no_induk");
