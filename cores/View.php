@@ -4,7 +4,7 @@ namespace app\cores;
 
 class View
 {
-    private static string $title = "PBL";
+    private static string $title = "Sipreman";
 
     public function render(string $viewPath, array $data = []): void
     {
