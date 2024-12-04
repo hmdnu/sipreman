@@ -9,10 +9,4 @@ class RouteNode
     public array $params = [];
     public array $middlewares = [];
 
-    public function __construct()
-    {
-        $this->children = [];
-        $this->handler = [];
-        $this->params = [];
-    }
 }
