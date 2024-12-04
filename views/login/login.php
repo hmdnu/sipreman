@@ -1,41 +1,60 @@
-<section class="bg-gray-100 h-screen flex items-center justify-center">
-    <div class="bg-white p-8 rounded-lg shadow-lg w-96">
-        <h1 class="text-2xl font-bold text-center mb-6">Login</h1>
+<section class="bg-primary-500 w-full h-screen grid place-content-center">
+    <div class="bg-white rounded-[30px] px-14 py-10 flex flex-col items-center justify-center">
 
-        <form action="/post-login" method="post">
-            <div class="mb-4">
-                <label for="no-induk" class="block text-sm font-semibold text-gray-700 mb-2">No Induk</label>
-                <input type="text" name="no-induk" id="no-induk" placeholder="No Induk"
-                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        <div>
+            <div class="text-center mb-5">
+                <h1 class="font-[Raleway] font-bold h1 text-center text-primary-700">sipreman</h1>
+                <div class="mt-3 flex flex-col">
+                    <h1 class="h3 font-medium">Silahkan Masuk</h1>
+                    <h1 class="h5 text-neutral-500 font-normal">Masukan No induk dan kata sandi anda</h1>
+                </div>
             </div>
 
-            <div class="mb-4">
-                <label for="password" class="block text-sm font-semibold text-gray-700 mb-2">Password</label>
-                <input type="password" name="password" id="password" placeholder="Password"
-                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
-            </div>
 
-            <label class="flex gap-2 mb-4">
-                <input type="checkbox" id="view-password"/>
-                <p>show password</p>
-            </label>
+            <form action="/post-login" method="post" class="flex flex-col gap-3">
+                <!-- no induk -->
+                <div>
+                    <label for="noInduk" class="flex flex-col gap-3">
+                        <h5 class="h6 text-neutral-500">No Induk</h5>
+                        <input type="text" name="noInduk" id="noInduk"
+                            class="px-5 py-2 h6 text-neutral-500 bg-neutral-100 border border-neutral-200 rounded-md">
+                    </label>
+                </div>
+                <!-- password -->
+                <div>
+                    <label for="password" class="flex flex-col gap-3">
+                        <h5 class="h6 text-neutral-500">Password</h5>
+                        <input type="password" name="password" id="password"
+                            class="px-5 py-2 h6 text-neutral-500 bg-neutral-100 border border-neutral-200 rounded-md">
+                    </label>
+                </div>
+                <?php echo app\cores\View::getData()["error"] ?? "" ?>
+                <!-- view checkbox -->
+                <div>
+                    <label for="viewPassword" class="flex gap-1 items-center">
+                        <input type="checkbox" name="viewPassword" id="viewPassword" class="size-4">
+                        <p class="p1 text-neutral-500">Tampilkan Kata Sandi</p>
+                    </label>
+                </div>
 
-            <div class="mb-6">
-                <button type="submit"
-                        class="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                    Submit
-                </button>
-            </div>
-        </form>
+                <button class="h5 bg-primary-600 text-white rounded-[15px] px-5 py-3 mt-5" type="submit">Masuk</button>
+            </form>
+        </div>
+
+
     </div>
 </section>
 
+
+
 <script>
-    $(() => {
-        $("#view-password").on("change", function () {
-            const passwordField = $("#password");
-            const fieldType = passwordField.attr("type") === "password" ? "text" : "password";
-            passwordField.attr("type", fieldType);
-        });
-    })
+$(() => {
+    $("#viewPassword").on("change", function() {
+        const passwordField = $("#password");
+        const isChecked = $(this).is(":checked");
+
+        // Toggle the type attribute of the password field
+        passwordField.attr("type", isChecked ? "text" : "password");
+    });
+});
 </script>

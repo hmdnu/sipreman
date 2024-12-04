@@ -15,8 +15,8 @@ class BaseController
         $this->view = new View();
     }
 
-    protected function view(string $viewPath, array $data = []): void
+    protected function view(string $viewPath, string $title, array $data = []): void
     {
-        $this->view->render($viewPath, $data);
+        $this->view->render($viewPath, $title, $data);
     }
 }
