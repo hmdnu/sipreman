@@ -8,7 +8,7 @@ class m_007NationalChampMigration implements BaseMigration
 {
     public function up(): array
     {
-        return Schema::createTableIfNotExist("national_level", function (Blueprint $table) {
+        return Schema::createTableIfNotExist("national_champ", function (Blueprint $table) {
             $table->string("id");
             $table->string("nim");
 

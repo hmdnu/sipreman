@@ -8,7 +8,7 @@ class m_011ProvinceChampMigration implements BaseMigration
 {
     public function up(): array
     {
-        return Schema::createTableIfNotExist("province_level", function (Blueprint $table) {
+        return Schema::createTableIfNotExist("province_champ", function (Blueprint $table) {
             $table->string("id");
             $table->string("nim");
 
