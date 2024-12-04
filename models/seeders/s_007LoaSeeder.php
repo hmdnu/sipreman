@@ -10,7 +10,12 @@ class s_007LoaSeeder implements BaseSeeder
         $loaIds = ["LOA001", "LOA002", "LOA003", "LOA004"];
         $loaDate = ["2024-01-15", "2024-01-16", "2024-01-17", "2024-01-18"];
         $loaNumber = ["001/LOA/I/2024", "002/LOA/I/2024", "003/LOA/I/2024", "004/LOA/I/2024"];
-        $pdfPath = ["storage/loa/loa_001.pdf", "storage/loa/loa_002.pdf", "storage/loa/loa_003.pdf",  "storage/loa/loa_004.pdf"];
+        $loaPdfPath = [
+            "pubic/document/loa_001.pdf",
+            "pubic/document/loa_001.pdf",
+            "pubic/document/loa_001.pdf",
+            "pubic/document/loa_001.pdf"
+        ];
 
         $res = [];
 
@@ -19,7 +24,7 @@ class s_007LoaSeeder implements BaseSeeder
                 "id" => $loaIds[$i],
                 "date" => $loaDate[$i],
                 "loa_number" => $loaNumber[$i],
-                "pdf_path" => $pdfPath[$i]
+                "loa_pdf_path" => $loaPdfPath[$i]
             ]);
         }
 

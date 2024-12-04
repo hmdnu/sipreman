@@ -1,19 +1,19 @@
 <?php
 
 use app\models\BaseSeeder;
-use app\models\database\championLevel\NationalLevel;
+use app\models\database\championLevel\NationalChamp;
 
 class s_014NationalChampSeeder implements BaseSeeder
 {
     public function create(): array
     {
-        $nationalChamIds = ["NAT001", "NAT002"];
-        $nim = ["210010001", "210010003"];
+        $nationalChamIds = ["NAT001"];
+        $nim = ["210010001"];
 
         $res = [];
 
         for ($i = 0; $i < count($nationalChamIds); $i++) {
-            $res[$i] = NationalLevel::insert([
+            $res[$i] = NationalChamp::insert([
                 "id" => $nationalChamIds[$i],
                 "nim" => $nim[$i]
             ]);
@@ -24,6 +24,6 @@ class s_014NationalChampSeeder implements BaseSeeder
 
     public function delete(): array
     {
-        return NationalLevel::deleteAll();
+        return NationalChamp::deleteAll();
     }
 }

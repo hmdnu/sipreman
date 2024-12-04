@@ -16,7 +16,7 @@ class s_009PrestasiSeeder implements BaseSeeder
         $dateStartCompetition = ["2024-01-15", "2024-02-01", "2024-02-15", "2024-03-01"];
         $dateEndCompetition = ["2024-01-17", "2024-02-03", "2024-02-17", "2024-03-03"];
         $competitionSource = ["Kementerian Pendidikan", "IEEE", "ICPC", "Google Developer"];
-        $totalCollege = [50, 75, 30, 80];
+        $totalCollegeAttended = [50, 75, 30, 80];
         $totalParticipant = [150, 225, 90, 240];
         $isValidate = [1, 1, 1, 0];
         $attachmentIds = ["ATT001", "ATT002", "ATT003", "ATT004"];
@@ -35,7 +35,7 @@ class s_009PrestasiSeeder implements BaseSeeder
                 "date_start_competition" => $dateStartCompetition[$i],
                 "date_end_competition" => $dateEndCompetition[$i],
                 "competition_source" => $competitionSource[$i],
-                "total_college" => $totalCollege[$i],
+                "total_college_attended" => $totalCollegeAttended[$i],
                 "total_participant" => $totalParticipant[$i],
                 "is_validate" => $isValidate[$i],
                 "attachment_id" => $attachmentIds[$i],
