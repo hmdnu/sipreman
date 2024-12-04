@@ -23,6 +23,6 @@ class m_005LoaMigration implements BaseMigration
 
     public function down(): array
     {
-        return Schema::dropTableIfExist("load");
+        return Schema::dropTableIfExist("loa");
     }
 }

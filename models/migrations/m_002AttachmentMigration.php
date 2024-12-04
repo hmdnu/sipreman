@@ -11,8 +11,8 @@ class m_002AttachmentMigration implements BaseMigration
         return Schema::createTableIfNotExist("attachment", function (Blueprint $table) {
             $table->string("id");
             $table->string("loa_id");
-            $table->string("certification_path");
-            $table->string("documentation_path");
+            $table->string("certificate_path");
+            $table->string("documentation_photo_path");
             $table->string("poster_path");
             $table->string("creation_path");
             $table->string("caption");
