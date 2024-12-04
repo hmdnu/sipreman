@@ -12,12 +12,12 @@ class Loa extends BaseModel
     public const ID = "id";
     public const DATE = "date";
     public const LOA_NUMBER = "loa_number";
-    public const PDF_PATH = "pdf_path";
+    public const LOA_PDF_PATH = "loa_pdf_path";
 
     public static function insert(array $data): array
     {
         return Schema::insertInto(self::TABLE, function (Blueprint $table) use ($data){
-            $table->insert([self::ID, self::DATE, self::LOA_NUMBER, self::PDF_PATH], $data);
+            $table->insert([self::ID, self::DATE, self::LOA_NUMBER, self::LOA_PDF_PATH], $data);
         });
     }
 

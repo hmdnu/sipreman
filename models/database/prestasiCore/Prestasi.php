@@ -18,7 +18,7 @@ class Prestasi extends BaseModel
     public const DATE_START_COMPETITION = "date_start_competition";
     public const DATE_END_COMPETITION = "date_end_competition";
     public const COMPETITION_SOURCE = "competition_source"; // link to comp
-    public const TOTAL_COLLEGE = "total_college";
+    public const TOTAL_COLLEGE_ATTENDED = "total_college_ATTENDED";
     public const TOTAL_PARTICIPANT = "total_participant";
     public const IS_VALIDATE = "is_validate";
     public const ATTACHMENT_ID = "attachment_id";
@@ -28,7 +28,7 @@ class Prestasi extends BaseModel
     {
         return Schema::insertInto(self::TABLE, function(Blueprint $table) use ($data){
             $table->insert([self::ID, self::NIM, self::COMPETITION_NAME, self::CATEGORY_NAME, self::COMPETITION_LEVEL, self::PLACE, self::DATE_START_COMPETITION, self::DATE_END_COMPETITION, self::COMPETITION_SOURCE,
-                            self::TOTAL_COLLEGE, self::TOTAL_PARTICIPANT, self::IS_VALIDATE, self::ATTACHMENT_ID, self::SUPERVISOR_ID], $data);
+                            self::TOTAL_COLLEGE_ATTENDED, self::TOTAL_PARTICIPANT, self::IS_VALIDATE, self::ATTACHMENT_ID, self::SUPERVISOR_ID], $data);
         });
     }
 
