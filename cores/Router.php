@@ -61,13 +61,14 @@ class Router
             return;
         }
 
+        self::$params = $route["params"];
+
         // call the middlewares
         foreach ($route["middlewares"] as $middleware) {
             $instance = new $middleware();
             $instance->before(self::$request, self::$response);
         }
 
-        self::$params = $route["params"];
 
         call_user_func([$controller, $handler], self::$request, self::$response);
     }
