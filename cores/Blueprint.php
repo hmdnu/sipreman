@@ -127,7 +127,7 @@ class Blueprint
     }
 
 
-    public function selectWhere(array|string $conditions, array|string $columns = "*"): void
+    public function selectWhere(array $conditions, array|string $columns = "*"): void
     {
         $columnsTsql = is_array($columns) ? implode(",", $columns) : $columns;
         $whereClauses = [];
@@ -150,6 +150,22 @@ class Blueprint
     public function getSelection(): array
     {
         return $this->selections;
+    }
+
+    public function innerJoin(string $rightTable, string $leftColumn, string $rightColumn, array|string $column = "*"): void
+    {
+        $columns = is_array($column) ? implode(", ", $column) : $column;
+
+        $this->selections[] = "SELECT
+         $columns 
+         FROM [$this->tableName] 
+         INNER JOIN 
+         [$rightTable] ON 
+         [$this->tableName].$leftColumn = [$rightTable].$rightColumn;";
+    }
+
+    public function leftJoin(): void
+    {
     }
 
     public function execute($query, $params = null): array
