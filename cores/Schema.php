@@ -36,11 +36,13 @@ class Schema
         $callback($blueprint);
         $insertions = $blueprint->getInsertions();
 
+        $results = [];
+
         foreach ($insertions as $insertion) {
-            return $blueprint->execute($insertion["query"], $insertion["params"]);
+            $results[] = $blueprint->execute($insertion["query"], $insertion["params"]);
         }
 
-        return [];
+        return $results;
     }
 
     public static function dropTableIfExist(string $tableName): array
@@ -56,11 +58,12 @@ class Schema
         $callback($blueprint);
         $tsql = $blueprint->getAlterations();
 
+        $results = [];
         foreach ($tsql as $query) {
-            return $blueprint->execute($query);
+            $results[] = $blueprint->execute($query);
         }
 
-        return [];
+        return $results;
     }
 
     public static function deleteFrom(string $tableName): array
@@ -86,6 +89,21 @@ class Schema
         $selections = $blueprint->getSelection();
 
         return $blueprint->execute($selections["query"], $selections["params"]);
+    }
+
+    public static function join(string $leftTable, callable $callback): array
+    {
+        $blueprint = new Blueprint($leftTable);
+        $callback($blueprint);
+        $tsql = $blueprint->getSelection();
+
+        $results = [];
+
+        foreach ($tsql as $query) {
+            $results[] = $blueprint->execute($query);
+        }
+
+        return $results;
     }
 
     public static function query(string $tableName, string $query): array
