@@ -5,8 +5,8 @@
             <div class="text-center mb-5">
                 <h1 class="font-[Raleway] font-bold h1 text-center text-primary-700">sipreman</h1>
                 <div class="mt-3 flex flex-col">
-                    <h1 class="h3 font-medium">Silahkan Masuk</h1>
-                    <h1 class="h5 text-neutral-500 font-normal">Masukan No induk dan kata sandi anda</h1>
+                    <h1 class="h2 font-medium">Silahkan Masuk</h1>
+                    <h1 class="h5 text-neutral-600 font-normal">Masukan No induk dan kata sandi anda</h1>
                 </div>
             </div>
 
@@ -15,17 +15,17 @@
                 <!-- no induk -->
                 <div>
                     <label for="noInduk" class="flex flex-col gap-3">
-                        <h5 class="h6 text-neutral-500">No Induk</h5>
+                        <h5 class="h6 text-neutral-600">No Induk</h5>
                         <input type="text" name="noInduk" id="noInduk"
-                            class="px-5 py-2 h6 text-neutral-500 bg-neutral-100 border border-neutral-200 rounded-md">
+                            class="px-5 py-2 h6 text-neutral-600 bg-neutral-100 border border-neutral-200 rounded-md">
                     </label>
                 </div>
                 <!-- password -->
                 <div>
                     <label for="password" class="flex flex-col gap-3">
-                        <h5 class="h6 text-neutral-500">Password</h5>
+                        <h5 class="h6 text-neutral-600">Password</h5>
                         <input type="password" name="password" id="password"
-                            class="px-5 py-2 h6 text-neutral-500 bg-neutral-100 border border-neutral-200 rounded-md">
+                            class="px-5 py-2 h6 text-neutral-600 bg-neutral-100 border border-neutral-200 rounded-md">
                     </label>
                 </div>
                 <?php echo app\cores\View::getData()["error"] ?? "" ?>
@@ -33,7 +33,7 @@
                 <div>
                     <label for="viewPassword" class="flex gap-1 items-center">
                         <input type="checkbox" name="viewPassword" id="viewPassword" class="size-4">
-                        <p class="p1 text-neutral-500">Tampilkan Kata Sandi</p>
+                        <p class="p1 text-neutral-600">Tampilkan Kata Sandi</p>
                     </label>
                 </div>
 
