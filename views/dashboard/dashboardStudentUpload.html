@@ -1,0 +1,363 @@
+
+<div class="flex min-h-screen">
+    <!-- Sidebar -->
+    <div class="w-64 bg-[#F9F6FD] shadow-2xl shadow-lg p-6">
+        <!-- Logo -->
+        <div class="text-center mb-6">
+            <div class="flex items-center gap-2 justify-center mb-4">
+                <img src="prestasi-polinema/public/assets/img/logo.png" alt="Logo Sipreman" class="h-7 w-17">
+            </div>
+        </div>
+
+        <!-- user profile -->
+        <div class="text-center mb-6">
+            <img src="https://via.placeholder.com/100" alt="profile picture"
+                class="w-20 h-20 rounded-full mx-auto mb-2" />
+            <h2 class="text-[11px]font-bold">Yonanda Mayla</h2>
+            <p class="text-[12px] font-medium text-gray-500">yonanda456@gmail.com</p>
+        </div>
+
+        <!-- side bar -->
+        <div class="space-y-4">
+            <!-- upload -->
+            <button
+                class="text-[12px] font-m w-full flex items-center gap-2 py-2 px-4 bg-white text-gray-500 border border-gray-300 rounded-lg shadow hover:bg-[#6F38C5] hover:text-white active:bg-[#6F38C5] active:text-white transition duration-300">
+                <img src="prestasi-polinema/public/assets/icon/upload_icon.png" alt="Icon Upload" class="h-4 w-4" />
+                Unggah Prestasi
+            </button>
+            <!-- validation -->
+            <button
+                class="text-[12px] font-medium w-full flex items-center gap-2 py-2 px-4 bg-white text-gray-700 border border-gray-300 rounded-lg shadow hover:bg-[#6F38C5] hover:text-white active:bg-[#6F38C5] active:text-white transition duration-300">
+                <img src="prestasi-polinema/public/assets/icon/validation_icon.png" alt="icon validation" class="h-4 w-4" />
+                Cek Validasi
+            </button>
+            <!-- my points -->
+            <button
+                class="text-[12px] font-medium w-full flex items-center gap-2 py-2 px-4 bg-white text-gray-700 border border-gray-300 rounded-lg shadow hover:bg-[#6F38C5] hover:text-white active:bg-[#6F38C5] active:text-white transition duration-300">
+                <img src="prestasi-polinema/public/assets/icon/point_icon.png" alt="icon poin" class="h-4 w-4" />
+                Poinku
+            </button>
+        </div>
+        <div class="sticky bottom-0 mt-4">
+            <button class="text-[12px] font-medium w-full flex items-center justify-center py-2 px-4 bg-gray-300
+            text-gray-700 rounded-lg shadow hover:bg-gray-400 hover:text-white active:bg-gray-500 active:text-white
+            transition duration-300">
+                Kembali
+            </button>
+        </div>
+
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-1 p-8">
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h1 class="text-[18px] font-bold text-gray-800 mb-4">Unggah Prestasi</h1>
+
+            <!-- Section Student Data -->
+            <div class="text-[13px] bg-[#6F38C5] text-white text-center py-2 rounded-sm font-medium">Data Mahasiswa
+            </div>
+
+            <!-- add study program -->
+            <div class="mb-6 mt-6">
+                <label for="study-program"
+                    class="text-[14px] block font-semibold text-gray-700 font-medium mb-2">Program Studi</label>
+                <select id="program-studi" name="study-program"
+                    class="text-[12px] w-120p border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    <option value="" disabled selected>Pilih Program Studi</option>
+                    <option value="ti">Teknik Informatika</option>
+                    <option value="sib">Sistem Informasi Bisnis</option>
+                    <option value="ppls">Pengembangan Piranti Lunak Situs</option>
+                </select>
+            </div>
+
+            <div class="mb-6">
+                <div class="flex gap-4">
+                    <!-- table 1 input student -->
+                    <div class="w-1/2 border border-gray-300 rounded-lg overflow-hidden">
+                        <table id="student-table" class="text-[14px] w-full text-left border-collapse">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="text-[12px] px-4 py-2 border">No</th>
+                                    <th class="text-[12px] px-4 py-2 border">Nama</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-[12px] px-4 py-2 border">1</td>
+                                    <td class="text-[12px] px-4 py-2 border">
+                                        <input type="text"
+                                            class="text-[12px] w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                            placeholder="Masukkan Nama" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- table 2 role student-->
+                    <div class="w-1/2 border border-gray-300 rounded-lg overflow-hidden">
+                        <table id="role-table" class="text-[14px] w-full text-left border-collapse">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="text-[12px] px-4 py-2 border">No</th>
+                                    <th class="text-[12px] px-4 py-2 border">Peran</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-[12px] px-4 py-2 border">1</td>
+                                    <td class="text-[12px] px-4 py-2 border">
+                                        <select
+                                            class="text-[12px] w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                            <option value="" disabled selected>Pilih Peran</option>
+                                            <option value="captain">Ketua</option>
+                                            <option value="member">Anggota</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+                <button id="tambah-dosen-btn"
+                    class="text-[11px] h-15 w-30 mt-2 bg-[#49B195] text-white py-2 px-4 rounded-sm hover:bg-[#6F38C5] hover:text-white active:bg-[#6F38C5] active:text-white transition duration-300">
+                    + Tambah Data Mahasiswa
+            </div>
+
+
+            <!-- Section Data Competition -->
+            <div
+                class="text-[13px] bg-[#6F38C5] text-white text-center py-2 rounded-sm font-medium mt-6 mb-6 competition data">
+                Data Kompetisi</div>
+
+            <div class="grid grid-cols-2 gap-6">
+                <!-- add type competition -->
+                <div>
+                    <label for="type-competition-type"
+                        class="block text-[14px] font-semibold text-gray-700 mb-2">Jenis</label>
+                    <select id="jenis-kompetisi" name="competition-type"
+                        class="text-[12px] w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        <option value="" disabled selected>Pilih Jenis Kompetisi</option>
+                        <option value="acad">Akademik</option>
+                        <option value="non-acad">Non-Akademik</option>
+                    </select>
+                </div>
+
+                <!-- add name of competition  -->
+                <div>
+                    <label for="competition-name"
+                        class="block text-[14px] font-semibold text-gray-700 mb-2">Judul</label>
+                    <input type="text" id="competition-name" name="competition-name"
+                        class="text-[12px] w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                        placeholder="Masukkan Judul Kompetisi">
+                </div>
+
+                <!-- add competition level -->
+                <div>
+                    <label for="competition-level"
+                        class="block text-[14px] font-semibold text-gray-700 mb-2">Tingkat</label>
+                    <select id="competition-level" name="competition-level"
+                        class="text-[12px] w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        <option value="" disabled selected>Pilih Tingkat Kompetisi</option>
+                        <option value="regency">Kabupaten/Kota</option>
+                        <option value="province">Provinsi</option>
+                        <option value="national">Nasional</option>
+                        <option value="international">Internasional</option>
+                    </select>
+                </div>
+
+                <!-- add competition location -->
+                <div>
+                    <label for="competition-location"
+                        class="block text-[14px] font-semibold text-gray-700 mb-2">Tempat</label>
+                    <input type="text" id="competition-location" name="competition-location"
+                        class="text-[12px] w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                        placeholder="Masukkan Tempat Kompetisi">
+                </div>
+
+                <!-- date of start competition -->
+                <div>
+                    <label for="date-start" class="block text-[14px] font-semibold text-gray-700 mb-2">Tanggal
+                        Mulai</label>
+                    <input type="date" id="date-start" name="date-start"
+                        class="text-[12px] w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                </div>
+
+                <!-- add source url competition -->
+                <div>
+                    <label for="competition-url" class="block text-[14px] font-semibold text-gray-700 mb-2">Link</label>
+                    <input type="url" id="competition-url" name="competition-url"
+                        class="text-[12px] w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                        placeholder="Masukkan Link Kompetisi">
+                </div>
+
+                <!-- date of end competition -->
+                <div>
+                    <label for="end-date" class="block text-[14px] font-semibold text-gray-700 mb-2">Tanggal
+                        Akhir</label>
+                    <input type="date" id="end-date" name="end-date"
+                        class="text-[12px] w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                </div>
+
+                <!-- competition participants -->
+                <div class="grid grid-cols-2 gap-6">
+                    <div>
+                        <label for="jumlah-pt" class="block text-[14px] font-semibold text-gray-700 mb-2">Jumlah
+                            Perguruan Tinggi Berpartisipasi</label>
+                        <input type="number" id="jumlah-pt" name="jumlah-pt"
+                            class="text-[12px] w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                            placeholder="Masukkan Jumlah">
+                    </div>
+                    <div>
+                        <label for="jumlah-peserta" class="block text-[14px] font-semibold text-gray-700 mb-2">Jumlah
+                            Total Peserta</label>
+                        <input type="number" id="jumlah-peserta" name="jumlah-peserta"
+                            class="text-[12px] w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                            placeholder="Masukkan Jumlah">
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Section Data Lecture -->
+            <div class="text-[13px] bg-[#6F38C5] text-white text-center py-2 rounded-sm font-medium mt-6">Data
+                Pembimbing</div>
+
+            <div class="mt-6">
+                <div class="border border-gray-300 rounded-b-lg overflow-hidden">
+                    <table id="data-dosen-table" class="text-[14px] w-1/2 text-left border-collapse">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="text-[12px] px-4 py-2 border">No</th>
+                                <th class="text-[12px] px-4 py-2 border">Nama Dosen</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-[12px] px-4 py-2 border">1</td>
+                                <td class="text-[12px] px-4 py-2 border">
+                                    <select
+                                        class="text-[12px] w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                        <option value="" disabled selected>Pilih Dosen</option>
+                                        <option value="dosen1">Dosen 1</option>
+                                        <option value="dosen2">Dosen 2</option>
+                                        <option value="dosen3">Dosen 3</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <button id="add-lecture-btn"
+                    class="text-[11px] h-15 w-30 mt-2 bg-[#49B195] text-white py-2 px-4 rounded-sm hover:bg-[#6F38C5] hover:text-white active:bg-[#6F38C5] active:text-white transition duration-300">
+                    + Tambah Data Dosen
+                </button>
+            </div>
+
+
+            <!-- Section Administrative Information -->
+            <div class="text-[13px] bg-[#6F38C5] text-white text-center py-2 rounded-sm font-medium mt-6 mb-6">
+                Informasi Administrasi
+            </div>
+
+            <div class="grid grid-cols-2 gap-6">
+                <!-- add loa number -->
+                <div>
+                    <label class="text-[14px] font-semibold block text-gray-700 mb-2" for="loa-number">Nomor Surat
+                        Tugas</label>
+                    <input type="text" id="loa-number" placeholder="Masukkan Nomor Surat Tugas"
+                        class="w-full border border-gray-300 rounded-lg p-2 text-[13px] focus:outline-none focus:ring-2 focus:ring-purple-500">
+                </div>
+
+                <!-- add loa date-->
+                <div>
+                    <label for="loa-date" class="block text-[14px] font-semibold text-gray-700 mb-2">Tanggal Surat
+                        Tugas</label>
+                    <input type="date" id="loa-date" name="loa-date"
+                        class="text-[12px] w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                </div>
+
+
+
+                <!-- upload loa -->
+                <div>
+                    <label class="text-[14px] font-semibold block text-gray-700 mb-2">Unggah File Surat Tugas</label>
+                    <div
+                        class="border-2 border-dashed border-gray-300 rounded-lg p-[90px] flex flex-col items-center justify-center text-center">
+                        <img src="prestasi-polinema/public/assets/icon/drag_icon.png" alt="drag_icon" class="mb-3 w-12 h-12">
+                        <div class="text-[13px] text-gray-400">Pilih file atau seret & letakkan di sini.</div>
+                        <div class="text-[11px] text-gray-500">Ekstensi jpg, jpeg, png, pdf, docx</div>
+                        <button
+                            class="mt-3 text-[14px] bg-[#EEEEEE] text-gray-600 py-2 px-5 rounded-lg hover:bg-gray-300 transition shadow-md">
+                            Telusuri File
+                        </button>
+                    </div>
+                </div>
+
+
+
+                <!-- upload certificate -->
+                <div>
+                    <label class="text-[14px] font-semibold block text-gray-700 mb-2">Unggah File Sertifikat</label>
+                    <div
+                        class="border-2 border-dashed border-gray-300 rounded-lg p-[90px] flex flex-col items-center justify-center text-center">
+                        <img src="prestasi-polinema/public/assets/icon/drag_icon.png" alt = drag_icon" class="mb-3 w-12 h-12">
+                        <div class="text-[13px] text-gray-400">Pilih file atau seret & letakkan di sini.</div>
+                        <div class="text-[11px] text-gray-500">Ekstensi jpg, jpeg, png, pdf, docx</div>
+                        <button
+                            class="mt-3 text-[14px] bg-[#EEEEEE] text-gray-600 py-2 px-5 rounded-lg hover:bg-gray-300 transition shadow-md">
+                            Telusuri File
+                        </button>
+                    </div>
+                </div>
+
+                <!-- upload photo -->
+                <div>
+                    <label class="text-[14px] font-semibold block text-gray-700 mb-2">Unggah Foto Kegiatan</label>
+                    <div
+                        class="border-2 border-dashed border-gray-300 rounded-lg p-[90px] flex flex-col items-center justify-center text-center">
+                        <img src="prestasi-polinema/public/assets/icon/drag_icon.png" alt="drag icon" class="mb-3 w-12 h-12">
+                        <div class="text-[13px] text-gray-400">Pilih file atau seret & letakkan di sini.</div>
+                        <div class="text-[11px] text-gray-500">Ekstensi jpg, jpeg, png, pdf, docx</div>
+                        <button
+                            class="mt-3 text-[14px] bg-[#EEEEEE] text-gray-600 py-2 px-5 rounded-lg hover:bg-gray-300 transition shadow-md">
+                            Telusuri File
+                        </button>
+                    </div>
+                </div>
+
+                <!-- upload flyer -->
+                <div>
+                    <label class="text-[14px] font-semibold block text-gray-700 mb-2">Unggah File Poster</label>
+                    <div
+                        class="border-2 border-dashed border-gray-300 rounded-lg p-[90px] flex flex-col items-center justify-center text-center">
+                        <img src="prestasi-polinema/public/assets/icon/drag_icon.png" alt="drag icon" class="mb-3 w-12 h-12">
+                        <div class="text-[13px] text-gray-400">Pilih file atau seret & letakkan di sini.</div>
+                        <div class="text-[11px] text-gray-500">Ekstensi jpg, jpeg, png, pdf, docx</div>
+                        <button
+                            class="mt-3 text-[14px] bg-[#EEEEEE] text-gray-600 py-2 px-5 rounded-lg hover:bg-gray-300 transition shadow-md">
+                            Telusuri File
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-start items-center mt-8 space-x-4">
+                <!-- button save-->
+                <button
+                    class="flex items-center text-[14px] font-semibold bg-[#49B195] text-white py-2 px-5 rounded-md hover:bg-[#6F38C5] transition shadow-lg">
+                    <img src="prestasi-polinema/public/assets/icon/save_icon.png" alt="save icon" class="w-4 h-5 mr-2">
+                    Simpan
+                </button>
+
+                <!-- button back -->
+                <button
+                    class="flex items-center text-[14px] font-semibold bg-gray-200 text-gray-700 py-2 px-5 rounded-md hover:bg-gray-300 transition shadow-lg">
+                    <img src="prestasi-polinema/public/assets/icon/back_icon.png" alt="back incon Icon" class="w-5 h-5 mr-2">
+                    Kembali
+                </button>
+            </div>
+        </div>
+    </div>
