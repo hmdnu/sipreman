@@ -29,7 +29,7 @@ class Student extends BaseModel
     public static function findOne(string $nim): array
     {
         return Schema::selectWhereFrom(self::TABLE, function (Blueprint $table) use ($nim) {
-            $table->selectWhere(["nim" => $nim], [self::NIM]);
+            $table->selectWhere(["nim" => $nim], [self::NIM, self::NAME]);
         });
     }
 }

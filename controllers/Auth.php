@@ -35,7 +35,7 @@ class Auth extends BaseController
             // redirect each user to their page
             switch ($user["role"]) {
                 case "student":
-                    $res->redirect("/dashboard/mahasiswa/{$user["no_induk"]}");
+                    $res->redirect("/dashboard/student/{$user["no_induk"]}");
                     break;
 
                 case "admin":

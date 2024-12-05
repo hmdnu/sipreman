@@ -22,7 +22,12 @@ $app::get("/", [Home::class, "index"]);
 $app::get("/login", [Auth::class, "renderLogin"]);
 $app::post("/post-login", [Auth::class, "login"]);
 
-$app::get("/dashboard/mahasiswa/:nim", [Dashboard::class, "studentDashboard"], [StudentMiddleware::class]);
+// student routes
+$app::get("/dashboard/student/:nim", [Dashboard::class, "studentUploadPrestasi"], [StudentMiddleware::class]);
+$app::get("/dashboard/student/:nim/validation", [Dashboard::class, "studentValidation"], [StudentMiddleware::class]);
+$app::get("/dashboard/student/:nim/point", [Dashboard::class, "studentPoint"], [StudentMiddleware::class]);
+
+// admin routes
 $app::get("/dashboard/admin/:nip", [Dashboard::class, "adminDashboard"], [AdminMiddleware::class]);
 
 $app::post("/post-prestasi", [Prestasi::class, "postPrestasi"]);
