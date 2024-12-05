@@ -1,3 +1,5 @@
 <h1>Dashboard admin</h1>
 
-<a href="/logout">Logout</a>
+<form action="/logout" method="post">
+    <button type="submit">logout</button>
+</form>
