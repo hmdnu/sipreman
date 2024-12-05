@@ -1,19 +1,21 @@
 {
-  "name": "daniu/pbl",
-  "authors": [
-    {
-      "name": "Nerots",
-      "email": "daniuyan71@gmail.com"
-    }
-  ],
-  "autoload": {
+    "name": "user/prestasi-polinema",
+    "autoload": {
     "psr-4": {
       "app\\": "./",
       "app\\models\\migrations\\": "./models/migrations/"
     }
   },
-  "require": {
+"require": {
     "ext-pdo": "*",
     "ext-sqlsrv": "*"
-  }
+  },
+
+    "authors": [
+        {
+            "name": "mrfauzii",
+            "email": "reishifauzi24@gmail.com"
+        }
+    ]
+    
 }
