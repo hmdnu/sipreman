@@ -6,6 +6,7 @@ class View
 {
     private static string $title = "Sipreman";
     private static array $data = [];
+    private static array $props = [];
 
     public function render(string $viewPath, string $title, array $data = []): void
     {
@@ -16,6 +17,12 @@ class View
         require_once "./views/layouts/footer.php";
     }
 
+    public static function renderComponent(string $componentPath, array $props = [])
+    {
+        self::$props = $props;
+        require_once "./views/components/{$componentPath}.php";
+    }
+
     public static function getTitle(): string
     {
         return self::$title;
@@ -24,6 +31,11 @@ class View
     public static function getData(): array
     {
         return self::$data;
+    }
+
+    public static function getProps(): array
+    {
+        return self::$props;
     }
 
     public function renderException(string $viewPath, string $title, array $data = []): void
