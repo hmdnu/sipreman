@@ -24,5 +24,10 @@ class Admin extends BaseModel
         return Schema::deleteFrom(self::TABLE);
     }
 
-
+    public static function findOne(string $nip): array
+    {
+        return Schema::selectWhereFrom(self::TABLE, function (Blueprint $table) use ($nip) {
+            $table->selectWhere(["nip" => $nip], [self::NIP]);
+        });
+    }
 }
