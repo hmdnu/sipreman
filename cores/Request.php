@@ -44,6 +44,12 @@ class Request
         return $data;
     }
 
+    public function file(): array
+    {
+
+        return $_FILES;
+    }
+
     public function getParams(array|string $param): array|string
     {
 
