@@ -17,7 +17,7 @@ class StudentMiddleware implements Middleware
         }
 
         $student = Student::findOne(Session::get("user"));
-        $nim = $student["result"][0]["nim"];
+        $nim = $student["nim"];
 
         if ($req->getParams("nim") !== $nim) {
             $res->redirect("/404.html");
