@@ -18,7 +18,7 @@
     <!-- add name of competition  -->
     <div>
         <label for="competition-name" class="block text-[14px] font-semibold text-gray-700 mb-2">Judul</label>
-        <input type="text" id="competition-name" name="competition-name"
+        <input required type="text" id="competition-name" name="competition-name"
             class="text-[12px] w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
             placeholder="Masukkan Judul Kompetisi">
     </div>
@@ -26,7 +26,7 @@
     <!-- add competition level -->
     <div>
         <label for="competition-level" class="block text-[14px] font-semibold text-gray-700 mb-2">Tingkat</label>
-        <select id="competition-level" name="competition-level"
+        <select required id="competition-level" name="competition-level"
             class="text-[12px] w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
             <option value="" disabled selected>Pilih Tingkat Kompetisi</option>
             <option value="regency">Kabupaten/Kota</option>
@@ -39,7 +39,7 @@
     <!-- add competition location -->
     <div>
         <label for="competition-location" class="block text-[14px] font-semibold text-gray-700 mb-2">Tempat</label>
-        <input type="text" id="competition-location" name="competition-location"
+        <input required type="text" id="competition-location" name="competition-location"
             class="text-[12px] w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
             placeholder="Masukkan Tempat Kompetisi">
     </div>
@@ -48,39 +48,39 @@
     <div>
         <label for="date-start" class="block text-[14px] font-semibold text-gray-700 mb-2">Tanggal
             Mulai</label>
-        <input type="date" id="date-start" name="date-start"
+        <input required type="date" id="date-start" name="date-start"
             class="text-[12px] w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
     </div>
 
     <!-- add source url competition -->
     <div>
         <label for="competition-url" class="block text-[14px] font-semibold text-gray-700 mb-2">Link</label>
-        <input type="url" id="competition-url" name="competition-url"
+        <input required type="url" id="competition-url" name="competition-url"
             class="text-[12px] w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
             placeholder="Masukkan Link Kompetisi">
     </div>
 
     <!-- date of end competition -->
     <div>
-        <label for="end-date" class="block text-[14px] font-semibold text-gray-700 mb-2">Tanggal
+        <label for="date-end" class="block text-[14px] font-semibold text-gray-700 mb-2">Tanggal
             Akhir</label>
-        <input type="date" id="end-date" name="end-date"
+        <input required type="date" id="date-end" name="date-end"
             class="text-[12px] w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
     </div>
 
     <!-- competition participants -->
     <div class="grid grid-cols-2 gap-6">
         <div>
-            <label for="jumlah-pt" class="block text-[14px] font-semibold text-gray-700 mb-2">Jumlah
+            <label for="total-college" class="block text-[14px] font-semibold text-gray-700 mb-2">Jumlah
                 Perguruan Tinggi Berpartisipasi</label>
-            <input type="number" id="jumlah-pt" name="jumlah-pt"
+            <input required type="number" id="total-college" name="total-college"
                 class="text-[12px] w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
                 placeholder="Masukkan Jumlah">
         </div>
         <div>
-            <label for="jumlah-peserta" class="block text-[14px] font-semibold text-gray-700 mb-2">Jumlah
+            <label for="total-participant" class="block text-[14px] font-semibold text-gray-700 mb-2">Jumlah
                 Total Peserta</label>
-            <input type="number" id="jumlah-peserta" name="jumlah-peserta"
+            <input required type="number" id="total-participant" name="total-participant"
                 class="text-[12px] w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
                 placeholder="Masukkan Jumlah">
         </div>

@@ -1,1 +1,7 @@
-<h1>point</h1>
+<?php
+
+use app\cores\View;
+
+?>
+
+<?php View::renderComponent("dashboard/sidebar") ?>

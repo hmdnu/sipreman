@@ -27,10 +27,12 @@ $app::get("/dashboard/student/:nim", [Dashboard::class, "studentUploadPrestasi"]
 $app::get("/dashboard/student/:nim/validation", [Dashboard::class, "studentValidation"], [StudentMiddleware::class]);
 $app::get("/dashboard/student/:nim/point", [Dashboard::class, "studentPoint"], [StudentMiddleware::class]);
 
-// admin routes
-$app::get("/dashboard/admin/:nip", [Dashboard::class, "adminDashboard"], [AdminMiddleware::class]);
-
 $app::post("/post-prestasi", [Prestasi::class, "postPrestasi"]);
+
+// admin routes
+$app::get("/dashboard/admin/:nip", [Dashboard::class, "renderAdminDashboardValidation"], [AdminMiddleware::class]);
+
+
 $app::post("/logout", [Auth::class, "logout"]);
 
 $app::run();
