@@ -26,5 +26,22 @@ class StudyProgram extends BaseModel
         return Schema::deleteFrom(self::TABLE);
     }
 
+    public static function findAll(): array
+    {
+        $studyProgram = [];
 
+        $results = Schema::selectFrom(self::TABLE, function (Blueprint $table) {
+            $table->select([self::STUDY_PROGRAM_NAME]);
+        });
+
+        if (isset($results["errors"])) {
+            throw $results["errors"];
+        }
+
+        foreach ($results["result"] as $key => $value) {
+            $studyProgram[$key] = $value[self::STUDY_PROGRAM_NAME];
+        }
+
+        return $studyProgram;
+    }
 }

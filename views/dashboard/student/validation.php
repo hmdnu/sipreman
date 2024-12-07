@@ -1,1 +1,7 @@
-<h1>validation</h1>
+<?php
+
+use app\cores\View;
+
+?>
+
+<!-- <?php View::renderComponent("dashboard/sidebar"); ?> -->

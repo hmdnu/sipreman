@@ -23,4 +23,23 @@ class Lecturer extends BaseModel
     {
         return Schema::deleteFrom(self::TABLE);
     }
+
+    public static function findAll(): array
+    {
+        $lecturers = [];
+
+        $results = Schema::selectFrom(self::TABLE, function (Blueprint $table) {
+            $table->select([self::NAME]);
+        });
+
+        if (isset($results["errors"])) {
+            throw $results["errors"];
+        }
+
+        foreach ($results["result"] as $key => $value) {
+            $lecturers[$key] = $value;
+        }
+
+        return $lecturers;
+    }
 }

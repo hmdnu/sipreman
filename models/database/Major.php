@@ -25,4 +25,22 @@ class Major extends BaseModel
         return Schema::deleteFrom(self::TABLE);
     }
 
+    public static function findAll(): array
+    {
+        $majors = [];
+
+        $results =  Schema::selectFrom(self::TABLE, function (Blueprint $table) {
+            $table->select([self::MAJOR_NAME]);
+        });
+
+        if (isset($results["errors"])) {
+            throw $results["errors"];
+        }
+
+        foreach ($results["result"] as $key => $major) {
+            $majors[$key] = $major[self::MAJOR_NAME];
+        }
+
+        return $majors;
+    }
 }
