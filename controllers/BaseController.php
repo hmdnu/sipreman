@@ -2,8 +2,6 @@
 
 namespace app\controllers;
 
-use app\cores\Request;
-use app\cores\Response;
 use app\cores\View;
 
 class BaseController
