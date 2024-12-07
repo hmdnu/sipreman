@@ -67,9 +67,13 @@ class Blueprint
     }
 
     public function alterAddForeignKey(
-        string $columnName, string $referenceTable,
-        string $referenceColumn, string $constraintName, string $onDelete = "NO ACTION", string $onUpdate = "NO ACTION"): void
-    {
+        string $columnName,
+        string $referenceTable,
+        string $referenceColumn,
+        string $constraintName,
+        string $onDelete = "NO ACTION",
+        string $onUpdate = "NO ACTION"
+    ): void {
 
         $this->alterations[] = "ALTER TABLE [$this->tableName]
                 ADD CONSTRAINT [$constraintName] FOREIGN KEY ([$columnName]) 
@@ -122,8 +126,9 @@ class Blueprint
     {
         $columnsSql = is_array($columns) ? implode(", ", $columns) : $columns;
 
-        $query = "SELECT $columnsSql FROM [$this->tableName]";
-        $this->selections = ["query" => $query];
+        $this->selections = [
+            "query" => "SELECT $columnsSql FROM [$this->tableName]"
+        ];
     }
 
 
@@ -164,9 +169,7 @@ class Blueprint
          [$this->tableName].$leftColumn = [$rightTable].$rightColumn;";
     }
 
-    public function leftJoin(): void
-    {
-    }
+    public function leftJoin(): void {}
 
     public function execute($query, $params = null): array
     {
@@ -193,5 +196,4 @@ class Blueprint
             "errors" => null
         ];
     }
-
 }
