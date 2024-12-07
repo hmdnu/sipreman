@@ -26,8 +26,15 @@ class Admin extends BaseModel
 
     public static function findOne(string $nip): array
     {
-        return Schema::selectWhereFrom(self::TABLE, function (Blueprint $table) use ($nip) {
+
+        $results =  Schema::selectWhereFrom(self::TABLE, function (Blueprint $table) use ($nip) {
             $table->selectWhere(["nip" => $nip], [self::NIP]);
         });
+
+        if (isset($results["errors"])) {
+            throw $results["errors"];
+        }
+
+        return $results["result"][0];
     }
 }
