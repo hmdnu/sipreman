@@ -1,19 +1,19 @@
 {
-  "name": "daniu/pbl",
-  "authors": [
-    {
-      "name": "Nerots",
-      "email": "daniuyan71@gmail.com"
-    }
-  ],
-  "autoload": {
-    "psr-4": {
-      "app\\": "./",
-      "app\\models\\migrations\\": "./models/migrations/"
-    }
-  },
-  "require": {
-    "ext-pdo": "*",
-    "ext-sqlsrv": "*"
-  }
+    "name": "acer/prestasi-polinema",
+    "autoload": {
+        "psr-4": {
+            "app\\": "./",
+            "app\\models\\migrations\\": "./models/migrations/"
+        }
+    },
+    "require": {
+        "ext-pdo": "*",
+        "ext-sqlsrv": "*"
+    },
+    "authors": [
+        {
+            "name": "Vita",
+            "email": "vitasrswt16@gmail.com"
+        }
+    ]
 }
