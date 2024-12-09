@@ -9,12 +9,11 @@ class m_016UserMigration implements BaseMigration
     public function up(): array
     {
         return Schema::createTableIfNotExist("user", function (Blueprint $table) {
-            $table->string("id");
             $table->string("no_induk");
+            $table->string("role");
             $table->string("password");
 
-            $table->primary("id");
-            $table->unique("no_induk");
+            $table->primary("no_induk");
         });
     }
 

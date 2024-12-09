@@ -1,3 +1,52 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+  font-family: "Poppins", sans-serif;
+}
+@layer base {
+  .h1 {
+    @apply text-[32px] leading-[42px];
+  }
+
+  .h2 {
+    @apply text-[28px] leading-[36px];
+  }
+
+  .h3 {
+    @apply text-[24px] leading-[32px];
+  }
+
+  .h4 {
+    @apply text-[20px] leading-[28px];
+  }
+
+  .h5 {
+    @apply text-[18px] leading-[24px];
+  }
+
+  .p1 {
+    @apply text-[14px] leading-[20px];
+  }
+
+  .p2 {
+    @apply text-[12px] leading-[18px];
+  }
+
+  .p3 {
+    @apply text-[10px] leading-[14px];
+  }
+
+  .l1 {
+    @apply text-[14px] leading-[18px];
+  }
+
+  .l2 {
+    @apply text-[12px] leading-[16px];
+  }
+
+  .l3 {
+    @apply text-[10px] leading-[12px];
+  }
+}

@@ -10,10 +10,12 @@ class Blueprint
     private array $columns = [];
     private array $constraints = [];
     private array $alterations = [];
+    private array $insertions = [];
+    private array $selections = [];
 
     private Database $db;
 
-    public function __construct(string $tableName = "")
+    public function __construct(string $tableName)
     {
         $this->tableName = $tableName;
         $this->db = new Database(Config::getConfig());
@@ -27,6 +29,26 @@ class Blueprint
     public function int(string $column): void
     {
         $this->columns[] = "[$column] int";
+    }
+
+    public function tinyInt(string $column): void
+    {
+        $this->columns[] = "[$column] tinyint";
+    }
+
+    public function date(string $column): void
+    {
+        $this->columns[] = "[$column] date";
+    }
+
+    public function datetime(string $column): void
+    {
+        $this->columns[] = "[$column] datetime";
+    }
+
+    public function decimal(string $column): void
+    {
+        $this->columns[] = "[$column] decimal";
     }
 
     public function unique($column): void
@@ -45,17 +67,23 @@ class Blueprint
     }
 
     public function alterAddForeignKey(
-        string $columnName, string $referenceTable,
-        string $referenceColumn, string $onDelete = 'CASCADE', string $onUpdate = 'CASCADE'): void
+        string $columnName,
+        string $referenceTable,
+        string $referenceColumn,
+        string $constraintName,
+        string $onDelete = "NO ACTION",
+        string $onUpdate = "NO ACTION"
+    ): void {
+
+        $this->alterations[] = "ALTER TABLE [$this->tableName]
+                ADD CONSTRAINT [$constraintName] FOREIGN KEY ([$columnName]) 
+                REFERENCES [$referenceTable] ([$referenceColumn]) 
+                ON DELETE $onDelete ON UPDATE $onUpdate;";
+    }
+
+    public function alterDropConstraint(string $constraintColumn): void
     {
-        $this->alterations = [
-            "table" => $this->tableName,
-            "column" => $columnName,
-            "referenceTable" => $referenceTable,
-            "referenceColumn" => $referenceColumn,
-            "onDelete" => $onDelete,
-            "onUpdate" => $onUpdate
-        ];
+        $this->alterations[] = "ALTER TABLE [$this->tableName] DROP CONSTRAINT [$constraintColumn]";
     }
 
 
@@ -75,18 +103,96 @@ class Blueprint
         ];
     }
 
-
-    public function execute($query): array
+    public function insert(array $columns, array $values): void
     {
-        $execute = $this->db::getConnection()->prepare($query)->execute();
+        $placeholders = array_map(fn($col) => ":$col", $columns);
+        $columnsSql = implode(", ", $columns);
+        $placeholdersSql = implode(", ", $placeholders);
+
+
+        $this->insertions[] = [
+            "query" => "INSERT INTO [$this->tableName] ($columnsSql) VALUES ($placeholdersSql)",
+            "params" => array_combine($placeholders, $values)
+        ];
+    }
+
+
+    public function getInsertions(): array
+    {
+        return $this->insertions;
+    }
+
+    public function select(array|string $columns = "*"): void
+    {
+        $columnsSql = is_array($columns) ? implode(", ", $columns) : $columns;
+
+        $this->selections = [
+            "query" => "SELECT $columnsSql FROM [$this->tableName]"
+        ];
+    }
+
+
+    public function selectWhere(array $conditions, array|string $columns = "*"): void
+    {
+        $columnsTsql = is_array($columns) ? implode(",", $columns) : $columns;
+        $whereClauses = [];
+        $params = [];
+
+        foreach ($conditions as $column => $value) {
+            $paramKey = ":$column";
+            $whereClauses[] = "$column = $paramKey";
+            $params[$paramKey] = $value;
+        }
+
+        $whereTsql = implode(" AND ", $whereClauses);
+
+        $this->selections = [
+            "query" => "SELECT $columnsTsql FROM [$this->tableName] WHERE $whereTsql;",
+            "params" => $params
+        ];
+    }
+
+    public function getSelection(): array
+    {
+        return $this->selections;
+    }
+
+    public function innerJoin(string $rightTable, string $leftColumn, string $rightColumn, array|string $column = "*"): void
+    {
+        $columns = is_array($column) ? implode(", ", $column) : $column;
+
+        $this->selections[] = "SELECT
+         $columns 
+         FROM [$this->tableName] 
+         INNER JOIN 
+         [$rightTable] ON 
+         [$this->tableName].$leftColumn = [$rightTable].$rightColumn;";
+    }
+
+    public function leftJoin(): void {}
+
+    public function execute($query, $params = null): array
+    {
+        $prepare = $this->db::getConnection()->prepare($query);
+        $execute = $prepare->execute($params);
 
         if (!$execute) {
             return [
-                "errors" => $this->db::getConnection()->errorInfo(),
+                "errors" => $prepare->errorInfo(),
             ];
         }
 
+        // Check if the query is a SELECT or similar query
+        if (preg_match('/^\s*(SELECT|SHOW|DESCRIBE|EXPLAIN)/i', $query)) {
+            return [
+                "result" => $prepare->fetchAll(\PDO::FETCH_ASSOC) ?: null,
+                "errors" => null
+            ];
+        }
+
+        // For non-select queries, return success
         return [
+            "result" => null,
             "errors" => null
         ];
     }

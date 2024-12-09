@@ -4,17 +4,8 @@ namespace app\models;
 
 use app\cores\Database;
 
-abstract class BaseModel extends Database
+abstract class BaseModel
 {
-    protected static string $table;
-
-    abstract protected function create();
-
-    abstract protected function update();
-
-    abstract protected function delete();
-
-    abstract protected function read();
-
-    abstract protected function readOne();
+    abstract public static function insert(array $data): array;
+    abstract public static function deleteAll(): array;
 }

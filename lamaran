@@ -2,11 +2,13 @@
 
 <?php
 
+use app\constant\Config;
 use app\cores\Migration;
+use app\cores\Seeder;
 
 require_once "vendor/autoload.php";
 
-$config = \app\constant\Config::getConfig();
+$config = Config::getConfig();
 
 $commands = [
     "tailwind" => function () {
@@ -23,6 +25,16 @@ $commands = [
         "down" => function () use ($config) {
             $migration = new Migration($config);
             $migration->rollback();
+        }
+    ],
+    "seed" => [
+        "create" => function () use ($config) {
+            $seeder = new Seeder($config);
+            $seeder->create();
+        },
+        "delete" => function () use ($config) {
+            $seeder = new Seeder($config);
+            $seeder->delete();
         }
     ]
 ];

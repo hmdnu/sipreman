@@ -4,14 +4,23 @@ namespace app\cores;
 
 class View
 {
-    private static string $title = "PBL";
+    private static string $title = "Sipreman";
+    private static array $data = [];
+    private static array $props = [];
 
-    public function render(string $viewPath, array $data = []): void
+    public function render(string $viewPath, string $title, array $data = []): void
     {
-        self::setTitle($data["title"]);
+        self::$title = $title;
+        self::$data = $data;
         require_once "./views/layouts/header.php";
         require_once "./views/{$viewPath}.php";
         require_once "./views/layouts/footer.php";
+    }
+
+    public static function renderComponent(string $componentPath, array $props = [])
+    {
+        self::$props = $props;
+        require_once "./views/components/{$componentPath}.php";
     }
 
     public static function getTitle(): string
@@ -19,14 +28,20 @@ class View
         return self::$title;
     }
 
-    private static function setTitle(string $title): void
+    public static function getData(): array
     {
-        self::$title = $title;
+        return self::$data;
     }
 
-    public function renderException(string $viewPath, array $data = []): void
+    public static function getProps(): array
     {
-        self::setTitle($data["title"]);
+        return self::$props;
+    }
+
+    public function renderException(string $viewPath, string $title, array $data = []): void
+    {
+        self::$title = $title;
+        self::$data = $data;
         require_once "./views/layouts/header.php";
         require_once "./views/exceptions/{$viewPath}.php";
         require_once "./views/layouts/footer.php";

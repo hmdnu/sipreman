@@ -16,10 +16,10 @@ class Migration
 
     public function migrate(): void
     {
-        $migrationPath = realpath(__DIR__ . '/../models/migrations');
+        $migrationPath = realpath(__DIR__ . "/../models/migrations");
         $files = scandir($migrationPath);
         foreach ($files as $file) {
-            if ($file === '.' || $file === '..') {
+            if ($file === "." || $file === "..") {
                 continue;
             }
 
@@ -46,7 +46,35 @@ class Migration
         }
     }
 
-    public function rollback()
+    public function rollback(): void
     {
+        $migrationPath = realpath(__DIR__ . '/../models/migrations');
+        $files = scandir($migrationPath);
+        foreach ($files as $file) {
+            if ($file === '.' || $file === '..') {
+                continue;
+            }
+
+            require_once $migrationPath . "/" . $file;
+            $className = pathinfo($file, PATHINFO_FILENAME);
+            $migration = new $className();
+
+            echo "rollback migration $file\n";
+            $query = $migration->down();
+
+            if (isset($query["errors"])) {
+                echo "failed to rollback migration $file\n";
+                $errMessage = $query["errors"];
+
+                foreach ($errMessage as $message) {
+                    echo $message["message"] . "\n";
+                }
+
+                echo "\n";
+                return;
+            } else {
+                echo "rolled back migration $file\n";
+            }
+        }
     }
 }
