@@ -50,3 +50,10 @@
     @apply text-[10px] leading-[12px];
   }
 }
+
+@layer components {
+  .custom-container {
+    @apply w-[890px] h-[227px] bg-neutral-0 rounded-[10px];
+    box-shadow: 4px 10px 20px 10px rgba(180, 180, 180, 0.25);
+  }
+}

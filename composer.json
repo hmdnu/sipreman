@@ -1,5 +1,5 @@
 {
-    "name": "pbl/vita",
+    "name": "yonanda/presma",
     "autoload": {
         "psr-4": {
             "app\\": "./",
@@ -8,7 +8,8 @@
     },
     "authors": [
         {
-            "name": "vita"
+            "name": "yonandamayla",
+            "email": "yonandamayla555@gmail.com"
         }
     ],
     "require": {

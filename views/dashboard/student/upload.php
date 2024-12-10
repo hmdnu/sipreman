@@ -12,7 +12,7 @@ use app\cores\View;
 
         <?php View::renderComponent("dashboard/studentData", View::getData()) ?>
         <?php View::renderComponent("dashboard/competitionData") ?>
-        <?php View::renderComponent("dashboard/supervisorData", View::getData()) ?>
+        <?php View::renderComponent("dashboard/supervisorData", props: View::getData()) ?>
         <?php View::renderComponent("dashboard/administrative") ?>
 
         <div class="bg-white rounded-lg p-6">
