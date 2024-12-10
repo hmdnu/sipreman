@@ -27,7 +27,7 @@ use app\cores\View;
                 <!-- button back -->
                 <button type="submit"
                     class="flex items-center text-[14px] font-semibold bg-gray-200 text-gray-700 py-2 px-5 rounded-md hover:bg-gray-300 transition shadow-lg">
-                    <img src="/public/assets/icon/back_icon.png" alt="back incon Icon" class="w-5 h-5 mr-2">
+                    <img src="/public/assets/icon/back_icon.png" alt="back Icon" class="w-5 h-5 mr-2">
                     Kembali
                 </button>
             </div>

@@ -1,19 +1,20 @@
 {
-    "name": "yonanda/presma",
+    "name": "acer/prestasi-polinema",
     "autoload": {
         "psr-4": {
             "app\\": "./",
             "app\\models\\migrations\\": "./models/migrations/"
         }
     },
-    "authors": [
-        {
-            "name": "yonandamayla",
-            "email": "yonandamayla555@gmail.com"
-        }
-    ],
+
     "require": {
         "ext-pdo": "*",
         "ext-sqlsrv": "*"
-    }
+    },
+    "authors": [
+        {
+            "name": "Vita",
+            "email": "vitasrswt16@gmail.com"
+        }
+    ]
 }
