@@ -6,6 +6,7 @@
             "app\\models\\migrations\\": "./models/migrations/"
         }
     },
+
     "require": {
         "ext-pdo": "*",
         "ext-sqlsrv": "*"
