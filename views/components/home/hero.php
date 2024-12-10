@@ -3,13 +3,13 @@
         <div class="flex items-center">
             <img src="/public/assets/icon/logo_sipreman.png" alt="Sipreman Logo" class="h-11 mr-3">
         </div>
-<nav class="flex justify-center space-x-8">
-    <a href="#home" class="h5 font-medium hover:bg-neutral-300 hover:bg-opacity-20 hover:rounded-[30px] transition duration-300 px-4 py-2 rounded-[30px]">Home</a>
-    <a href="#about" class="h5 font-medium hover:bg-neutral-300 hover:bg-opacity-20 hover:rounded-[30px] transition duration-300 px-4 py-2 rounded-[30px]">About</a>
-    <a href="#service" class="h5 font-medium hover:bg-neutral-300 hover:bg-opacity-20 hover:rounded-[30px] transition duration-300 px-4 py-2 rounded-[30px]">Service</a>
-    <a href="#achievement" class="h5 font-medium hover:bg-neutral-300 hover:bg-opacity-20 hover:rounded-[30px] transition duration-300 px-4 py-2 rounded-[30px]">Juara</a>
-</nav>
-<a href="/login" class="h5 font-medium hover:bg-neutral-300 hover:bg-opacity-20 hover:rounded-[30px] transition duration-300 px-4 py-2 rounded-[30px]">Login</a>
+        <nav class="flex justify-center space-x-8">
+            <a href="#hero" class="h5 font-medium hover:bg-neutral-300 hover:bg-opacity-20 hover:rounded-[30px] transition duration-300 px-4 py-2 rounded-[30px]">Home</a>
+            <a href="#about" class="h5 font-medium hover:bg-neutral-300 hover:bg-opacity-20 hover:rounded-[30px] transition duration-300 px-4 py-2 rounded-[30px]">About</a>
+            <a href="#service" class="h5 font-medium hover:bg-neutral-300 hover:bg-opacity-20 hover:rounded-[30px] transition duration-300 px-4 py-2 rounded-[30px]">Service</a>
+            <a href="#achievement" class="h5 font-medium hover:bg-neutral-300 hover:bg-opacity-20 hover:rounded-[30px] transition duration-300 px-4 py-2 rounded-[30px]">Juara</a>
+        </nav>
+        <a href="/login" class="h5 font-medium hover:bg-neutral-300 hover:bg-opacity-20 hover:rounded-[30px] transition duration-300 px-4 py-2 rounded-[30px]">Login</a>
     </div>
     <div class="absolute inset-0 flex items-center justify-center z-5">
         <div class="container mx-auto text-center text-neutral-0 px-4">
@@ -23,7 +23,8 @@
         </div>
     </div>
     </div>
-    <div class="absolute inset-0 flex justify-center items-end">
+    <!-- features section -->
+    <div class="absolute inset-0 flex justify-center items-end mb-8">
         <div class="custom-container">
             <div class="flex justify-center items-center">
                 <!-- upload achievement -->
@@ -37,8 +38,8 @@
                     <span class="text-center h5 font-medium text-primary-500 px-2">Cek Poin SKKM</span>
                 </div>
                 <!-- recent winner -->
-                <div class="flex flex-col items-center py-20 mr-10 ml-20">
-                    <img src="/public/assets/icon/recent_winner.png" alt="Pemenang Terbaru" class="w-[68px] h-[68px] mb-3">
+                <div class="flex flex-col items-center py-30 mr-10 ml-20">
+                    <img src="/public/assets/icon/recent_winner.png" alt="Pemenang Terbaru" class="w-[65px] h-[65px] mb-3 mt-2">
                     <span class="text-center h5 font-medium text-primary-500 px-2">Pemenang Terbaru</span>
                 </div>
             </div>
