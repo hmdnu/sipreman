@@ -1,18 +1,19 @@
 {
-    "name": "pbl/vita",
+    "name": "acer/prestasi-polinema",
     "autoload": {
         "psr-4": {
             "app\\": "./",
             "app\\models\\migrations\\": "./models/migrations/"
         }
     },
-    "authors": [
-        {
-            "name": "vita"
-        }
-    ],
     "require": {
         "ext-pdo": "*",
         "ext-sqlsrv": "*"
-    }
+    },
+    "authors": [
+        {
+            "name": "Vita",
+            "email": "vitasrswt16@gmail.com"
+        }
+    ]
 }
