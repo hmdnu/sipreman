@@ -19,6 +19,7 @@ class AuthController extends BaseController
         try {
             $user = User::findOne($noInduk)["result"][0];
 
+        
             if (!$user) {
                 $this->view("login/login", "login", ["error" => "user not found"]);
                 return;

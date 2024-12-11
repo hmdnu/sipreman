@@ -1,18 +1,19 @@
 {
-    "name": "pbl/vita",
-    "autoload": {
-        "psr-4": {
-            "app\\": "./",
-            "app\\models\\migrations\\": "./models/migrations/"
-        }
-    },
-    "authors": [
-        {
-            "name": "vita"
-        }
-    ],
-    "require": {
-        "ext-pdo": "*",
-        "ext-sqlsrv": "*"
+  "name": "daniu/pbl",
+  "autoload": {
+    "psr-4": {
+      "app\\": "./",
+      "app\\models\\migrations\\": "./models/migrations/"
     }
+  },
+  "authors": [
+    {
+      "name": "Nerots",
+      "email": "daniuyan71@gmail.com"
+    }
+  ],
+  "require": {
+    "ext-pdo": "*",
+    "ext-sqlsrv": "*"
+  }
 }

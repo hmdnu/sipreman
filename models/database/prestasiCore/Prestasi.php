@@ -51,24 +51,23 @@ class Prestasi extends BaseModel
 
     public static function getPrestasiData(string $nim): array
     {
+        self::instantiate();
+
         $query =
             "SELECT 
                     prestasi.competition_name,
                     loa.loa_number,
                     prestasi.competition_level,
                     prestasi_team.role,
-                    '-' AS 'point',
+                    skkm.point AS 'point',
                     prestasi.is_validate
                 FROM prestasi_team
                     JOIN prestasi ON prestasi_team.prestasi_id = prestasi.id 
                     JOIN attachment ON prestasi.attachment_id = attachment.id
                     JOIN loa ON loa.id = attachment.loa_id
+                    JOIN skkm on skkm.nim = prestasi_team.nim
                 WHERE prestasi_team.nim = :nim;";
 
-        $res = self::$schema->query($query)
-            ->bindParams(":nim", $nim)
-            ->execute();
-
-        return $res;
+        return self::$construct->query($query)->bindParams(":nim", $nim)->execute()->fetchColumn();
     }
 }

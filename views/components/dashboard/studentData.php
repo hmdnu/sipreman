@@ -24,7 +24,7 @@ use app\cores\View;
                     <option value="" disabled selected>Pilih Program Studi</option>
 
                     <?php
-                    foreach (View::getProps()["studyPrograms"] as $program) {
+                    foreach (View::getProps()["studentData"]["studyPrograms"] as $program) {
                         echo "<option value='$program'>$program</option>";
                     }
                     ?>
@@ -38,7 +38,7 @@ use app\cores\View;
                     <option value="" disabled selected>Pilih Jurusan</option>
 
                     <?php
-                    foreach (View::getProps()["majors"] as $program) {
+                    foreach (View::getProps()["studentData"]["majors"] as $program) {
                         echo "<option value='$program'>$program</option>";
                     }
                     ?>

@@ -2,17 +2,17 @@
 
 namespace app\models;
 
-use app\cores\Database;
-use app\cores\Schema;
+use app\cores\dbal\Construct;
 
 abstract class BaseModel
 {
-    protected static Schema $schema;
+    protected static Construct $construct;
 
-    public function __construct()
+    public static function instantiate(): void
     {
-        self::$schema = new Schema();
+        self::$construct = new Construct();
     }
+
 
     abstract public static function insert(array $data): array;
     abstract public static function deleteAll(): array;

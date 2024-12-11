@@ -103,7 +103,7 @@ class Construct
     }
 
 
-    public function execute(): bool
+    public function execute(): self|bool
     {
         foreach ($this->sql as $sql) {
             try {
@@ -121,16 +121,16 @@ class Construct
 
                 if (preg_match('/^\s*(SELECT|SHOW|DESCRIBE|EXPLAIN)/i', $sql)) {
                     $this->columnResults[] = $prepare->fetchAll(\PDO::FETCH_ASSOC) ?: null;
+                    return $this;
                 }
 
                 return true;
-
             } catch (\PDOException $err) {
                 LogError::log($err);
                 return false;
             }
         }
-        return false;
+        return $this;
     }
 
     public function fetchColumn(): ?array

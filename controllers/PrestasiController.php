@@ -26,17 +26,17 @@ class PrestasiController extends BaseController
         $body = $req->body();
         $file = $req->file();
 
-        $competitionRequest = new CompetitionRequest($body);
-        $studentDetails = $competitionRequest->getStudentDetails();
-        $competitionDetails = $competitionRequest->getCompetitionDetails();
-        $loaDetails = $competitionRequest->getLoaDetails();
-
-        $loaFile = $this->handleFileUpload($file["loa-file"]);
-        $certificateFile = $this->handleFileUpload($file["certificate-file"]);
-        $photoFile = $this->handleFileUpload($file["photo-file"]);
-        $flyerFile = $this->handleFileUpload($file["flyer-file"]);
-
         try {
+            $competitionRequest = new CompetitionRequest($body);
+            $studentDetails = $competitionRequest->getStudentDetails();
+            $competitionDetails = $competitionRequest->getCompetitionDetails();
+            $loaDetails = $competitionRequest->getLoaDetails();
+
+            $loaFile = $this->handleFileUpload($file["loa-file"]);
+            $certificateFile = $this->handleFileUpload($file["certificate-file"]);
+            $photoFile = $this->handleFileUpload($file["photo-file"]);
+            $flyerFile = $this->handleFileUpload($file["flyer-file"]);
+
             $prestasiId = UUID::generate();
             $attachmentIds = UUID::generate();
             $loaId = UUID::generate();
@@ -90,11 +90,14 @@ class PrestasiController extends BaseController
             }
 
             echo "sukses";
-        } catch (\PDOException $e) {
+        } catch (\PDOException|Exception $e) {
             var_dump($e->getMessage());
         }
     }
 
+    /**
+     * @throws Exception
+     */
     private function handleFileUpload(array $file): string
     {
         $fileName = $file["name"];
@@ -129,7 +132,7 @@ class PrestasiController extends BaseController
         $newfilename = $dir . '/' . date("Y-m-d_H-i-s") . "_{$temp[0]}" . '.' . $temp[1];
 
         return [
-            "isOk" =>  move_uploaded_file($tmpName, $newfilename),
+            "isOk" => move_uploaded_file($tmpName, $newfilename),
             "filePath" => $newfilename
         ];
     }
@@ -141,7 +144,7 @@ class PrestasiController extends BaseController
         $newfilename = $dir . '/' . date("Y-m-d_H-i-s") . "$fileName" . '.' . end($temp);
 
         return [
-            "isOk" =>  move_uploaded_file($tmpName, $newfilename),
+            "isOk" => move_uploaded_file($tmpName, $newfilename),
             "filePath" => $newfilename
         ];
     }

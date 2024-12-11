@@ -27,7 +27,7 @@ use app\cores\View;
                                 class="text-[12px] w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
                                 <option value="" disabled selected>Pilih Dosen</option>
                                 <?php
-                                foreach (View::getProps()["supervisors"] as $supervisor) {
+                                foreach (View::getProps()["studentData"]["supervisors"] as $supervisor) {
                                     echo "<option value='{$supervisor["nidn"]}'>{$supervisor["name"]}</option>";
                                 }
                                 ?>
