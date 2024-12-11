@@ -9,6 +9,7 @@ use app\constant\Config;
 use app\middlewares\AdminMiddleware;
 use app\middlewares\StudentMiddleware;
 use app\controllers\Prestasi;
+use app\middlewares\Middleware;
 
 require_once "helpers/env.php";
 require_once "vendor/autoload.php";
@@ -30,7 +31,9 @@ $app::get("/dashboard/student/:nim/point", [Dashboard::class, "studentPoint"], [
 $app::post("/post-prestasi", [Prestasi::class, "postPrestasi"]);
 
 // admin routes
-$app::get("/dashboard/admin/:nip", [Dashboard::class, "renderAdminDashboardValidation"], [AdminMiddleware::class]);
+$app::get("/dashboard/admin/:nip", [Dashboard::class, "adminDashboard"], [AdminMiddleware::class]);
+$app::get("/dasboard/admin/:nip/dataStudent", [Dashboard::class, "adminDataStudent"], [AdminMiddleware::class]);
+$app::get("/dashboard/admin/:nip/validation", [Dashboard::class, "adminValidation"], [AdminMiddleware::class]);
 
 
 $app::post("/logout", [Auth::class, "logout"]);
