@@ -2,7 +2,11 @@
 
 namespace app\helpers;
 
-class LogException extends \Exception
-{
 
+class LogError
+{
+ public static function log(\Throwable $msg): void
+    {
+        error_log($msg->getMessage());
+    }
 }
