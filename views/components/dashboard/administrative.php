@@ -8,7 +8,7 @@
     <div>
         <label class="text-[14px] font-semibold block text-gray-700 mb-2" for="loa-number">Nomor Surat
             Tugas</label>
-        <input type="text" id="loa-number" name="loa-number" placeholder="Masukkan Nomor Surat Tugas"
+        <input required type="text" id="loa-number" name="loa-number" placeholder="Masukkan Nomor Surat Tugas"
             class="w-full border border-gray-300 rounded-lg p-2 text-[13px] focus:outline-none focus:ring-2 focus:ring-purple-500">
     </div>
 
@@ -16,7 +16,7 @@
     <div>
         <label for="loa-date" class="block text-[14px] font-semibold text-gray-700 mb-2">Tanggal Surat
             Tugas</label>
-        <input type="date" id="loa-date" name="loa-date"
+        <input required type="date" id="loa-date" name="loa-date"
             class="text-[12px] w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
     </div>
 
@@ -45,7 +45,7 @@
             <div class="text-[13px] text-gray-400">Pilih file atau seret & letakkan di sini.</div>
             <div class="text-[11px] text-gray-500">Ekstensi jpg, jpeg, png, pdf, docx</div>
 
-            <input type="file" name="certificate-file" id="certificate-file"
+            <input required type="file" name="certificate-file" id="certificate-file"
                 class="mt-3 text-[14px] bg-[#EEEEEE] text-gray-600 py-2 px-5 rounded-lg hover:bg-gray-300 transition shadow-md" />
         </div>
     </div>
@@ -59,7 +59,7 @@
             <div class="text-[13px] text-gray-400">Pilih file atau seret & letakkan di sini.</div>
             <div class="text-[11px] text-gray-500">Ekstensi jpg, jpeg, png, pdf, docx</div>
 
-            <input type="file" name="photo-file" id="photo-file"
+            <input required type="file" name="photo-file" id="photo-file"
                 class="mt-3 text-[14px] bg-[#EEEEEE] text-gray-600 py-2 px-5 rounded-lg hover:bg-gray-300 transition shadow-md" />
         </div>
     </div>
@@ -74,7 +74,7 @@
             <div class="text-[13px] text-gray-400">Pilih file atau seret & letakkan di sini.</div>
             <div class="text-[11px] text-gray-500">Ekstensi jpg, jpeg, png, pdf, docx</div>
 
-            <input type="file" name="flyer-file" id="flyer-file"
+            <input required type="file" name="flyer-file" id="flyer-file"
                 class="mt-3 text-[14px] bg-[#EEEEEE] text-gray-600 py-2 px-5 rounded-lg hover:bg-gray-300 transition shadow-md" />
         </div>
     </div>

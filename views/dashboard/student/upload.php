@@ -5,7 +5,6 @@ use app\cores\View;
 ?>
 
 <section>
-
     <?php View::renderComponent("dashboard/sidebar", View::getData()) ?>
     <!-- Main Content -->
     <form action="/post-prestasi" method="post" class="flex-1 ml-64 p-8">
