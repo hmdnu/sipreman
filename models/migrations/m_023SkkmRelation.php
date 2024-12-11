@@ -1,25 +1,30 @@
 <?php
 
-namespace app\models\migrationBackup;
-
 use app\cores\Blueprint;
+use app\cores\dbal\Column;
 use app\cores\Schema;
+use app\models\BaseMigration;
 use app\models\Migration;
 
-class m_023SkkmRelation implements Migration
+class m_023SkkmRelation extends BaseMigration implements Migration
 {
-    public function up(): array
+    public function up(): bool
     {
-        return Schema::alterTable("skkm", function (Blueprint $table) {
-            $table->alterAddForeignKey("prestasi_id", "prestasi", "id", "fk_prestasi_id_skkm");
-            $table->alterAddForeignKey("nim", "student", "nim", "fk_nim_skkm");
-        });
+        return $this->construct->alterTable("skkm", function (Column $table) {
+            $table
+                ->addForeignKey("prestasi_id", "fk_prestasi_id_skkm")
+                ->reference("prestasi", "id")
+                ->cascade();
+
+            $table
+                ->addForeignKey("nim", "fk_nim_skkm")
+                ->reference("student", "nim")
+                ->cascade();
+        })->execute();
     }
 
-    public function down(): array
+    public function down(): bool
     {
-        return [];
+        return true;
     }
-
-
 }

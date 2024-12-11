@@ -1,24 +1,25 @@
 <?php
 
-namespace app\models\migrationBackup;
-
 use app\cores\Blueprint;
+use app\cores\dbal\Column;
 use app\cores\Schema;
+use app\models\BaseMigration;
 use app\models\Migration;
 
-class m_025StudyProgramRelation implements Migration
+class m_025StudyProgramRelation extends BaseMigration implements Migration
 {
-    public function up(): array
+    public function up(): bool
     {
-        return Schema::alterTable("study_program", function (Blueprint $table) {
-            $table->alterAddForeignKey("major_id", "major", "id", "fk_major_id_study_program");
-        });
+        return $this->construct->alterTable("study_program", function (Column $table) {
+            $table
+                ->addForeignKey("major_id", "fk_major_id_study_program")
+                ->reference("major", "id")
+                ->cascade();
+        })->execute();
     }
 
-    public function down(): array
+    public function down(): bool
     {
-        return [];
+        return true;
     }
-
-
 }

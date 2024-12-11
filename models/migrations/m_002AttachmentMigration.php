@@ -1,37 +1,27 @@
 <?php
 
 use app\cores\Blueprint;
+use app\cores\dbal\Column;
 use app\cores\Schema;
 use app\models\BaseMigration;
+use app\models\Migration;
 
-class m_002AttachmentMigration implements BaseMigration
+class m_002AttachmentMigration extends BaseMigration implements Migration
 {
-    public function up(): array
+    public function up(): bool
     {
-        return Schema::createTableIfNotExist("attachment", function (Blueprint $table) {
-            $table->string("id");
+        return $this->construct->createTable("attachment", function (Column $table) {
+            $table->string("id")->primary();
             $table->string("loa_id");
             $table->string("certificate_path");
             $table->string("documentation_photo_path");
             $table->string("poster_path");
-            $table->string("creation_path");
             $table->string("caption");
-
-            $table->primary("id");
-            $table->unique("loa_id");
-        });
+        })->execute();
     }
 
-    public function down(): array
+    public function down(): bool
     {
-        $query = [];
-
-        $query[0] = Schema::alterTable("prestasi", function (Blueprint $table) {
-            $table->alterDropConstraint("fk_prestasi_id");
-        });
-        $query[1] = Schema::dropTableIfExist("attachment");
-
-        return $query;
+        return $this->construct->dropTable("attachment")->execute();
     }
-
 }

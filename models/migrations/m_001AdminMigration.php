@@ -1,23 +1,21 @@
 <?php
 
 use app\models\BaseMigration;
-use app\cores\Schema;
-use app\cores\Blueprint;
+use app\models\Migration;
+use app\cores\dbal\Column;
 
-class m_001AdminMigration implements BaseMigration
+class m_001AdminMigration extends BaseMigration implements Migration
 {
-    public function up(): array
+    public function up(): bool
     {
-        return Schema::createTableIfNotExist("admin", function (Blueprint $table) {
-            $table->string("nip");
+        return $this->construct->createTable("admin", function (Column $table) {
+            $table->string("nip")->primary();
             $table->string("name");
-
-            $table->primary("nip");
-        });
+        })->execute();
     }
 
-    public function down(): array
+    public function down(): bool
     {
-        return Schema::dropTableIfExist("Admin");
+        return $this->construct->dropTable("admin")->execute();
     }
 }

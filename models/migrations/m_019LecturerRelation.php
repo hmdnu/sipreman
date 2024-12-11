@@ -1,24 +1,23 @@
 <?php
 
-namespace app\models\migrationBackup;
-
-use app\cores\Blueprint;
-use app\cores\Schema;
+use app\cores\dbal\Column;
+use app\models\BaseMigration;
 use app\models\Migration;
 
-class m_019LecturerRelation implements Migration
+class m_019LecturerRelation extends BaseMigration implements Migration
 {
-    public function up(): array
+    public function up(): bool
     {
-        return Schema::alterTable("lecturer", function (Blueprint $table) {
-            $table->alterAddForeignKey("nidn", "user", "no_induk", "fk_nidn_lecturer", "NO ACTION");
-        });
+        return $this->construct->alterTable("lecturer", function (Column $table) {
+            $table
+                ->addForeignKey("nidn", "fk_nidn_lecturer")
+                ->reference("user", "no_induk")
+                ->cascade();
+        })->execute();
     }
 
-    public function down(): array
+    public function down(): bool
     {
-        return Schema::alterTable("lecturer", function (Blueprint $table) {
-            $table->alterDropConstraint("nidn");
-        });
+        return true;
     }
 }

@@ -1,26 +1,25 @@
 <?php
 
-namespace app\models\migrationBackup;
 
 use app\cores\Blueprint;
+use app\cores\dbal\Column;
 use app\cores\Schema;
+use app\models\BaseMigration;
 use app\models\Migration;
 
-class m_016UserMigration implements Migration
+class m_016UserMigration extends BaseMigration implements Migration
 {
-    public function up(): array
+    public function up(): bool
     {
-        return Schema::createTableIfNotExist("user", function (Blueprint $table) {
-            $table->string("no_induk");
+        return $this->construct->createTable("user", function (Column $table) {
+            $table->string("no_induk")->primary();
             $table->string("role");
             $table->string("password");
-
-            $table->primary("no_induk");
-        });
+        })->execute();
     }
 
-    public function down(): array
+    public function down(): bool
     {
-        return Schema::dropTableIfExist("user");
+        return $this->construct->dropTable("user")->execute();
     }
 }

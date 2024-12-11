@@ -1,17 +1,17 @@
 <?php
 
-namespace app\models\migrationBackup;
-
 use app\cores\Blueprint;
+use app\cores\dbal\Column;
 use app\cores\Schema;
+use app\models\BaseMigration;
 use app\models\Migration;
 
-class m_008PrestasiMigration implements Migration
+class m_008PrestasiMigration extends BaseMigration implements Migration
 {
-    public function up(): array
+    public function up(): bool
     {
-        return Schema::createTableIfNotExist("prestasi", function (Blueprint $table) {
-            $table->string("id");
+        return $this->construct->createTable("prestasi", function (Column $table) {
+            $table->string("id")->primary();
             $table->string("attachment_id");
             $table->string("competition_name");
             $table->string("category_name");
@@ -24,12 +24,10 @@ class m_008PrestasiMigration implements Migration
             $table->int("total_participant");
             $table->string("supervisor_id");
             $table->tinyInt("is_validate");
-
-            $table->primary("id");
-        });
+        })->execute();
     }
 
-    public function down(): array
+    public function down(): bool
     {
         return Schema::dropTableIfExist("prestasi");
     }

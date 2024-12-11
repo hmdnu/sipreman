@@ -1,25 +1,30 @@
 <?php
 
-
-namespace app\models\migrationBackup;
-
 use app\cores\Blueprint;
+use app\cores\dbal\Column;
 use app\cores\Schema;
+use app\models\BaseMigration;
 use app\models\Migration;
 
-class m_024PrestasiStatisticRelation implements Migration
+class m_024PrestasiStatisticRelation extends BaseMigration implements Migration
 {
-    public function up(): array
+    public function up(): bool
     {
-        return Schema::alterTable("prestasi_statistic", function (Blueprint $table) {
-            $table->alterAddForeignKey("study_program_id", "study_program", "id", "fk_study_program_id_prestasi_statistic");
-            $table->alterAddForeignKey("major_id", "major", "id", "fk_major_id_prestasi_statistic");
-        });
+        return $this->construct->alterTable("prestasi_statistic", function (Column $table) {
+            $table
+                ->addForeignKey("study_program_id", "fk_study_program_id_prestasi_statistic")
+                ->reference("study_program", "id")
+                ->cascade();
+            $table
+                ->addForeignKey("major_id", "fk_study_major_id_prestasi_statistic")
+                ->reference("major", "id")
+                ->cascade();
+
+        })->execute();
     }
 
-    public function down(): array
+    public function down(): bool
     {
-        return [];
+        return true;
     }
-
 }

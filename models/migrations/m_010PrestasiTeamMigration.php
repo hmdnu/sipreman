@@ -1,30 +1,28 @@
 <?php
 
-namespace app\models\migrationBackup;
-
 use app\cores\Blueprint;
+use app\cores\dbal\Column;
 use app\cores\Schema;
+use app\models\BaseMigration;
 use app\models\Migration;
 
-class m_010PrestasiTeamMigration implements Migration
+class m_010PrestasiTeamMigration extends  BaseMigration  implements Migration
 {
-    public function up(): array
+    public function up(): bool
     {
 
-        return Schema::createTableIfNotExist("prestasi_team", function (Blueprint $table) {
-            $table->string("id");
+        return $this->construct->createTable("prestasi_team", function (Column $table) {
+            $table->string("id")->primary();
             $table->string("nim");
             $table->string("name");
             $table->string("role");
             $table->string("supervisor_id");
             $table->string("prestasi_id");
-
-            $table->primary("id");
-        });
+        })->execute();
     }
 
-    public function down(): array
+    public function down(): bool
     {
-        return Schema::dropTableIfExist("prestasi_team");
+        return $this->construct->dropTable("prestasi_team")->execute();
     }
 }

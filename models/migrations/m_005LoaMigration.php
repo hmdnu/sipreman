@@ -1,30 +1,26 @@
 <?php
 
-
-namespace app\models\migrationBackup;
-
 use app\cores\Blueprint;
+use app\cores\dbal\Column;
 use app\cores\Schema;
+use app\models\BaseMigration;
 use app\models\Migration;
 
-class m_005LoaMigration implements Migration
+class m_005LoaMigration extends BaseMigration implements Migration
 {
-    public function up(): array
+    public function up(): bool
     {
 
-        return Schema::createTableIfNotExist("loa", function (Blueprint $table) {
-            $table->string("id");
-            $table->string("loa_number");
+        return $this->construct->createTable("loa", function (Column $table) {
+            $table->string("id")->primary();
+            $table->string("loa_number")->unique();
             $table->date("date");
             $table->string("loa_pdf_path");
-
-            $table->primary("id");
-            $table->unique("loa_number");
-        });
+        })->execute();
     }
 
-    public function down(): array
+    public function down(): bool
     {
-        return Schema::dropTableIfExist("loa");
+        return $this->construct->dropTable("loa")->execute();
     }
 }

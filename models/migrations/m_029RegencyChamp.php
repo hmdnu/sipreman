@@ -1,23 +1,26 @@
 <?php
 
-namespace app\models\migrationBackup;
-
 use app\cores\Blueprint;
+use app\cores\dbal\Column;
 use app\cores\Schema;
+use app\models\BaseMigration;
 use app\models\Migration;
 
-class m_029RegencyChamp implements Migration
+class m_029RegencyChamp extends BaseMigration implements Migration
 {
 
-    public function up(): array
+    public function up(): bool
     {
-        return Schema::alterTable("regency_champ", function (Blueprint $table) {
-            $table->alterAddForeignKey("nim", "student", "nim", "fk_nim_regency_champ");
-        });
+        return $this->construct->alterTable("regency_champ", function (Column $table) {
+            $table
+                ->addForeignKey("nim", "fk_nim_regency_champ")
+                ->reference("student", "nim")
+                ->cascade();
+        })->execute();
     }
 
-    public function down(): array
+    public function down(): bool
     {
-        return [];
+        return true;
     }
 }
