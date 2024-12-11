@@ -2,10 +2,9 @@
 
 namespace app\models;
 
-interface BaseMigration
+interface Migration
 {
-    public function up(): array;
+    public function up(): bool;
 
-    public function down(): array;
-
+    public function down(): bool;
 }
