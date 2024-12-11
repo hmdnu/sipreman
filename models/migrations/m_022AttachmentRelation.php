@@ -1,10 +1,12 @@
 <?php
 
+namespace app\models\migrationBackup;
+
 use app\cores\Blueprint;
 use app\cores\Schema;
-use app\models\BaseMigration;
+use app\models\Migration;
 
-class m_022AttachmentRelation implements BaseMigration
+class m_022AttachmentRelation implements Migration
 {
     public function up(): array
     {

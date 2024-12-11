@@ -1,11 +1,13 @@
 <?php
 
 
+namespace app\models\migrationBackup;
+
 use app\cores\Blueprint;
 use app\cores\Schema;
-use app\models\BaseMigration;
+use app\models\Migration;
 
-class m_013SkkmMigration implements BaseMigration
+class m_013SkkmMigration implements Migration
 {
     public function up(): array
     {
@@ -19,10 +21,6 @@ class m_013SkkmMigration implements BaseMigration
             $table->decimal("point");
 
             $table->primary("id");
-            $table->unique("nim");
-            $table->unique("certificate_number");
-            $table->unique("prestasi_id");
-
         });
     }
 

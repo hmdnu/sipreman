@@ -1,10 +1,12 @@
 <?php
 
+namespace app\models\migrationBackup;
+
 use app\cores\Blueprint;
 use app\cores\Schema;
-use app\models\BaseMigration;
+use app\models\Migration;
 
-class m_009PrestasiStatisticMigration implements BaseMigration
+class m_009PrestasiStatisticMigration implements Migration
 {
     public function up(): array
     {
@@ -16,8 +18,6 @@ class m_009PrestasiStatisticMigration implements BaseMigration
             $table->int("year");
 
             $table->primary("id");
-            $table->unique("major_id");
-            $table->unique("study_program_id");
         });
     }
 

@@ -1,10 +1,12 @@
 <?php
 
+namespace app\models\migrationBackup;
+
 use app\cores\Blueprint;
 use app\cores\Schema;
-use app\models\BaseMigration;
+use app\models\Migration;
 
-class m_007NationalChampMigration implements BaseMigration
+class m_007NationalChampMigration implements Migration
 {
     public function up(): array
     {
@@ -13,7 +15,6 @@ class m_007NationalChampMigration implements BaseMigration
             $table->string("nim");
 
             $table->primary("id");
-            $table->unique("nim");
         });
     }
 

@@ -1,10 +1,12 @@
 <?php
 
+namespace app\models\migrationBackup;
+
 use app\cores\Blueprint;
 use app\cores\Schema;
-use app\models\BaseMigration;
+use app\models\Migration;
 
-class m_018StudentRelation implements BaseMigration
+class m_018StudentRelation implements Migration
 {
     public function up(): array
     {

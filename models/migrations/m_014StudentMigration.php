@@ -1,11 +1,13 @@
 <?php
 
 
+namespace app\models\migrationBackup;
+
 use app\cores\Blueprint;
 use app\cores\Schema;
-use app\models\BaseMigration;
+use app\models\Migration;
 
-class m_014StudentMigration implements BaseMigration
+class m_014StudentMigration implements Migration
 {
     public function up(): array
     {
@@ -16,8 +18,6 @@ class m_014StudentMigration implements BaseMigration
             $table->string("major_id");
 
             $table->primary("nim");
-            $table->unique("study_program_id");
-            $table->unique("major_id");
         });
     }
 

@@ -2,10 +2,7 @@
 
 namespace app\models;
 
-interface BaseMigration
+class BaseMigration
 {
-    public function up(): array;
-
-    public function down(): array;
 
 }

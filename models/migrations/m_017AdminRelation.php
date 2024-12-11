@@ -1,11 +1,13 @@
 <?php
 
+namespace app\models\migrationBackup;
+
 use app\cores\Blueprint;
 use app\cores\Schema;
-use app\models\BaseMigration;
+use app\models\Migration;
 
 
-class m_017AdminRelation implements BaseMigration
+class m_017AdminRelation implements Migration
 {
     public function up(): array
     {
@@ -16,8 +18,8 @@ class m_017AdminRelation implements BaseMigration
 
     public function down(): array
     {
-      return Schema::alterTable("admin", function (Blueprint $table) {
-          $table->alterDropConstraint("FK_nip");
-      });
+        return Schema::alterTable("admin", function (Blueprint $table) {
+            $table->alterDropConstraint("FK_nip");
+        });
     }
 }

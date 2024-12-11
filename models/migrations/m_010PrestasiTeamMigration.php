@@ -1,26 +1,25 @@
 <?php
 
+namespace app\models\migrationBackup;
+
 use app\cores\Blueprint;
 use app\cores\Schema;
-use app\models\BaseMigration;
+use app\models\Migration;
 
-class m_010PrestasiTeamMigration implements BaseMigration
+class m_010PrestasiTeamMigration implements Migration
 {
     public function up(): array
     {
 
         return Schema::createTableIfNotExist("prestasi_team", function (Blueprint $table) {
             $table->string("id");
-            $table->tinyInt("is_leader");
-            $table->tinyInt("is_member");
+            $table->string("nim");
+            $table->string("name");
+            $table->string("role");
             $table->string("supervisor_id");
             $table->string("prestasi_id");
-            $table->string("nim");
 
             $table->primary("id");
-            $table->unique("prestasi_id");
-            $table->unique("supervisor_id");
-            $table->unique("nim");
         });
     }
 

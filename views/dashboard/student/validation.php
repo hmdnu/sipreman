@@ -4,4 +4,4 @@ use app\cores\View;
 
 ?>
 
-<!-- <?php View::renderComponent("dashboard/sidebar"); ?> -->
+<?php View::renderComponent("dashboard/sidebar"); ?>

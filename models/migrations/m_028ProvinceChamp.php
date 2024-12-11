@@ -1,9 +1,12 @@
 <?php
 
+namespace app\models\migrationBackup;
+
 use app\cores\Blueprint;
 use app\cores\Schema;
-use app\models\BaseMigration;
-class m_028ProvinceChamp implements BaseMigration
+use app\models\Migration;
+
+class m_028ProvinceChamp implements Migration
 {
     public function up(): array
     {
