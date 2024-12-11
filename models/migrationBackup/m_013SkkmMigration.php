@@ -1,5 +1,4 @@
-<?php
-
+<?php;
 
 use app\cores\Blueprint;
 use app\cores\Schema;

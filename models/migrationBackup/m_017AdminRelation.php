@@ -1,4 +1,4 @@
-<?php
+<?php;
 
 use app\cores\Blueprint;
 use app\cores\Schema;
@@ -16,8 +16,8 @@ class m_017AdminRelation implements Migration
 
     public function down(): array
     {
-      return Schema::alterTable("admin", function (Blueprint $table) {
-          $table->alterDropConstraint("FK_nip");
-      });
+        return Schema::alterTable("admin", function (Blueprint $table) {
+            $table->alterDropConstraint("FK_nip");
+        });
     }
 }

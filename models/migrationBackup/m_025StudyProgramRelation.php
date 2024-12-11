@@ -1,4 +1,4 @@
-<?php
+<?php;
 
 use app\cores\Blueprint;
 use app\cores\Schema;
@@ -17,6 +17,4 @@ class m_025StudyProgramRelation implements Migration
     {
         return [];
     }
-
-
 }

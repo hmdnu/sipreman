@@ -1,5 +1,4 @@
-<?php
-
+<?php;
 
 use app\cores\Blueprint;
 use app\cores\Schema;
@@ -19,5 +18,4 @@ class m_020PrestasiRelation implements Migration
     {
         return [];
     }
-
 }

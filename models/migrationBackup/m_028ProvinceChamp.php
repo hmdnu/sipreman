@@ -1,8 +1,9 @@
-<?php
+<?php;
 
 use app\cores\Blueprint;
 use app\cores\Schema;
 use app\models\Migration;
+
 class m_028ProvinceChamp implements Migration
 {
     public function up(): array
@@ -16,6 +17,4 @@ class m_028ProvinceChamp implements Migration
     {
         return [];
     }
-
-
 }

@@ -1,4 +1,4 @@
-<?php
+<?php;
 
 use app\cores\Blueprint;
 use app\cores\Schema;
@@ -18,6 +18,4 @@ class m_023SkkmRelation implements Migration
     {
         return [];
     }
-
-
 }

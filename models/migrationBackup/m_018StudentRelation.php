@@ -1,4 +1,4 @@
-<?php
+<?php;
 
 use app\cores\Blueprint;
 use app\cores\Schema;
@@ -21,5 +21,4 @@ class m_018StudentRelation implements Migration
             $table->alterDropConstraint("FK_nim");
         });
     }
-
 }

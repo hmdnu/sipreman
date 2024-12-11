@@ -1,5 +1,6 @@
 <?php
 
+
 use app\cores\Blueprint;
 use app\cores\Schema;
 use app\models\Migration;
