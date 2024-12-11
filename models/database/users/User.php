@@ -16,7 +16,11 @@ class User extends BaseModel
     public static function insert(array $data): array
     {
         return Schema::insertInto(self::TABLE, function (Blueprint $table) use ($data) {
-            $table->insert([self::NO_INDUK, self::ROLE, self::PASSWORD], $data);
+            $table->insert([
+                self::NO_INDUK,
+                self::ROLE,
+                self::PASSWORD
+            ], $data);
         });
     }
 
@@ -25,7 +29,6 @@ class User extends BaseModel
         return Schema::selectWhereFrom(self::TABLE, function (Blueprint $table) use ($noInduk) {
             $table->selectWhere(["no_induk" => $noInduk], [self::NO_INDUK, self::ROLE, self::PASSWORD]);
         });
-
     }
 
     public static function findAll(): array

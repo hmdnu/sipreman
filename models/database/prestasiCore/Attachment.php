@@ -14,18 +14,24 @@ class Attachment extends BaseModel
     public const CERTIFICATE_PATH = "certificate_path";
     public const DOCUMENTATION_PHOTO_PATH = "documentation_photo_path";
     public const POSTER_PATH = "poster_path";
-    public const CREATION_PATH = "creation_path";
     public const CAPTION = "caption";
 
     public static function insert(array $data): array
     {
-        return Schema::insertInto(self::TABLE, function (Blueprint $table) use ($data){
-            $table->insert([self::ID, self::LOA_ID, self::CERTIFICATE_PATH, self::DOCUMENTATION_PHOTO_PATH, self::POSTER_PATH, self::CREATION_PATH, self::CAPTION], $data);
+        return Schema::insertInto(self::TABLE, function (Blueprint $table) use ($data) {
+            $table->insert([
+                self::ID,
+                self::LOA_ID,
+                self::CERTIFICATE_PATH,
+                self::DOCUMENTATION_PHOTO_PATH,
+                self::POSTER_PATH,
+                self::CAPTION
+            ], $data);
         });
     }
 
     public static function deleteAll(): array
     {
-        return Schema::deleteFrom(self:: TABLE);
+        return Schema::deleteFrom(self::TABLE);
     }
 }

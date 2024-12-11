@@ -17,8 +17,14 @@ class PrestasiStats extends BaseModel
 
     public static function insert(array $data): array
     {
-        return Schema::insertInto(self::TABLE, function (Blueprint $table) use ($data){
-            $table->insert([self::ID, self::MAJOR_ID, self::STUDY_PROGRAM_ID, self::TOTAL_VICTORY_ALL, self::YEAR], $data);
+        return Schema::insertInto(self::TABLE, function (Blueprint $table) use ($data) {
+            $table->insert([
+                self::ID,
+                self::MAJOR_ID,
+                self::STUDY_PROGRAM_ID,
+                self::TOTAL_VICTORY_ALL,
+                self::YEAR
+            ], $data);
         });
     }
 

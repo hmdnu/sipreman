@@ -19,8 +19,16 @@ class Skkm extends BaseModel
 
     public static function insert(array $data): array
     {
-        return Schema::insertInto(self::TABLE, function(Blueprint $table) use ($data){
-            $table->insert([self::ID, self::NIM, self::PRESTASI_ID, self::CERTIFICATE_NUMBER, self::LEVEL, self::CERTIFICATE_PATH, self::POINT], $data);
+        return Schema::insertInto(self::TABLE, function (Blueprint $table) use ($data) {
+            $table->insert([
+                self::ID,
+                self::NIM,
+                self::PRESTASI_ID,
+                self::CERTIFICATE_NUMBER,
+                self::LEVEL,
+                self::CERTIFICATE_PATH,
+                self::POINT
+            ], $data);
         });
     }
 

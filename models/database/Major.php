@@ -13,11 +13,17 @@ class Major extends BaseModel
     public const MAJOR_NAME = "major_name";
     public const TOTAL_VICTORY_MAJOR = "total_victory_major";
 
+
     public static function insert(array $data): array
     {
-        return Schema::insertInto(self::TABLE, function (Blueprint $table) use ($data) {
-            $table->insert([self::ID, self::MAJOR_NAME, self::TOTAL_VICTORY_MAJOR], $data);
-        });
+
+         return Schema::insertInto(self::TABLE, function (Blueprint $table) use ($data) {
+             $table->insert([
+                 self::ID,
+                 self::MAJOR_NAME,
+                 self::TOTAL_VICTORY_MAJOR
+             ], $data);
+         });
     }
 
     public static function deleteAll(): array
@@ -43,4 +49,6 @@ class Major extends BaseModel
 
         return $majors;
     }
+
+    public static function find() {}
 }
