@@ -8,7 +8,7 @@ use app\cores\View;
 
 
 <!-- Main Content -->
-<div class="flex-1 p-4 md:p-8">
+<div class="flex-1 p-8 ml-64">
     <!-- Header -->
     <h1 class="text-lg md:text-xl font-bold mb-4">Poinku</h1>
 
