@@ -1,23 +1,26 @@
 <?php
 
 use app\cores\Blueprint;
+use app\cores\dbal\Column;
 use app\cores\Schema;
 use app\models\BaseMigration;
+use app\models\Migration;
 
 
-class m_017AdminRelation implements BaseMigration
+class m_017AdminRelation extends BaseMigration implements Migration
 {
-    public function up(): array
+    public function up(): bool
     {
-        return Schema::alterTable("admin", function (Blueprint $table) {
-            $table->alterAddForeignKey("nip", "user", "no_induk", "fk_nip_admin");
-        });
+        return $this->construct->alterTable("admin", function (Column $table) {
+            $table
+                ->addForeignKey("nip", "fk_nip_admin")
+                ->reference("user","no_induk")
+                ->cascade();
+        })->execute();
     }
 
-    public function down(): array
+    public function down(): bool
     {
-      return Schema::alterTable("admin", function (Blueprint $table) {
-          $table->alterDropConstraint("FK_nip");
-      });
+        return true;
     }
 }

@@ -1,24 +1,23 @@
 <?php
 
 use app\cores\Blueprint;
+use app\cores\dbal\Column;
 use app\cores\Schema;
 use app\models\BaseMigration;
+use app\models\Migration;
 
-class m_012RegencyChampMigration implements BaseMigration
+class m_012RegencyChampMigration extends BaseMigration  implements Migration
 {
-    public function up(): array
+    public function up(): bool
     {
-        return Schema::createTableIfNotExist("regency_champ", function (Blueprint $table) {
-            $table->string("id");
+        return $this->construct->createTable("regency_champ", function (Column $table) {
+            $table->string("id")->primary();
             $table->string("nim");
-
-            $table->primary("id");
-            $table->unique("nim");
-        });
+        })->execute();
     }
 
-    public function down(): array
+    public function down(): bool
     {
-        return Schema::dropTableIfExist("regency_champ");
+        return $this->construct->dropTable("regency_champ")->execute();
     }
 }

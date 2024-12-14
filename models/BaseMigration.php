@@ -2,10 +2,16 @@
 
 namespace app\models;
 
-interface BaseMigration
+use app\constant\Config;
+use app\cores\Database;
+use app\cores\dbal\Construct;
+use PDO;
+
+abstract class BaseMigration
 {
-    public function up(): array;
+    protected Construct $construct;
 
-    public function down(): array;
-
+    public function __construct(){
+        $this->construct = new Construct();
+    }
 }

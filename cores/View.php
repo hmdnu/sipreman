@@ -22,7 +22,7 @@ class View
         self::$props = $props;
         require_once "./views/components/{$componentPath}.php";
     }
-
+    
     public static function getTitle(): string
     {
         return self::$title;

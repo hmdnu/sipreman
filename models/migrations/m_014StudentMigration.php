@@ -2,27 +2,25 @@
 
 
 use app\cores\Blueprint;
+use app\cores\dbal\Column;
 use app\cores\Schema;
 use app\models\BaseMigration;
+use app\models\Migration;
 
-class m_014StudentMigration implements BaseMigration
+class m_014StudentMigration extends BaseMigration  implements Migration
 {
-    public function up(): array
+    public function up(): bool
     {
-        return Schema::createTableIfNotExist("student", function (Blueprint $table) {
-            $table->string("nim");
+        return $this->construct->createTable("student", function (Column $table) {
+            $table->string("nim")->primary();
             $table->string("name");
             $table->string("study_program_id");
             $table->string("major_id");
-
-            $table->primary("nim");
-            $table->unique("study_program_id");
-            $table->unique("major_id");
-        });
+        })->execute();
     }
 
-    public function down(): array
+    public function down(): bool
     {
-        return Schema::dropTableIfExist("student");
+        return $this->construct->dropTable("student")->execute();
     }
 }

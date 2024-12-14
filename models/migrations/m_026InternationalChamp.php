@@ -1,22 +1,25 @@
 <?php
 
 use app\cores\Blueprint;
+use app\cores\dbal\Column;
 use app\cores\Schema;
 use app\models\BaseMigration;
+use app\models\Migration;
 
-class m_026InternationalChamp implements BaseMigration
+class m_026InternationalChamp extends BaseMigration implements Migration
 {
-    public function up(): array
+    public function up(): bool
     {
-        return Schema::alterTable("international_champ", function (Blueprint $table) {
-            $table->alterAddForeignKey("nim", "student", "nim", "fk_nim_international_champ");
-        });
+        return $this->construct->alterTable("international_champ", function (Column $table) {
+            $table
+                ->addForeignKey("nim", "fk_nim_international_champ")
+                ->reference("student","nim")
+                ->cascade();
+        })->execute();
     }
 
-    public function down(): array
+    public function down(): bool
     {
-        return [];
+        return true;
     }
-
-
 }

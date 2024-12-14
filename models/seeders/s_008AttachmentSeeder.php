@@ -27,12 +27,6 @@ class s_008AttachmentSeeder implements BaseSeeder
             "public/img/poster_003.jpg",
             "public/img/poster_004.jpg"
         ];
-        $creationPath = [
-            "public/document/creations_001.pdf",
-            "public/document/creations_002.pdf",
-            "public/document/creations_003.pdf",
-            "public/document/creations_004.pdf"
-        ];
         $caption = [
             "Dokumentasi Kegiatan Workshop 1",
             "Dokumentasi Kegiatan Seminar 2",
@@ -49,7 +43,6 @@ class s_008AttachmentSeeder implements BaseSeeder
                 "certificate_path" => $certificatePath[$i],
                 "documentation_photo_path" => $documentationPhotoPath[$i],
                 "poster_path" => $posterPath[$i],
-                "creation_path" => $creationPath[$i],
                 "caption" => $caption[$i]
             ]);
         }

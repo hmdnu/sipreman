@@ -1,23 +1,21 @@
 <?php
 
-use app\cores\Blueprint;
-use app\cores\Schema;
+use app\cores\dbal\Column;
 use app\models\BaseMigration;
+use app\models\Migration;
 
-class m_004LecturerMigration implements BaseMigration
+class m_004LecturerMigration extends BaseMigration implements Migration
 {
-    public function up(): array
+    public function up(): bool
     {
-        return Schema::createTableIfNotExist("lecturer", function (Blueprint $table) {
-            $table->string("nidn");
+        return $this->construct->createTable("lecturer", function (Column $table) {
+            $table->string("nidn")->primary();
             $table->string("name");
-
-            $table->primary("nidn");
-        });
+        })->execute();
     }
 
-    public function down(): array
+    public function down(): bool
     {
-        return Schema::dropTableIfExist("lecturer");
+        return $this->construct->dropTable("lecturer")->execute();
     }
 }

@@ -17,7 +17,12 @@ class StudyProgram extends BaseModel
     public static function insert(array $data): array
     {
         return Schema::insertInto(self::TABLE, function (Blueprint $table) use ($data) {
-            $table->insert([self::ID, self::STUDY_PROGRAM_NAME, self::MAJOR_ID, self::TOTAL_VICTORY_STUDY_PROGRAM], $data);
+            $table->insert([
+                self::ID,
+                self::STUDY_PROGRAM_NAME,
+                self::MAJOR_ID,
+                self::TOTAL_VICTORY_STUDY_PROGRAM
+            ], $data);
         });
     }
 

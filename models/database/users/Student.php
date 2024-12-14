@@ -17,7 +17,12 @@ class Student extends BaseModel
     public static function insert(array $data): array
     {
         return Schema::insertInto(self::TABLE, function (Blueprint $table) use ($data) {
-            $table->insert([self::NIM, self::NAME, self::STUDY_PROGRAM_ID, self::MAJOR_ID], $data);
+            $table->insert([
+                self::NIM,
+                self::NAME,
+                self::STUDY_PROGRAM_ID,
+                self::MAJOR_ID
+            ], $data);
         });
     }
 

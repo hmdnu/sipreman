@@ -29,7 +29,7 @@ class Lecturer extends BaseModel
         $lecturers = [];
 
         $results = Schema::selectFrom(self::TABLE, function (Blueprint $table) {
-            $table->select([self::NAME]);
+            $table->select([self::NIDN, self::NAME]);
         });
 
         if (isset($results["errors"])) {

@@ -16,8 +16,13 @@ class Loa extends BaseModel
 
     public static function insert(array $data): array
     {
-        return Schema::insertInto(self::TABLE, function (Blueprint $table) use ($data){
-            $table->insert([self::ID, self::DATE, self::LOA_NUMBER, self::LOA_PDF_PATH], $data);
+        return Schema::insertInto(self::TABLE, function (Blueprint $table) use ($data) {
+            $table->insert([
+                self::ID,
+                self::DATE,
+                self::LOA_NUMBER,
+                self::LOA_PDF_PATH
+            ], $data);
         });
     }
 

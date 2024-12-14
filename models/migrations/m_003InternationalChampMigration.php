@@ -2,25 +2,23 @@
 
 
 use app\cores\Blueprint;
+use app\cores\dbal\Column;
 use app\cores\Schema;
 use app\models\BaseMigration;
+use app\models\Migration;
 
-class m_003InternationalChampMigration implements BaseMigration
+class m_003InternationalChampMigration extends BaseMigration implements Migration
 {
-    public function up(): array
+    public function up(): bool
     {
-        return Schema::createTableIfNotExist("international_champ", function (Blueprint $table) {
-            $table->string("id");
+        return $this->construct->createTable("international_champ", function (Column $table) {
+            $table->string("id")->primary();
             $table->string("nim");
-
-            $table->primary("id");
-            $table->unique("nim");
-        });
+        })->execute();
     }
 
-    public function down(): array
+    public function down(): bool
     {
-        return Schema::dropTableIfExist("international_champ");
+        return $this->construct->dropTable("international_champ")->execute();
     }
-
 }

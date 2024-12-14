@@ -8,11 +8,10 @@ class s_009PrestasiSeeder implements BaseSeeder
     public function create(): array
     {
         $prestasiIds = ["PRE001", "PRE002", "PRE003", "PRE004"];
-        $nim = ["210010001", "210010002", "210010003", "210010004"];
         $competitionName = ["Hackathon Indonesia 2024", "UI/UX Design Competition", "National Programming Contest", "Data Science Challenge"];
         $categoryName = ["Software Development", "Design", "Programming", "Data Analytics"];
         $competitionLevel = ["Nasional", "Internasional", "Nasional", "Provinsi"];
-        $place = ["Juara 1", "Juara 2", "Juara 1", "Juara 3"];
+        $place = ["Jakarta", "Malang", "Surabaya", "Bandung"];
         $dateStartCompetition = ["2024-01-15", "2024-02-01", "2024-02-15", "2024-03-01"];
         $dateEndCompetition = ["2024-01-17", "2024-02-03", "2024-02-17", "2024-03-03"];
         $competitionSource = ["Kementerian Pendidikan", "IEEE", "ICPC", "Google Developer"];
@@ -27,7 +26,6 @@ class s_009PrestasiSeeder implements BaseSeeder
         for ($i = 0; $i < count($prestasiIds); $i++) {
             $res[$i] = Prestasi::insert([
                 "id" => $prestasiIds[$i],
-                "nim" => $nim[$i],
                 "competition_name" => $competitionName[$i],
                 "category_name" => $categoryName[$i],
                 "competition_level" => $competitionLevel[$i],

@@ -1,25 +1,33 @@
 <?php
 
-use app\cores\Blueprint;
-use app\cores\Schema;
+use app\cores\dbal\Column;
 use app\models\BaseMigration;
+use app\models\Migration;
 
-class m_018StudentRelation implements BaseMigration
+class m_018StudentRelation extends BaseMigration implements Migration
 {
-    public function up(): array
+    public function up(): bool
     {
-        return Schema::alterTable("student", function (Blueprint $table) {
-            $table->alterAddForeignKey("nim", "user", "no_induk", "fk_nim_student");
-            $table->alterAddForeignKey("study_program_id", "study_program", "id", "fk_study_program_student");
-            $table->alterAddForeignKey("major_id", "major", "id", "fk_major_student");
-        });
+        return $this->construct->alterTable("student", function (Column $table) {
+            $table
+                ->addForeignKey("nim", "fk_nim_student")
+                ->reference("user", "no_induk")
+                ->cascade();
+
+            $table
+                ->addForeignKey("study_program_id", "fk_study_program_student")
+                ->reference("study_program", "id")
+                ->cascade();
+
+            $table
+                ->addForeignKey("major_id", "fk_major_student")
+                ->reference("major", "id")
+                ->cascade();
+        })->execute();
     }
 
-    public function down(): array
+    public function down(): bool
     {
-        return Schema::alterTable("student", function (Blueprint $table) {
-            $table->alterDropConstraint("FK_nim");
-        });
+        return true;
     }
-
 }

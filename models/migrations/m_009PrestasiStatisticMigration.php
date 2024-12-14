@@ -1,28 +1,26 @@
 <?php
 
 use app\cores\Blueprint;
+use app\cores\dbal\Column;
 use app\cores\Schema;
 use app\models\BaseMigration;
+use app\models\Migration;
 
-class m_009PrestasiStatisticMigration implements BaseMigration
+class m_009PrestasiStatisticMigration extends BaseMigration implements Migration
 {
-    public function up(): array
+    public function up(): bool
     {
-        return Schema::createTableIfNotExist("prestasi_statistic", function (Blueprint $table) {
-            $table->string("id");
+        return $this->construct->createTable("prestasi_statistic", function (Column $table) {
+            $table->string("id")->primary();
             $table->string("major_id");
             $table->string("study_program_id");
             $table->string("total_victory_all");
             $table->int("year");
-
-            $table->primary("id");
-            $table->unique("major_id");
-            $table->unique("study_program_id");
-        });
+        })->execute();
     }
 
-    public function down(): array
+    public function down(): bool
     {
-        return Schema::dropTableIfExist("prestasi_statistic");
+        return $this->construct->dropTable("prestasi_statistic")->execute();
     }
 }

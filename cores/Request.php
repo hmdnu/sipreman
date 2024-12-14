@@ -37,12 +37,21 @@ class Request
 
         if ($this->isPost()) {
             foreach ($_POST as $key => $value) {
-                $data[$key] = filter_input(INPUT_POST, $key, FILTER_SANITIZE_SPECIAL_CHARS);
+                if (is_array($value)) {
+                    // Recursively sanitize array values
+                    $data[$key] = array_map(function ($item) {
+                        return filter_var($item, FILTER_SANITIZE_SPECIAL_CHARS);
+                    }, $value);
+
+                } else {
+                    $data[$key] = filter_input(INPUT_POST, $key, FILTER_SANITIZE_SPECIAL_CHARS);
+                }
             }
         }
 
         return $data;
     }
+
 
     public function file(): array
     {
