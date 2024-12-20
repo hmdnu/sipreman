@@ -2,139 +2,63 @@
 
 namespace app\cores\dbal;
 
-use app\cores\Database;
-use app\constant\Config;
-use app\helpers\LogError;
-use Exception;
+use app\cores\dbal\dml\Insertion;
+use app\cores\dbal\dml\Selection;
+use app\cores\dbal\dml\Updation;
 
 class Construct
 {
-    private Database $db;
-    private array $sql = [];
-    private string $query;
-    private array $params = [];
-    private array $columnResults = [];
-    private string $columns = "";
-    private string $table = "";
-
-    public function __construct()
+    public function select(string ...$column): Selection
     {
-        $this->db = new Database(Config::getConfig());
+        $columns = implode(", ", $column);
+
+        return new Selection($columns);
     }
 
-    public function query(string $query): self
+    public function insert(string $tableName): Insertion
     {
-        $this->sql[] = $query;
-        return $this;
+        return new Insertion($tableName);
     }
 
-    public function createTable(string $tableName, callable $callback): self
+    public function query(string $query): Query
+    {
+        $sql = $query[strlen($query) - 1] === ";" ? str_replace(";", "", $query) : $query;
+        $sql .= ";";
+
+        return new Query($sql);
+    }
+
+    public function create(string $tableName, callable $callback): Table
     {
         $column = new Column();
         $callback($column);
 
-        $columns = implode(", ", $column->getColumns());
+        $columns = $column->getColumns();
+        $table = new Table($tableName, $columns);
+        $table->buildCreate();
 
-        $this->sql[] = "IF NOT EXISTS (
-                    SELECT *
-                    FROM sysobjects
-                    WHERE name = '$tableName' AND xtype = 'U'
-                )
-                BEGIN
-                    CREATE TABLE [$tableName] (
-                        $columns
-                    )
-                END;";
-
-        return $this;
+        return $table;
     }
 
-    public function alterTable(string $tableName, callable $callback): self
+    public function drop(string $tableName): Table
     {
-        $column = new Column();
-        $callback($column);
-        $alterations = $column->getAlterations();
-
-        foreach ($alterations as $alteration) {
-            $this->sql[] = "ALTER TABLE [$tableName]
-                        ADD CONSTRAINT [{$alteration["constraintName"]}] FOREIGN KEY ([{$alteration["columnName"]}])
-                        REFERENCES [{$alteration["referencedTable"]}] ([{$alteration["referencedColumn"]}])
-                        ON DELETE {$alteration["onDelete"]} ON UPDATE {$alteration["onUpdate"]};";
-        }
-
-
-        return $this;
+        return new Table($tableName, []);
     }
 
-    public function dropTable(string $tableName): self
+    public function update(string $tableName, string $aliasName = null): Updation
     {
-        $this->sql[] = "DROP TABLE IF EXISTS [$tableName]";
-        return $this;
+        return new Updation($tableName, $aliasName);
     }
 
-    public function select(string ...$column): self
+    public function alter(string $tableName, callable $callback): Table
     {
-        $this->columns = implode(", ", $column);
+        $alteration = new Alteration();
+        $callback($alteration);
 
-        return $this;
-    }
+        $columns = $alteration->getColumns();
+        $table = new Table($tableName, $columns);
+        $table->buildAlter();
 
-    public function from(string $table, string $alias = "*"): self
-    {
-        $aliasName = $alias === "*" ? "" : " AS $alias";
-
-        $this->table = "$table$aliasName";
-
-        return $this;
-    }
-
-    public function bindParams(string $param, string $value): self
-    {
-        $this->params[$param] = $value;
-
-        return $this;
-    }
-
-    public function get(): self
-    {
-        $this->sql[] = "SELECT $this->columns FROM $this->table";
-
-        return $this;
-    }
-
-
-    public function execute(): self|bool
-    {
-        foreach ($this->sql as $sql) {
-            try {
-                $prepare = $this->db::getConnection()->prepare($sql);
-
-                foreach ($this->params as $param => $value) {
-                    $prepare->bindValue($param, $value, \PDO::PARAM_STR);
-                }
-
-                $exec = $prepare->execute();
-
-                if (!$exec) {
-                    return false;
-                }
-
-                if (preg_match('/^\s*(SELECT|SHOW|DESCRIBE|EXPLAIN)/i', $sql)) {
-                    $this->columnResults[] = $prepare->fetchAll(\PDO::FETCH_ASSOC) ?: null;
-                    return $this;
-                }
-
-                return true;
-            } catch (\PDOException $err) {
-                LogError::log($err);
-                return false;
-            }
-        }
-        return $this;
-    }
-
-    public function fetchColumn(): ?array
-    {
-        return $this->columnResults;
+        return $table;
     }
 }

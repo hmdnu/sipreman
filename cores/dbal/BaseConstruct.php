@@ -4,48 +4,34 @@ namespace app\cores\dbal;
 
 use app\constant\Config;
 use app\cores\Database;
-use app\helpers\LogError;
 
 abstract class BaseConstruct
 {
-    private Database $db;
+    abstract public function execute();
 
-    public function __construct()
+    public function executeSql(string $sql, array $params = []): ?array
     {
-        $this->db = new Database(Config::getConfig());
+        var_dump($sql);
+        return null;
+//        $db = new Database(Config::getConfig());
+//        $conn = $db::getConnection();
+//
+//        $prepare = $conn->prepare($sql);
+//
+//        foreach ($params as $key => $value) {
+//            $prepare->bindValue($key, $value);
+//        }
+//
+//       $exec =  $prepare->execute();
+//
+//        if (!$exec) {
+//            return $prepare->errorInfo();
+//        }
+//
+//        if (preg_match('/^\s*(SELECT|SHOW|DESCRIBE|EXPLAIN)/i', $sql)) {
+//            return $prepare->fetchAll(\PDO::FETCH_ASSOC)[0];
+//        }
+//
+//        return null;
     }
-
-    public function execute(string $sql, array $params = []): bool
-    {
-        try {
-            $prepare = $this->db::getConnection()->prepare($sql);
-
-            foreach ($params as $param => $value) {
-                $prepare->bindValue($param, $value, \PDO::PARAM_STR);
-            }
-
-            $exec = $prepare->execute();
-
-            if (!$exec) {
-                return false;
-            }
-
-            if (preg_match('/^\s*(SELECT|SHOW|DESCRIBE|EXPLAIN)/i', $this->sql)) {
-                $this->columnResults[] = $prepare->fetchAll(\PDO::FETCH_ASSOC) ?: null;
-            }
-
-            return true;
-
-        } catch (\PDOException $err) {
-            LogError::log($err);
-            return false;
-        }
-    }
-
-    public function fetchColumn(): ?array
-    {
-        return $this->columnResults;
-    }
-
-
 }
