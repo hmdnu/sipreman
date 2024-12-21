@@ -49,8 +49,28 @@ class Updation extends BaseConstruct implements DML
         return $this;
     }
 
-    public function execute(): ?array
+    /**
+     * return boolean, only execute the query
+     * @return bool
+     */
+    public function execute(): bool
     {
         return $this->executeSql($this->sql, $this->params);
+    }
+
+
+    /**
+     * execute query and return the columns
+     * @return array
+     */
+    public function fetch(): array
+    {
+        $res = $this->execute();
+
+        if (!$res) {
+            return [];
+        }
+
+        return $this->fetchColumn();
     }
 }

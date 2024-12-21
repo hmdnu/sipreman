@@ -48,12 +48,12 @@ class Table extends BaseConstruct
         return $this;
     }
 
-    public function execute(): ?array
+    public function execute(): bool
     {
-        $sql = [];
         foreach ($this->sql as $value) {
-            $sql[] = $this->executeSql($value, $this->params);
+            $this->executeSql($value, $this->params);
         }
-        return $sql ?: null;
+
+        return true;
     }
 }

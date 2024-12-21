@@ -2,6 +2,7 @@
 
 namespace app\cores\dbal;
 
+use app\cores\dbal\dml\Deletion;
 use app\cores\dbal\dml\Insertion;
 use app\cores\dbal\dml\Selection;
 use app\cores\dbal\dml\Updation;
@@ -48,6 +49,11 @@ class Construct
     public function update(string $tableName, string $aliasName = null): Updation
     {
         return new Updation($tableName, $aliasName);
+    }
+
+    public function delete(string $tableName, string $aliasName = null): Deletion
+    {
+        return new Deletion($tableName, $aliasName);
     }
 
     public function alter(string $tableName, callable $callback): Table
