@@ -4,6 +4,6 @@ namespace app\models;
 
 interface BaseSeeder
 {
-    public function create(): array;
-    public function delete(): array;
+    public function create();
+    public function delete();
 }
