@@ -8,14 +8,14 @@ class m_001AdminMigration extends BaseMigration implements Migration
 {
     public function up(): bool
     {
-        return $this->construct->createTable("admin", function (Column $table) {
-            $table->string("nip")->primary();
-            $table->string("name");
+        return $this->construct->create("admin", function (Column $col) {
+            $col->string("nip")->primary();
+            $col->string("name");
         })->execute();
     }
 
     public function down(): bool
     {
-        return $this->construct->dropTable("admin")->execute();
+        return $this->construct->drop("admin")->execute();
     }
 }
