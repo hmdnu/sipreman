@@ -16,11 +16,12 @@ class Deletion extends BaseConstruct implements DML
     {
         $this->tableName = $tableName;
         $this->aliasName = $aliasName;
+        $this->sql = "DELETE FROM [$this->tableName];";
     }
 
     public function where(string $column, string $value, string $operator = "="): self
     {
-        $this->sql = "DELETE FROM [$this->tableName] WHERE $column $operator $value;";
+        $this->sql = str_replace(";", " ", $this->sql) . "WHERE $column $operator $value;";
         return $this;
     }
 
