@@ -4,7 +4,6 @@ namespace app\constant;
 
 class HttpMethod
 {
-    public const GET = "GET";
-    public const POST = "POST";
-   
+    public const string GET = "GET";
+    public const string POST = "POST";
 }
