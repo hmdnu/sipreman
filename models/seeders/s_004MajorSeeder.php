@@ -8,7 +8,7 @@ class s_004MajorSeeder implements BaseSeeder
     public function create(): array
     {
         $majorIds = ["TI101", "TM202", "TE303", "TS404", "TK505"];
-        $majorName = ["Teknologi Informasi", "teknik Mesin", "Teknik Elektro", "Teknik Sipil", "Teknik Kimia"];
+        $majorName = ["Teknologi Informasi", "Teknik Mesin", "Teknik Elektro", "Teknik Sipil", "Teknik Kimia"];
         $totalVictoryMajor = [0, 0, 0, 0, 0];
 
         $res = [];

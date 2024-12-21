@@ -5,7 +5,7 @@ use app\models\database\StudyProgram;
 
 class s_005StudyProgramSeeder implements BaseSeeder
 {
-    public function create(): array
+    public function create(): bool
     {
         $programIds = ["SI101", "MI202", "EL303", "CV404", "CH505"];
         $programNames = [
@@ -17,21 +17,24 @@ class s_005StudyProgramSeeder implements BaseSeeder
         ];
         $majorIds = ["TI101", "TM202", "TE303", "TS404", "TK505"];
         $totalVictoryStudyProgram = [0, 0, 0, 0, 0];
-        $res = [];
 
         for ($i = 0; $i < count($programIds); $i++) {
-            $res[$i] = StudyProgram::insert([
+            $res = StudyProgram::insert([
                 "id" => $programIds[$i],
                 "program_name" => $programNames[$i],
                 "major_id" => $majorIds[$i],
                 "total_victory_study_program" => $totalVictoryStudyProgram[$i],
             ]);
+
+            if (!$res) {
+                return false;
+            }
         }
 
-        return $res;
+        return true;
     }
 
-    public function delete(): array
+    public function delete(): bool
     {
         return StudyProgram::deleteAll();
     }
