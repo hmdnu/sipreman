@@ -2,39 +2,44 @@
 
 namespace app\models\database\users;
 
-use app\cores\Blueprint;
-use app\cores\Schema;
 use app\models\BaseModel;
 
 class Admin extends BaseModel
 {
-    public const TABLE = "admin";
-    public const NIP = "nip";
-    public const NAME = "name";
+    public const string TABLE = "admin";
+    public const string NIP = "nip";
+    public const string NAME = "name";
 
-    public static function insert(array $data): array
+    public static function insert(array $data): bool
     {
-        return Schema::insertInto(self::TABLE, function (Blueprint $table) use ($data) {
-            $table->insert([self::NIP, self::NAME], $data);
-        });
+        return self::construct()
+            ->insert(self::TABLE)
+            ->values(
+                [
+                    self::NIP => "?",
+                    self::NAME => "?"
+                ]
+            )
+            ->bindParams(1, $data[self::NIP])
+            ->bindParams(2, $data[self::NAME])
+            ->execute();
     }
 
-    public static function deleteAll(): array
+    public static function deleteAll(): bool
     {
-        return Schema::deleteFrom(self::TABLE);
+        return self::construct()
+            ->delete(self::TABLE)
+            ->execute();
     }
 
-    public static function findOne(string $nip): array
+    public static function findOne(string $nip): ?array
     {
 
-        $results =  Schema::selectWhereFrom(self::TABLE, function (Blueprint $table) use ($nip) {
-            $table->selectWhere(["nip" => $nip], [self::NIP]);
-        });
-
-        if (isset($results["errors"])) {
-            throw $results["errors"];
-        }
-
-        return $results["result"][0];
+        return self::construct()
+            ->select(self::NIP, self::NAME)
+            ->from(self::TABLE)
+            ->where(self::NIP, "?")
+            ->bindParams(1, $nip)
+            ->fetch();
     }
 }

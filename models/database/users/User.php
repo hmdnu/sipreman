@@ -2,44 +2,43 @@
 
 namespace app\models\database\users;
 
-use app\cores\Blueprint;
-use app\cores\Schema;
 use app\models\BaseModel;
 
 class User extends BaseModel
 {
-    public const TABLE = "user";
-    public const NO_INDUK = "no_induk";
-    public const ROLE = "role";
-    public const PASSWORD = "password";
+    public const string TABLE = "user";
+    public const string NO_INDUK = "no_induk";
+    public const string ROLE = "role";
+    public const string PASSWORD = "password";
 
-    public static function insert(array $data): array
+    public static function insert(array $data): bool
     {
-        return Schema::insertInto(self::TABLE, function (Blueprint $table) use ($data) {
-            $table->insert([
-                self::NO_INDUK,
-                self::ROLE,
-                self::PASSWORD
-            ], $data);
-        });
+        return self::construct()
+            ->insert(self::TABLE)
+            ->values($data)
+            ->execute();
     }
 
     public static function findOne(string $noInduk): array
     {
-        return Schema::selectWhereFrom(self::TABLE, function (Blueprint $table) use ($noInduk) {
-            $table->selectWhere(["no_induk" => $noInduk], [self::NO_INDUK, self::ROLE, self::PASSWORD]);
-        });
+        return self::construct()
+            ->select(self::NO_INDUK, self::ROLE, self::PASSWORD)
+            ->from(self::TABLE)
+            ->where(self::NO_INDUK, "?")
+            ->bindParams(1, $noInduk)
+            ->fetch();
     }
 
     public static function findAll(): array
     {
-        return Schema::selectFrom(self::TABLE, function (Blueprint $table) {
-            $table->select([self::NO_INDUK, self::ROLE, self::PASSWORD]);
-        });
+        return self::construct()
+            ->select(self::NO_INDUK, self::PASSWORD, self::ROLE)
+            ->from(self::TABLE)
+            ->fetch();
     }
 
-    public static function deleteAll(): array
+    public static function deleteAll(): bool
     {
-        return Schema::deleteFrom(self::TABLE);
+        return self::construct()->delete(self::TABLE)->execute();
     }
 }
