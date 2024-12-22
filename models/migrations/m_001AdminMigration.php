@@ -1,8 +1,8 @@
 <?php
 
+use app\cores\dbal\ddl\Column;
 use app\models\BaseMigration;
 use app\models\Migration;
-use app\cores\dbal\Column;
 
 class m_001AdminMigration extends BaseMigration implements Migration
 {

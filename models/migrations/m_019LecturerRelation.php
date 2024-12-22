@@ -1,6 +1,6 @@
 <?php
 
-use app\cores\dbal\Column;
+use app\cores\dbal\ddl\Column;
 use app\models\BaseMigration;
 use app\models\Migration;
 

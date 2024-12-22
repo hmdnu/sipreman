@@ -1,6 +1,6 @@
 <?php
 
-namespace app\cores\dbal;
+namespace app\cores\dbal\ddl;
 
 class Alteration
 {

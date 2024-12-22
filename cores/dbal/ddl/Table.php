@@ -1,6 +1,8 @@
 <?php
 
-namespace app\cores\dbal;
+namespace app\cores\dbal\ddl;
+
+use app\cores\dbal\BaseConstruct;
 
 class Table extends BaseConstruct
 {
