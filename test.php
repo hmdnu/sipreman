@@ -1,29 +1,22 @@
 <?php
 
-use app\cores\dbal\Alteration;
-use app\cores\dbal\Column;
 use app\cores\dbal\Construct;
+use app\cores\dbal\dml\Selection;
 
 require_once "vendor/autoload.php";
 
 $construct = new Construct();
 
+//$construct->procedure("getMajor", function (Selection $selection) {
+//    $selection
+//        ->setColumns("id", "major_name")
+//        ->from("major")
+//        ->where("major_name", "@name");
+//})->addParam("name", "nvarchar(10)")->execute();
 
-$sql = $construct
-    ->delete("major")
-    ->where("major_name", "?")
-    ->bindParams(1, "Sastra Dan Bahasa")
-    ->execute();
+//$res = $construct->call("getMajor", ["name" => "Akuntansi"])->fetch();
 
-
-$res = $construct
-    ->select("*")
-    ->from("major")
-    ->fetch();
-
-var_dump($sql, $res);
-
-
+//$construct->procedure("getMajor")->drop()->execute();
 
 //$construct->create("user", function (Column $column) {
 //    $column->string("id")->primary();

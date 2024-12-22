@@ -2,6 +2,9 @@
 
 namespace app\cores\dbal;
 
+use app\cores\dbal\ddl\Alteration;
+use app\cores\dbal\ddl\Column;
+use app\cores\dbal\ddl\Table;
 use app\cores\dbal\dml\Deletion;
 use app\cores\dbal\dml\Insertion;
 use app\cores\dbal\dml\Selection;
@@ -54,6 +57,32 @@ class Construct
     public function delete(string $tableName, string $aliasName = null): Deletion
     {
         return new Deletion($tableName, $aliasName);
+    }
+
+    public function procedure(string $procedureName, callable $callback = null): Procedure
+    {
+        if (!$callback) {
+            return new Procedure($procedureName);
+        }
+        $selection = new Selection("*");
+        $callback($selection);
+        $sql = $selection->getSql();
+        return new Procedure($procedureName, $sql);
+    }
+
+    public function call(string $procedureName, array $params): Procedure
+    {
+        $sql = "EXEC $procedureName ";
+        $parameters = "";
+
+        foreach ($params as $key => $value) {
+            $value = is_string($value) ? "'$value'" : $value;
+            $parameters .= "@$key = $value, ";
+        }
+        $sql .= trim($parameters, ", ") . ";";
+
+
+        return new Procedure($procedureName, $sql);
     }
 
     public function alter(string $tableName, callable $callback): Table

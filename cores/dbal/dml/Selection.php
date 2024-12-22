@@ -7,7 +7,7 @@ use app\cores\dbal\DML;
 
 class Selection extends BaseConstruct implements DML
 {
-    private string $columns = "";
+    private string $columns;
     private string $sql = "";
     private array $params = [];
 
@@ -15,6 +15,17 @@ class Selection extends BaseConstruct implements DML
     public function __construct(string $columns)
     {
         $this->columns = $columns;
+    }
+
+    public function setColumns(string ...$columns): self
+    {
+        $this->columns = implode(", ", $columns);
+        return $this;
+    }
+
+    public function getParams(): array
+    {
+        return $this->params;
     }
 
     public function from(string $tableName, string $alias = null): self
@@ -73,6 +84,24 @@ class Selection extends BaseConstruct implements DML
         return $this;
     }
 
+    public function view(string $viewName): self
+    {
+        $sql = str_replace(";", "", $this->sql);
+
+        $this->sql = "IF NOT EXISTS (
+                SELECT 1
+                FROM sys.views
+                WHERE name = '$viewName'
+            ) 
+            BEGIN
+                EXEC sp_executesql N'
+                CREATE VIEW $viewName AS
+                    $sql';
+            END;";
+
+        return $this;
+    }
+
     public function bindParams(string|int $params, mixed $value): self
     {
         $this->params[$params] = $value;
@@ -80,11 +109,15 @@ class Selection extends BaseConstruct implements DML
         return $this;
     }
 
+    public function getSql(): string
+    {
+        return $this->sql;
+    }
+
     private function handleAlias(string|null $alias): string
     {
         return isset($alias) ? "AS $alias" : "";
     }
-
 
     /**
      * return boolean, only execute the query
@@ -95,13 +128,13 @@ class Selection extends BaseConstruct implements DML
         return $this->executeSql($this->sql, $this->params);
     }
 
-
     /**
      * execute query and return the columns
      * @return array
      */
     public function fetch(): array
     {
+
         $res = $this->execute();
 
         if (!$res) {

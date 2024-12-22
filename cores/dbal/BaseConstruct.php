@@ -30,7 +30,7 @@ abstract class BaseConstruct
                 return false;
             }
 
-            if (preg_match('/^\s*(SELECT|SHOW|DESCRIBE|EXPLAIN)/i', $sql)) {
+            if (preg_match('/^\s*(SELECT|SHOW|DESCRIBE|EXPLAIN|EXEC)/i', $sql)) {
                 $this->columnValues = $prepare->fetchAll(\PDO::FETCH_ASSOC);
             }
 
