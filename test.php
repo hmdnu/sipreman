@@ -7,6 +7,32 @@ require_once "vendor/autoload.php";
 
 $construct = new Construct();
 
+$res = $construct->query("SELECT * FROm [user] WHERE role = ?")
+    ->bindParams(1, "student")
+    ->fetch();
+var_dump($res);
+
+//$construct->update("user")->set("name", "kevin")->where("name", "ujang")->execute();
+//
+//$rs = $construct
+//    ->select("*")
+//    ->from("user", "u") // you can make alias
+//    ->innerJoin("student", "s")
+//    ->on("u.no_induk", "s.nim")
+//    ->fetch();
+//
+////var_dump($rs);
+//
+//$construct
+//    ->select("*")
+//    ->from("user")
+//    ->view("userView")
+//    ->execute();
+//
+//$view = $construct->select("*")->from("userView")->fetch();
+//
+//var_dump($view);
+
 //$construct->procedure("getMajor", function (Selection $selection) {
 //    $selection
 //        ->setColumns("id", "major_name")
