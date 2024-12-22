@@ -59,7 +59,7 @@ class Selection extends BaseConstruct implements DML
     public function innerJoin(string $referencedTable, string $alias = null): self
     {
         $aliasName = $this->handleAlias($alias);
-        $this->sql = str_replace(";", " ", $this->sql) . "JOIN [$referencedTable] AS $aliasName";
+        $this->sql = str_replace(";", " ", $this->sql) . "JOIN [$referencedTable] $aliasName";
         return $this;
     }
 
