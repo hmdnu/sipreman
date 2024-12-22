@@ -5,7 +5,7 @@ use app\models\database\prestasiCore\Skkm;
 
 class s_012SkkmSeeder implements BaseSeeder
 {
-    public function create(): array
+    public function create(): bool
     {
         $skkmIds = ["SKKM001", "SKKM002", "SKKM003", "SKKM004"];
         $nim = ["210010001", "210010002", "210010003", "210010004"];
@@ -20,10 +20,8 @@ class s_012SkkmSeeder implements BaseSeeder
         ];
         $point = [6.0, 5.0, 6.0, 1.0];
 
-        $res = [];
-
         for ($i = 0; $i < count($skkmIds); $i++) {
-            $res[$i] = Skkm::insert([
+            $res = Skkm::insert([
                 "id" => $skkmIds[$i],
                 "nim" => $nim[$i],
                 "prestasi_id" => $prestasiIds[$i],
@@ -32,12 +30,16 @@ class s_012SkkmSeeder implements BaseSeeder
                 "certificate_path" => $certificatePath[$i],
                 "point" => $point[$i]
             ]);
+
+            if (!$res) {
+                return false;
+            }
         }
 
-        return $res;
+        return true;
     }
 
-    public function delete(): array
+    public function delete(): bool
     {
         return Skkm::deleteAll();
     }

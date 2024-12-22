@@ -5,24 +5,26 @@ use app\models\database\championLevel\InternationalChamp;
 
 class s_013InternationalChampSeeder implements BaseSeeder
 {
-    public function create(): array
+    public function create(): bool
     {
         $internationalChampIds = ["INT001"];
         $nim = ["210010002"];
 
-        $res = [];
-
         for ($i = 0; $i < count($internationalChampIds); $i++) {
-            $res[$i] = InternationalChamp::insert([
+            $res = InternationalChamp::insert([
                 "id" => $internationalChampIds[$i],
                 "nim" => $nim[$i]
             ]);
+
+            if (!$res) {
+                return false;
+            }
         }
 
-        return $res;
+        return true;
     }
 
-    public function delete(): array
+    public function delete(): bool
     {
         return InternationalChamp::deleteAll();
     }
