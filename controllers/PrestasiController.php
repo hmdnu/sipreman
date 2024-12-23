@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\cores\Database;
 use app\cores\Request;
 use app\cores\Response;
 use app\helpers\CompetitionRequest;
@@ -40,6 +41,9 @@ class PrestasiController extends BaseController
             $prestasiId = UUID::generate();
             $attachmentIds = UUID::generate();
             $loaId = UUID::generate();
+
+            $db = Database::getConnection();
+            $db->beginTransaction();
 
             Loa::insert([
                 "id" => $loaId,
@@ -89,6 +93,7 @@ class PrestasiController extends BaseController
                 );
             }
 
+            $db->commit();
             echo "sukses";
         } catch (\PDOException|Exception $e) {
             var_dump($e->getMessage());
