@@ -4,13 +4,6 @@ namespace app\cores;
 
 class Seeder
 {
-    private Database $db;
-
-    public function __construct(array $config)
-    {
-        $this->db = new Database($config);
-    }
-
     public function create(): void
     {
         $seederPath = realpath(__DIR__ . "/../models/seeders");
