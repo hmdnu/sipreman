@@ -5,24 +5,26 @@ use app\models\database\championLevel\ProvinceChamp;
 
 class s_015ProvinceChampSeeder implements BaseSeeder
 {
-    public function create(): array
+    public function create(): bool
     {
         $provinceChampIds = ["PRV001"];
         $nim = ["210010004"];
 
-        $res = [];
-
         for ($i = 0; $i < count($provinceChampIds); $i++) {
-            $res[$i] = ProvinceChamp::insert([
+            $res = ProvinceChamp::insert([
                 "id" => $provinceChampIds[$i],
                 "nim" => $nim[$i]
             ]);
+
+            if (!$res) {
+                return false;
+            }
         }
 
-        return $res;
+        return true;
     }
 
-    public function delete(): array
+    public function delete(): bool
     {
         return ProvinceChamp::deleteAll();
     }

@@ -9,7 +9,7 @@ class m_013SkkmMigration extends BaseMigration  implements Migration
 {
     public function up(): bool
     {
-        return $this->construct->createTable("skkm", function (Column $table) {
+        return $this->construct->create("skkm", function (Column $table) {
             $table->string("id")->primary();
             $table->string("nim");
             $table->string("prestasi_id");
@@ -22,6 +22,6 @@ class m_013SkkmMigration extends BaseMigration  implements Migration
 
     public function down(): bool
     {
-        return $this->construct->dropTable("skkm")->execute();
+        return $this->construct->drop("skkm")->execute();
     }
 }

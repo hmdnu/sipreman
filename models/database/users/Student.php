@@ -2,45 +2,48 @@
 
 namespace app\models\database\users;
 
-use app\cores\Blueprint;
-use app\cores\Schema;
 use app\models\BaseModel;
 
 class Student extends BaseModel
 {
-    public const TABLE = "student";
-    public const NIM = "nim";
-    public const NAME = "name";
-    public const STUDY_PROGRAM_ID = "study_program_id";
-    public const MAJOR_ID = "major_id";
+    public const string TABLE = "student";
+    public const string NIM = "nim";
+    public const string NAME = "name";
+    public const string STUDY_PROGRAM_ID = "study_program_id";
+    public const string MAJOR_ID = "major_id";
 
-    public static function insert(array $data): array
+    public static function insert(array $data): bool
     {
-        return Schema::insertInto(self::TABLE, function (Blueprint $table) use ($data) {
-            $table->insert([
-                self::NIM,
-                self::NAME,
-                self::STUDY_PROGRAM_ID,
-                self::MAJOR_ID
-            ], $data);
-        });
+        return self::construct()
+            ->insert(self::TABLE)
+            ->values(
+                [
+                    self::NIM => "?",
+                    self::NAME => "?",
+                    self::STUDY_PROGRAM_ID => "?",
+                    self::MAJOR_ID => "?"
+                ]
+            )
+            ->bindParams(1, $data[self::NIM])
+            ->bindParams(2, $data[self::NAME])
+            ->bindParams(3, $data[self::STUDY_PROGRAM_ID])
+            ->bindParams(4, $data[self::MAJOR_ID])
+            ->execute();
+
     }
 
-    public static function deleteAll(): array
+    public static function deleteAll(): bool
     {
-        return Schema::deleteFrom(self::TABLE);
+        return self::construct()->delete(self::TABLE)->execute();
     }
 
     public static function findOne(string $nim): array
     {
-        $student = Schema::selectWhereFrom(self::TABLE, function (Blueprint $table) use ($nim) {
-            $table->selectWhere(["nim" => $nim], [self::NIM, self::NAME]);
-        });
-
-        if (isset($student["errors"])) {
-            throw $student["errors"];
-        }
-
-        return $student["result"][0];
+        return self::construct()
+            ->select(self::NIM, self::NAME)
+            ->from(self::TABLE)
+            ->where(self::NIM, "?")
+            ->bindParams(1, $nim)
+            ->fetch();
     }
 }

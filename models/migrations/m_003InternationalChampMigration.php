@@ -9,7 +9,7 @@ class m_003InternationalChampMigration extends BaseMigration implements Migratio
 {
     public function up(): bool
     {
-        return $this->construct->createTable("international_champ", function (Column $table) {
+        return $this->construct->create("international_champ", function (Column $table) {
             $table->string("id")->primary();
             $table->string("nim");
         })->execute();
@@ -17,6 +17,6 @@ class m_003InternationalChampMigration extends BaseMigration implements Migratio
 
     public function down(): bool
     {
-        return $this->construct->dropTable("international_champ")->execute();
+        return $this->construct->drop("international_champ")->execute();
     }
 }

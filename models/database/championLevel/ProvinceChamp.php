@@ -2,25 +2,31 @@
 
 namespace app\models\database\championLevel;
 
-use app\cores\Blueprint;
-use app\cores\Schema;
 use app\models\BaseModel;
 
 class ProvinceChamp extends BaseModel
 {
-    public const TABLE = "province_champ";
-    public const ID = "id";
-    public const NIM = "nim";
+    public const string TABLE = "province_champ";
+    public const string ID = "id";
+    public const string NIM = "nim";
 
-    public static function insert(array $data): array
+    public static function insert(array $data): bool
     {
-        return Schema::insertInto(self::TABLE, function (Blueprint $table) use ($data){
-            $table->insert([self::ID, self::NIM], $data);
-        });
+        return self::construct()
+            ->insert(self::TABLE)
+            ->values(
+                [
+                    self::ID => "?",
+                    self::NIM => "?"
+                ]
+            )
+            ->bindParams(1, $data[self::ID])
+            ->bindParams(2, $data[self::NIM])
+            ->execute();
     }
 
-    public static function deleteAll(): array
+    public static function deleteAll(): bool
     {
-        return Schema::deleteFrom(self::TABLE);
+        return self::construct()->delete(self::TABLE)->execute();
     }
 }

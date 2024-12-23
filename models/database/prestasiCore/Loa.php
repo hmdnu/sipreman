@@ -2,8 +2,6 @@
 
 namespace app\models\database\prestasiCore;
 
-use app\cores\Blueprint;
-use app\cores\Schema;
 use app\models\BaseModel;
 
 class Loa extends BaseModel
@@ -18,12 +16,14 @@ class Loa extends BaseModel
     {
         return self::construct()
             ->insert(self::TABLE)
-            ->values([
-                self::ID => "?",
-                self::DATE => "?",
-                self::LOA_NUMBER => "?",
-                self::LOA_PDF_PATH => "?",
-            ])
+            ->values(
+                [
+                    self::ID => "?",
+                    self::DATE => "?",
+                    self::LOA_NUMBER => "?",
+                    self::LOA_PDF_PATH => "?"
+                ]
+            )
             ->bindParams(1, $data[self::ID])
             ->bindParams(2, $data[self::DATE])
             ->bindParams(3, $data[self::LOA_NUMBER])

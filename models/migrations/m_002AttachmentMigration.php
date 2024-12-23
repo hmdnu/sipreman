@@ -8,7 +8,7 @@ class m_002AttachmentMigration extends BaseMigration implements Migration
 {
     public function up(): bool
     {
-        return $this->construct->createTable("attachment", function (Column $table) {
+        return $this->construct->create("attachment", function (Column $table) {
             $table->string("id")->primary();
             $table->string("loa_id");
             $table->string("certificate_path");
@@ -20,6 +20,6 @@ class m_002AttachmentMigration extends BaseMigration implements Migration
 
     public function down(): bool
     {
-        return $this->construct->dropTable("attachment")->execute();
+        return $this->construct->drop("attachment")->execute();
     }
 }

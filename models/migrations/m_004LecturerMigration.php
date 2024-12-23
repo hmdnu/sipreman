@@ -8,7 +8,7 @@ class m_004LecturerMigration extends BaseMigration implements Migration
 {
     public function up(): bool
     {
-        return $this->construct->createTable("lecturer", function (Column $table) {
+        return $this->construct->create("lecturer", function (Column $table) {
             $table->string("nidn")->primary();
             $table->string("name");
         })->execute();
@@ -16,6 +16,6 @@ class m_004LecturerMigration extends BaseMigration implements Migration
 
     public function down(): bool
     {
-        return $this->construct->dropTable("lecturer")->execute();
+        return $this->construct->drop("lecturer")->execute();
     }
 }

@@ -2,52 +2,44 @@
 
 namespace app\models\database;
 
-use app\cores\Blueprint;
-use app\cores\Schema;
 use app\models\BaseModel;
 
 class Major extends BaseModel
 {
-    public const TABLE = "major";
-    public const ID = "id";
-    public const MAJOR_NAME = "major_name";
-    public const TOTAL_VICTORY_MAJOR = "total_victory_major";
+    public const string TABLE = "major";
+    public const string ID = "id";
+    public const string MAJOR_NAME = "major_name";
+    public const string TOTAL_VICTORY_MAJOR = "total_victory_major";
 
 
-    public static function insert(array $data): array
+    public static function insert(array $data): bool
     {
-
-         return Schema::insertInto(self::TABLE, function (Blueprint $table) use ($data) {
-             $table->insert([
-                 self::ID,
-                 self::MAJOR_NAME,
-                 self::TOTAL_VICTORY_MAJOR
-             ], $data);
-         });
+        return self::construct()
+            ->insert(self::TABLE)
+            ->values(
+                [
+                    self::ID => "?",
+                    self::MAJOR_NAME => "?",
+                    self::TOTAL_VICTORY_MAJOR => "?"
+                ]
+            )
+            ->bindParams(1, $data[self::ID])
+            ->bindParams(2, $data[self::MAJOR_NAME])
+            ->bindParams(3, $data[self::TOTAL_VICTORY_MAJOR])
+            ->execute();
     }
 
-    public static function deleteAll(): array
+    public static function deleteAll(): bool
     {
-        return Schema::deleteFrom(self::TABLE);
+        return self::construct()->delete(self::TABLE)->execute();
     }
 
     public static function findAll(): array
     {
-        $majors = [];
-
-        $results =  Schema::selectFrom(self::TABLE, function (Blueprint $table) {
-            $table->select([self::MAJOR_NAME]);
-        });
-
-        if (isset($results["errors"])) {
-            throw $results["errors"];
-        }
-
-        foreach ($results["result"] as $key => $major) {
-            $majors[$key] = $major[self::MAJOR_NAME];
-        }
-
-        return $majors;
+        return self::construct()
+            ->select(self::ID, self::MAJOR_NAME, self::TOTAL_VICTORY_MAJOR)
+            ->from(self::TABLE)
+            ->fetch();
     }
 
     public static function find() {}

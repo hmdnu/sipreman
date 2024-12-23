@@ -5,7 +5,7 @@ use app\Models\Database\prestasiCore\Attachment;
 
 class s_008AttachmentSeeder implements BaseSeeder
 {
-    public function create(): array
+    public function create(): bool
     {
         $attachmentIds = ["ATT001", "ATT002", "ATT003", "ATT004"];
         $loaIds = ["LOA001", "LOA002", "LOA003", "LOA004"];
@@ -34,10 +34,8 @@ class s_008AttachmentSeeder implements BaseSeeder
             "Dokumentasi Kegiatan Workshop 4"
         ];
 
-        $res = [];
-
         for ($i = 0; $i < count($attachmentIds); $i++) {
-            $res[$i] = Attachment::insert([
+            $res = Attachment::insert([
                 "id" => $attachmentIds[$i],
                 "loa_id" => $loaIds[$i],
                 "certificate_path" => $certificatePath[$i],
@@ -45,12 +43,16 @@ class s_008AttachmentSeeder implements BaseSeeder
                 "poster_path" => $posterPath[$i],
                 "caption" => $caption[$i]
             ]);
+
+            if (!$res) {
+                return false;
+            }
         }
 
-        return $res;
+        return true;
     }
 
-    public function delete(): array
+    public function delete(): bool
     {
         return Attachment::deleteAll();
     }

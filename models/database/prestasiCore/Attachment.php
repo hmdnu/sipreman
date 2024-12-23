@@ -2,8 +2,6 @@
 
 namespace app\models\database\prestasiCore;
 
-use app\cores\Blueprint;
-use app\cores\Schema;
 use app\models\BaseModel;
 
 class Attachment extends BaseModel
@@ -20,14 +18,16 @@ class Attachment extends BaseModel
     {
         return self::construct()
             ->insert(self::TABLE)
-            ->values([
-                self::ID => "?",
-                self::LOA_ID => "?",
-                self::CERTIFICATE_PATH => "?",
-                self::DOCUMENTATION_PHOTO_PATH => "?",
-                self::POSTER_PATH => "?",
-                self::CAPTION => "?"
-            ])
+            ->values(
+                [
+                    self::ID => "?",
+                    self::LOA_ID => "?",
+                    self::CERTIFICATE_PATH => "?",
+                    self::DOCUMENTATION_PHOTO_PATH => "?",
+                    self::POSTER_PATH => "?",
+                    self::CAPTION => "?"
+                ]
+            )
             ->bindParams(1, $data[self::ID])
             ->bindParams(2, $data[self::LOA_ID])
             ->bindParams(3, $data[self::CERTIFICATE_PATH])

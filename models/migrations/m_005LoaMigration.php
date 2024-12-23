@@ -9,7 +9,7 @@ class m_005LoaMigration extends BaseMigration implements Migration
     public function up(): bool
     {
 
-        return $this->construct->createTable("loa", function (Column $table) {
+        return $this->construct->create("loa", function (Column $table) {
             $table->string("id")->primary();
             $table->string("loa_number")->unique();
             $table->date("date");
@@ -19,6 +19,6 @@ class m_005LoaMigration extends BaseMigration implements Migration
 
     public function down(): bool
     {
-        return $this->construct->dropTable("loa")->execute();
+        return $this->construct->drop("loa")->execute();
     }
 }
