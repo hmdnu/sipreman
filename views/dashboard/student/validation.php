@@ -2,6 +2,7 @@
 
 use app\cores\View;
 
+
 ?>
 
 <?php View::renderComponent("dashboard/sidebar", View::getData()); ?>
@@ -29,7 +30,7 @@ use app\cores\View;
         </div>
 
         <!-- Pagination -->
-        <!-- <div
+        <div
             class="flex items-center justify-center bg-[var(--Primary-pr00,#F9F6FD)] w-[225px] h-[51px] rounded-[5px] shrink-0">
             <div class="flex items-center justify-center w-full">
                 <nav class="isolate inline-flex -space-x-px" aria-label="Pagination">
@@ -53,7 +54,7 @@ use app\cores\View;
                     </a>
                 </nav>
             </div>
-        </div> -->
+        </div>
 
         <!-- Table -->
         <div class="overflow-x-auto">
@@ -73,7 +74,7 @@ use app\cores\View;
                 <tbody class="text-[12px]">
 
                     <?php
-                    $prestasiData = View::getData()["prestasiData"][0];
+                    $prestasiData = View::getData()["prestasiData"];
 
                     for ($i = 0; $i < count($prestasiData); $i++) {
                         echo "<tr class='border-b'>
