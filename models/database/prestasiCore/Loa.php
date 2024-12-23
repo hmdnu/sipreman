@@ -8,26 +8,31 @@ use app\models\BaseModel;
 
 class Loa extends BaseModel
 {
-    public const TABLE = "loa";
-    public const ID = "id";
-    public const DATE = "date";
-    public const LOA_NUMBER = "loa_number";
-    public const LOA_PDF_PATH = "loa_pdf_path";
+    public const string TABLE = "loa";
+    public const string ID = "id";
+    public const string DATE = "date";
+    public const string LOA_NUMBER = "loa_number";
+    public const string LOA_PDF_PATH = "loa_pdf_path";
 
-    public static function insert(array $data): array
+    public static function insert(array $data): bool
     {
-        return Schema::insertInto(self::TABLE, function (Blueprint $table) use ($data) {
-            $table->insert([
-                self::ID,
-                self::DATE,
-                self::LOA_NUMBER,
-                self::LOA_PDF_PATH
-            ], $data);
-        });
+        return self::construct()
+            ->insert(self::TABLE)
+            ->values([
+                self::ID => "?",
+                self::DATE => "?",
+                self::LOA_NUMBER => "?",
+                self::LOA_PDF_PATH => "?",
+            ])
+            ->bindParams(1, $data[self::ID])
+            ->bindParams(2, $data[self::DATE])
+            ->bindParams(3, $data[self::LOA_NUMBER])
+            ->bindParams(4, $data[self::LOA_PDF_PATH])
+            ->execute();
     }
 
-    public static function deleteAll(): array
+    public static function deleteAll(): bool
     {
-        return Schema::deleteFrom(self::TABLE);
+        return self::construct()->delete(self::TABLE)->execute();
     }
 }
