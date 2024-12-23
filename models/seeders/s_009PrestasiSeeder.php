@@ -5,7 +5,7 @@ use app\Models\Database\prestasiCore\Prestasi;
 
 class s_009PrestasiSeeder implements BaseSeeder
 {
-    public function create(): array
+    public function create(): bool
     {
         $prestasiIds = ["PRE001", "PRE002", "PRE003", "PRE004"];
         $competitionName = ["Hackathon Indonesia 2024", "UI/UX Design Competition", "National Programming Contest", "Data Science Challenge"];
@@ -21,10 +21,8 @@ class s_009PrestasiSeeder implements BaseSeeder
         $attachmentIds = ["ATT001", "ATT002", "ATT003", "ATT004"];
         $supervisorIds = ["192345601", "192345602", "192345603", "192345604"];
 
-        $res = [];
-
         for ($i = 0; $i < count($prestasiIds); $i++) {
-            $res[$i] = Prestasi::insert([
+            $res = Prestasi::insert([
                 "id" => $prestasiIds[$i],
                 "competition_name" => $competitionName[$i],
                 "category_name" => $categoryName[$i],
@@ -39,12 +37,16 @@ class s_009PrestasiSeeder implements BaseSeeder
                 "attachment_id" => $attachmentIds[$i],
                 "supervisor_id" => $supervisorIds[$i]
             ]);
+
+            if (!$res) {
+                return false;
+            }
         }
 
-        return $res;
+        return true;
     }
 
-    public function delete(): array
+    public function delete(): bool
     {
         return Prestasi::deleteAll();
     }

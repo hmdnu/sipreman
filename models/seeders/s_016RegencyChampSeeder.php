@@ -5,24 +5,26 @@ use app\models\database\championLevel\RegencyChamp;
 
 class s_016RegencyChampSeeder implements BaseSeeder
 {
-    public function create(): array
+    public function create(): bool
     {
         $regencyChampIds = ["REG001"];
         $nim = ["210010003"];
 
-        $res = [];
-
         for ($i = 0; $i < count($regencyChampIds); $i++) {
-            $res[$i] = RegencyChamp::insert([
+            $res = RegencyChamp::insert([
                 "id" => $regencyChampIds[$i],
                 "nim" => $nim[$i]
             ]);
+
+            if (!$res) {
+                return false;
+            }
         }
 
-        return $res;
+        return true;
     }
 
-    public function delete(): array
+    public function delete(): bool
     {
         return RegencyChamp::deleteAll();
     }

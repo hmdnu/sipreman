@@ -8,7 +8,7 @@ class m_007NationalChampMigration extends BaseMigration implements Migration
 {
     public function up(): bool
     {
-        return $this->construct->createTable("national_champ", function (Column $table) {
+        return $this->construct->create("national_champ", function (Column $table) {
             $table->string("id")->primary();
             $table->string("nim");
         })->execute();
@@ -16,6 +16,6 @@ class m_007NationalChampMigration extends BaseMigration implements Migration
 
     public function down(): bool
     {
-        return $this->construct->dropTable("national_champ")->execute();
+        return $this->construct->drop("national_champ")->execute();
     }
 }

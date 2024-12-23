@@ -5,7 +5,7 @@ use app\models\database\prestasiCore\PrestasiTeam;
 
 class s_010PrestasiTeamSeeder implements BaseSeeder
 {
-    public function create(): array
+    public function create(): bool
     {
         $prestasiTeamIds = ["TM001", "TM002", "TM003", "TM004"];
         $role = ["leader", "member", "leader", "member"];
@@ -14,10 +14,8 @@ class s_010PrestasiTeamSeeder implements BaseSeeder
         $prestasiIds = ["PRE001", "PRE002", "PRE003", "PRE004"];
         $name = ["Sophia Turner", "Liam Peterson", "Olivia Bennett", "Ethan Carter"];
 
-        $res = [];
-
         for ($i = 0; $i < count($prestasiTeamIds); $i++) {
-            $res[$i] = PrestasiTeam::insert([
+            $res = PrestasiTeam::insert([
                 'id' => $prestasiTeamIds[$i],
                 'nim' => $nim[$i],
                 'name' =>  $name[$i],
@@ -25,12 +23,16 @@ class s_010PrestasiTeamSeeder implements BaseSeeder
                 'supervisor_id' => $supervisorIds[$i],
                 'prestasi_id' => $prestasiIds[$i]
             ]);
+
+            if (!$res) {
+                return false;
+            }
         }
 
         return $res;
     }
 
-    public function delete(): array
+    public function delete(): bool
     {
         return PrestasiTeam::deleteAll();
     }

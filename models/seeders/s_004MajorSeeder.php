@@ -5,26 +5,28 @@ use app\models\database\Major;
 
 class s_004MajorSeeder implements BaseSeeder
 {
-    public function create(): array
+    public function create(): bool
     {
         $majorIds = ["TI101", "TM202", "TE303", "TS404", "TK505"];
         $majorName = ["Teknologi Informasi", "Teknik Mesin", "Teknik Elektro", "Teknik Sipil", "Teknik Kimia"];
         $totalVictoryMajor = [0, 0, 0, 0, 0];
 
-        $res = [];
-
         for ($i = 0; $i < count($majorName); $i++) {
-            $res[$i] = Major::insert([
+            $res = Major::insert([
                 "id" => $majorIds[$i],
                 "major_name" => $majorName[$i],
                 "total_victory_major" => $totalVictoryMajor[$i],
             ]);
+
+            if (!$res) {
+                return false;
+            }
         }
 
-        return $res;
+        return true;
     }
 
-    public function delete(): array
+    public function delete(): bool
     {
         return Major::deleteAll();
     }

@@ -14,16 +14,16 @@ class Column
         return $this;
     }
 
-    public function int(string $column, int $length = 11): self
+    public function int(string $column): self
     {
-        $this->columns[$column] = "INT($length)";
+        $this->columns[$column] = "INT";
         $this->columnName = $column;
         return $this;
     }
 
     public function tinyInt(string $column): self
     {
-        $this->columns[$column] = "TINYINT(1)";
+        $this->columns[$column] = "TINYINT";
         $this->columnName = $column;
         return $this;
     }
@@ -33,6 +33,13 @@ class Column
         $this->columns[$column] = "DECIMAL";
         $this->columnName = $column;
         return $this;
+    }
+
+    public function date(string $column): self  
+    {  
+        $this->columns[$column] = "DATE";  
+        $this->columnName = $column;  
+        return $this;  
     }
 
     public function primary(): self

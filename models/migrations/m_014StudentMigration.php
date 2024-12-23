@@ -9,7 +9,7 @@ class m_014StudentMigration extends BaseMigration  implements Migration
 {
     public function up(): bool
     {
-        return $this->construct->createTable("student", function (Column $table) {
+        return $this->construct->create("student", function (Column $table) {
             $table->string("nim")->primary();
             $table->string("name");
             $table->string("study_program_id");
@@ -19,6 +19,6 @@ class m_014StudentMigration extends BaseMigration  implements Migration
 
     public function down(): bool
     {
-        return $this->construct->dropTable("student")->execute();
+        return $this->construct->drop("student")->execute();
     }
 }
