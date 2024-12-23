@@ -21,19 +21,12 @@ class Seeder
             echo "inserting table " . $className . "\n";
             $query = $seeder->create();
 
-            if (isset($query["errors"])) {
-                echo "failed to insert table " . $className . "\n";
-                $errMessages = $query["errors"];
-
-                foreach ($errMessages as $errMessage) {
-                    echo $errMessage . "\n";
-                }
-
-                echo "\n";
+            if (!$query) {
+                echo "failed applying seeder $file\n";
                 return;
-            } else {
-                echo "table {$className} inserted.\n";
             }
+
+            echo "seeder applied\n";
         }
     }
 

@@ -21,7 +21,7 @@ class s_005StudyProgramSeeder implements BaseSeeder
         for ($i = 0; $i < count($programIds); $i++) {
             $res = StudyProgram::insert([
                 "id" => $programIds[$i],
-                "program_name" => $programNames[$i],
+                "study_program_name" => $programNames[$i],
                 "major_id" => $majorIds[$i],
                 "total_victory_study_program" => $totalVictoryStudyProgram[$i],
             ]);

@@ -16,8 +16,8 @@ class s_006StudentSeeder implements BaseSeeder
             $res = Student::insert([
                 'nim' => $nim[$i],
                 'name' => $name[$i],
-                'studyProgramId' => $studyProgramId[$i],
-                'majorId' => $majorId[$i]
+                'study_program_id' => $studyProgramId[$i],
+                'major_id' => $majorId[$i]
             ]);
 
             if (!$res) {

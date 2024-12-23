@@ -35,9 +35,10 @@ class Insertion extends BaseConstruct implements DML
      * return boolean, only execute the query
      * @return bool
      */
-    
+
     public function execute(): bool
     {
+
         $columns = [];
         $valueGroups = [];
 
@@ -63,15 +64,15 @@ class Insertion extends BaseConstruct implements DML
 
         // Build SQL string
         $sql = sprintf(
-            "INSERT INTO %s (%s) VALUES %s;",
+            "INSERT INTO [%s] (%s) VALUES %s;",
             $this->tableName,
             implode(", ", $columns),
             implode(", ", $valueGroups)
         );
 
+
         return $this->executeSql($sql, $this->params);
     }
-
 
     /**
      * execute query and return the columns

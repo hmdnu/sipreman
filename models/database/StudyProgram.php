@@ -26,7 +26,7 @@ class StudyProgram extends BaseModel
                     self::TOTAL_VICTORY_STUDY_PROGRAM => "?"
                 ]
             )
-            ->bindParams(1, UUID::generate())
+            ->bindParams(1, $data[self::ID])
             ->bindParams(2, $data[self::STUDY_PROGRAM_NAME])
             ->bindParams(3, $data[self::MAJOR_ID])
             ->bindParams(4, $data[self::TOTAL_VICTORY_STUDY_PROGRAM])
