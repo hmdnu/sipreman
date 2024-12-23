@@ -17,7 +17,7 @@ class View
         require_once "./views/layouts/footer.php";
     }
 
-    public static function renderComponent(string $componentPath, array $props = [])
+    public static function renderComponent(string $componentPath, array $props = []): void
     {
         self::$props = $props;
         require_once "./views/components/{$componentPath}.php";
