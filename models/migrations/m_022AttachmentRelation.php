@@ -12,9 +12,7 @@ class m_022AttachmentRelation extends BaseMigration implements Migration
         return $this->construct->alter("attachment", function (Alteration $table) {
             $table
                 ->addForeignKey("loa_id", "fk_loa_id_attachment")
-                ->reference("loa", "id")
-                ->onUpdate("cascade")
-                ->onDelete("cascade");
+                ->reference("loa", "id");
         })->execute();
     }
 

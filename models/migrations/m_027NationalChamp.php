@@ -12,9 +12,7 @@ class m_027NationalChamp extends BaseMigration implements Migration
         return $this->construct->alter("national_champ", function (Alteration $table) {
             $table
                 ->addForeignKey("nim", "fk_nim_national_champ")
-                ->reference("student", "nim")
-                ->onUpdate("cascade")
-                ->onDelete("cascade");
+                ->reference("student", "nim");
         })->execute();
     }
 

@@ -11,15 +11,11 @@ class m_023SkkmRelation extends BaseMigration implements Migration
         return $this->construct->alter("skkm", function (Alteration $table) {
             $table
                 ->addForeignKey("prestasi_id", "fk_prestasi_id_skkm")
-                ->reference("prestasi", "id")
-                ->onUpdate("cascade")
-                ->onDelete("cascade");
+                ->reference("prestasi", "id");
 
             $table
                 ->addForeignKey("nim", "fk_nim_skkm")
-                ->reference("student", "nim")
-                ->onUpdate("cascade")
-                ->onDelete("cascade");
+                ->reference("student", "nim");
         })->execute();
     }
 

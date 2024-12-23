@@ -12,9 +12,7 @@ class m_029RegencyChamp extends BaseMigration implements Migration
         return $this->construct->alter("regency_champ", function (Alteration $table) {
             $table
                 ->addForeignKey("nim", "fk_nim_regency_champ")
-                ->reference("student", "nim")
-                ->onUpdate("cascade")
-                ->onDelete("cascade");
+                ->reference("student", "nim");
         })->execute();
     }
 

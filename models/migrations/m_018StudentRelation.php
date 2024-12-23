@@ -11,21 +11,15 @@ class m_018StudentRelation extends BaseMigration implements Migration
         return $this->construct->alter("student", function (Alteration $table) {
             $table
                 ->addForeignKey("nim", "fk_nim_student")
-                ->reference("user", "no_induk")
-                ->onUpdate("cascade")
-                ->onDelete("cascade");
+                ->reference("user", "no_induk");
 
             $table
                 ->addForeignKey("study_program_id", "fk_study_program_student")
-                ->reference("study_program", "id")
-                ->onUpdate("cascade")
-                ->onDelete("cascade");
+                ->reference("study_program", "id");
 
             $table
                 ->addForeignKey("major_id", "fk_major_student")
-                ->reference("major", "id")
-                ->onUpdate("cascade")
-                ->onDelete("cascade");
+                ->reference("major", "id");
         })->execute();
     }
 

@@ -11,9 +11,7 @@ class m_025StudyProgramRelation extends BaseMigration implements Migration
         return $this->construct->alter("study_program", function (Alteration $table) {
             $table
                 ->addForeignKey("major_id", "fk_major_id_study_program")
-                ->reference("major", "id")
-                ->onUpdate("cascade")
-                ->onDelete("cascade");
+                ->reference("major", "id");
         })->execute();
     }
 

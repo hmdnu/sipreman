@@ -11,9 +11,7 @@ class m_019LecturerRelation extends BaseMigration implements Migration
         return $this->construct->alter("lecturer", function (Alteration $table) {
             $table
                 ->addForeignKey("nidn", "fk_nidn_lecturer")
-                ->reference("user", "no_induk")
-                ->onUpdate("cascade")
-                ->onDelete("cascade");
+                ->reference("user", "no_induk");
         })->execute();
     }
 

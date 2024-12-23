@@ -12,15 +12,11 @@ class m_020PrestasiRelation extends BaseMigration implements Migration
         return $this->construct->alter("prestasi", function (Alteration $table) {
             $table
                 ->addForeignKey("attachment_id", "fk_attachment_id_prestasi")
-                ->reference("attachment", "id")
-                ->onUpdate("cascade")
-                ->onDelete("cascade");
+                ->reference("attachment", "id");
 
             $table
                 ->addForeignKey("supervisor_id", "fk_supervisor_id_prestasi")
-                ->reference("lecturer", "nidn")
-                ->onUpdate("cascade")
-                ->onDelete("cascade");
+                ->reference("lecturer", "nidn");
         })->execute();
     }
 

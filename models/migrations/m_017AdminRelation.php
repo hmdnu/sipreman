@@ -12,9 +12,7 @@ class m_017AdminRelation extends BaseMigration implements Migration
         return $this->construct->alter("admin", function (Alteration $table) {
             $table
                 ->addForeignKey("nip", "fk_nip_admin")
-                ->reference("user","no_induk")
-                ->onUpdate("cascade")
-                ->onDelete("cascade");
+                ->reference("user","no_induk");
         })->execute();
     }
 

@@ -11,9 +11,7 @@ class m_028ProvinceChamp extends BaseMigration implements Migration
         return $this->construct->alter("province_champ", function (Alteration $table) {
             $table
                 ->addForeignKey("nim", "fk_nim_province_champ")
-                ->reference("student","nim")
-                ->onUpdate("cascade")
-                ->onDelete("cascade");
+                ->reference("student","nim");
         })->execute();
     }
 
