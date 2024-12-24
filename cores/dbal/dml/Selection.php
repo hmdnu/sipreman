@@ -15,6 +15,7 @@ class Selection extends BaseConstruct implements DML
     public function __construct(string $columns)
     {
         $this->columns = $columns;
+        $this->sql = "SELECT $columns";
     }
 
     public function setColumns(string ...$columns): self
@@ -31,7 +32,13 @@ class Selection extends BaseConstruct implements DML
     public function from(string $tableName, string $alias = null): self
     {
         $aliasTable = $this->handleAlias($alias);
-        $this->sql = trim("SELECT {$this->columns} FROM [$tableName] $aliasTable") . ";";
+        $this->sql = $this->sql . " " . trim("FROM [$tableName] $aliasTable") . ";";
+        return $this;
+    }
+
+    public function distinct(): self
+    {
+        $this->sql = "SELECT DISTINCT $this->columns";
         return $this;
     }
 
