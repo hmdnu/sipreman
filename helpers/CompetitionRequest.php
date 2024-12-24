@@ -38,16 +38,12 @@ class CompetitionRequest
     public function getStudentDetails(): array
     {
         return [
-            "nim" => $this->handleArrayInput($this->body["student-nim"] ?? []),
-            "names" => $this->handleArrayInput($this->body["student-name"] ?? []),
-            "majors" => $this->handleArrayInput($this->body["major"] ?? []),
-            "studyPrograms" => $this->handleArrayInput($this->body["study-program"] ?? []),
-            "roles" => $this->handleArrayInput($this->body["student-role"] ?? []),
+            "nim" => $this->body["student-nim"] ?? [],
+            "names" => $this->body["student-name"] ?? [],
+            "majors" => $this->body["major"] ?? [],
+            "studyPrograms" => $this->body["study-program"] ?? [],
+            "roles" => $this->body["student-role"] ?? [],
         ];
     }
 
-    private function handleArrayInput($input): array
-    {
-        return is_array($input) ? array_map('trim', $input) : [];
-    }
 }
