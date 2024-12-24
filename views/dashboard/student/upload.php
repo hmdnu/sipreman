@@ -37,37 +37,49 @@ use app\cores\View;
 <script type="module">
     import fragments from "/public/js/fragments/studentDashboard.js"
 
-    const supervisors = <?php echo json_encode(View::getData()["studentData"]["supervisors"]) ?>;
-    const studyPrograms = <?php echo json_encode(View::getData()["studentData"]["studyPrograms"]) ?>;
-    const majors = <?php echo json_encode(View::getData()["studentData"]["majors"]) ?>;
+    <?php
+    $studyPrograms = array_map(function ($studyProgram) {
+        return $studyProgram["study_program_name"];
+    }, View::getData()["studentData"]["studyPrograms"]);
 
-    console.log(supervisors, studyPrograms, majors);
+    $supervisors = array_map(function ($supervisor) {
+        return $supervisor["supervisor_name"];
+    }, View::getData()["studentData"]["supervisors"]);
 
-        $(() => {
-            const states = {
-                student: 1,
-                supervisor: 1
-            }
+    $majors = array_map(function ($major) {
+        return $major["major_name"];
+    }, View::getData()["studentData"]["majors"]);
+    ?>
 
-            $("#add-student-btn").on("click", () => {
-                states.student++;
-                $("#container-student-input").append(fragments.getStudentInputFragment(states.student,
-                    studyPrograms, majors));
-            })
+    const supervisors = <?php echo json_encode($supervisors) ?>;
+    const studyPrograms = <?php echo json_encode($studyPrograms) ?>;
+    const majors = <?php echo json_encode($majors) ?>;
 
-            $("#add-supervisor-btn").on("click", () => {
-                states.supervisor++;
-                $("#container-supervisor-input").append(fragments.getSupervisorInputFragment(states
-                    .supervisor, supervisors));
-            })
+    $(() => {
+        const states = {
+            student: 1,
+            supervisor: 1
+        }
 
-            $("#logout-form").on("submit", (e) => {
-                const confirmation = confirm("Logout?");
-
-                if (!confirmation) {
-                    e.preventDefault();
-                }
-            })
-
+        $("#add-student-btn").on("click", () => {
+            states.student++;
+            $("#container-student-input").append(fragments.getStudentInputFragment(states.student,
+                studyPrograms, majors));
         })
+
+        $("#add-supervisor-btn").on("click", () => {
+            states.supervisor++;
+            $("#container-supervisor-input").append(fragments.getSupervisorInputFragment(states
+                .supervisor, supervisors));
+        })
+
+        $("#logout-form").on("submit", (e) => {
+            const confirmation = confirm("Logout?");
+
+            if (!confirmation) {
+                e.preventDefault();
+            }
+        })
+
+    })
 </script>
