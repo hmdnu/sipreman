@@ -35,7 +35,34 @@ use app\cores\View;
                         <th class="px-4 py-2 text-left text-[12px] font-normal">Aksi</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="text-[12px]">
+
+                    <?php
+                $validatedPrestasi = View::getData()["validatedPrestasi"];
+
+                for ($i = 0; $i < count($validatedPrestasi); $i++) {
+                    echo "<tr class='border-b'>
+                            <td class='px-4 py-2 text-center'>" . ($i + 1) . "</td>
+                            <td class='px-4 py-2'> {$validatedPrestasi[$i]["competition_name"]}</td>
+                            <td class='px-4 py-2'>{$validatedPrestasi[$i]["loa_number"]}</td>
+                            <td class='px-4 py-2 text-center'>{$validatedPrestasi[$i]["competition_level"]}</td>
+                            <td class='px-4 py-2 text-center'>{$validatedPrestasi[$i]["role"]}</td>
+                            <td class='px-4 py-2 text-center'>{$validatedPrestasi[$i]["point"]}</td>
+                            <td class='px-4 py-2'>";
+
+                    echo "<div class='flex items-center justify-center gap-2'>                                 
+                                <button class='p-1.5 bg-green-100 text-green-800 rounded-lg hover:bg-green-200' title='Tervalidasi'>
+                                    <img src='/public/assets/icon/validate_icon.png' alt='Valid' class='h-5 w-5'>
+                                </button>
+                                <button class='p-1.5 bg-gray-100 text-gray-300 rounded-lg cursor-not-allowed' title='Tidak dapat diedit' disabled>
+                                    <img src='/public/assets/icon/edit_icon.png' alt='Edit' class='h-5 w-5'>
+                                </button>
+                            </div>
+                            </td>
+                        </tr>";
+                }
+                ?>
+                </tbody>
             </table>
         </div>
     </div>
