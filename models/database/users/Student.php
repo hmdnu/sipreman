@@ -44,6 +44,6 @@ class Student extends BaseModel
             ->from(self::TABLE)
             ->where(self::NIM, "?")
             ->bindParams(1, $nim)
-            ->fetch();
+            ->fetch()[0];
     }
 }

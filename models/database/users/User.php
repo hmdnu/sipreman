@@ -26,7 +26,7 @@ class User extends BaseModel
             ->from(self::TABLE)
             ->where(self::NO_INDUK, "?")
             ->bindParams(1, $noInduk)
-            ->fetch();
+            ->fetch()[0];
     }
 
     public static function findAll(): array
