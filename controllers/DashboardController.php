@@ -14,8 +14,8 @@ use app\models\database\users\Lecturer;
 
 class DashboardController extends BaseController
 {
-    private string $nim = "";
-    private string $nip = "";
+    private string $nim;
+    private string $nip;
 
     public function __construct()
     {
@@ -26,10 +26,8 @@ class DashboardController extends BaseController
 
     public function studentUploadPrestasi(Request $req, Response $res): void
     {
-
         try {
             $studentData = $this->getStudentData($this->nim);
-
 
             $this->view("dashboard/student/upload", "Dashboard Mahasiswa", [
                 "studentData" => $studentData
@@ -43,11 +41,12 @@ class DashboardController extends BaseController
     {
         try {
             $studentData = $this->getStudentData($this->nim);
-            $prestasiData = $this->getPrestasiData($this->nim);
+            $prestasiData = Prestasi::getPrestasiData($this->nim);
+
 
             $this->view("dashboard/student/validation", "Validation", [
                 "studentData" => $studentData,
-                 "prestasiData" => $prestasiData
+                "prestasiData" => $prestasiData
 
             ]);
         } catch (\PDOException $err) {
@@ -59,10 +58,18 @@ class DashboardController extends BaseController
     {
         try {
             $studentData = $this->getStudentData($this->nim);
+            $validatedPrestasi = Prestasi::getValidatedPrestasiData($this->nim);
+
+            $totalPoint = 0;
+
+            foreach ($validatedPrestasi as $prestasi) {
+                $totalPoint += $prestasi["point"];
+            }
 
             $this->view("dashboard/student/point", "Point", [
                 "studentData" => $studentData,
-
+                "validatedPrestasi" => $validatedPrestasi,
+                "totalPoint" => $totalPoint
             ]);
         } catch (\PDOException $err) {
             var_dump("error bang", $err->getMessage());
@@ -122,10 +129,6 @@ class DashboardController extends BaseController
         ];
     }
 
-    private function getPrestasiData(string $nim): array
-    {
-        return Prestasi::getPrestasiData($nim);
-    }
 
     private function getAdminData(string $nip): array
     {

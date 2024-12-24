@@ -10,6 +10,7 @@ use app\helpers\UUID;
 use app\models\database\prestasiCore\Attachment;
 use app\models\database\prestasiCore\Loa;
 use app\models\database\prestasiCore\PrestasiTeam;
+use app\models\database\prestasiCore\Skkm;
 use Exception;
 use app\models\database\prestasiCore\Prestasi;
 
@@ -27,20 +28,20 @@ class PrestasiController extends BaseController
         $body = $req->body();
         $file = $req->file();
 
-        try {
-            $competitionRequest = new CompetitionRequest($body);
-            $studentDetails = $competitionRequest->getStudentDetails();
-            $competitionDetails = $competitionRequest->getCompetitionDetails();
-            $loaDetails = $competitionRequest->getLoaDetails();
+        $competitionRequest = new CompetitionRequest($body);
+        $studentDetails = $competitionRequest->getStudentDetails();
+        $competitionDetails = $competitionRequest->getCompetitionDetails();
+        $loaDetails = $competitionRequest->getLoaDetails();
 
+        $prestasiId = UUID::generate();
+        $attachmentIds = UUID::generate();
+        $loaId = UUID::generate();
+
+        try {
             $loaFile = $this->handleFileUpload($file["loa-file"]);
             $certificateFile = $this->handleFileUpload($file["certificate-file"]);
             $photoFile = $this->handleFileUpload($file["photo-file"]);
             $flyerFile = $this->handleFileUpload($file["flyer-file"]);
-
-            $prestasiId = UUID::generate();
-            $attachmentIds = UUID::generate();
-            $loaId = UUID::generate();
 
             $db = Database::getConnection();
             $db->beginTransaction();
@@ -85,12 +86,23 @@ class PrestasiController extends BaseController
                     [
                         "id" => UUID::generate(),
                         "nim" => $studentDetails["nim"][$i],
-                        "name" => $studentDetails["name"][$i],
+                        "name" => $studentDetails["names"][$i],
                         "role" => $studentDetails["roles"][$i],
                         "supervisor_id" => $competitionDetails["supervisor_id"],
                         "prestasi_id" => $prestasiId,
                     ]
                 );
+
+                Skkm::insert([
+                    "id" => UUID::generate(),
+                    "nim" => $studentDetails["nim"][$i],
+                    "prestasi_id" => $prestasiId,
+                    "certificate_number" => null,
+                    "level" => null,
+                    "certificate_path" => null,
+                    "point" => 0
+                ]);
+
             }
 
             $db->commit();

@@ -63,25 +63,52 @@ class Prestasi extends BaseModel
         return self::construct()->delete(self::TABLE)->execute();
     }
 
+    private static function createPrestasiView(): bool
+    {
+        return self::construct()
+            ->select(
+                "prestasi_team.nim",
+                "prestasi.competition_name",
+                "loa.loa_number",
+                "prestasi.competition_level",
+                "prestasi_team.role",
+                "skkm.point",
+                "prestasi.is_validate"
+            )
+            ->distinct()
+            ->from("prestasi_team", "pt")
+            ->innerJoin("student", "s")->on("pt.nim", "s.nim")
+            ->innerJoin("prestasi", "p")->on("pt.prestasi_id", "p.id")
+            ->innerJoin("attachment", "a")->on("p.attachment_id", "a.id")
+            ->innerJoin("loa", "l")->on("l.id", "a.loa_id")
+            ->innerJoin("skkm", "s")->on("s.prestasi_id", "p.id")
+            ->view("prestasi_view")
+            ->execute();
+    }
+
     public static function getPrestasiData(string $nim): array
     {
-        self::instantiate();
+        $view = self::createPrestasiView();
 
-        $query =
-            "SELECT 
-                    prestasi.competition_name,
-                    loa.loa_number,
-                    prestasi.competition_level,
-                    prestasi_team.role,
-                    skkm.point AS 'point',
-                    prestasi.is_validate
-                FROM prestasi_team
-                    JOIN prestasi ON prestasi_team.prestasi_id = prestasi.id 
-                    JOIN attachment ON prestasi.attachment_id = attachment.id
-                    JOIN loa ON loa.id = attachment.loa_id
-                    JOIN skkm on skkm.nim = prestasi_team.nim
-                WHERE prestasi_team.nim = :nim;";
+        return self::construct()
+            ->select("*")
+            ->distinct()
+            ->from("prestasi_view")
+            ->where("nim", "?")
+            ->bindParams(1, $nim)
+            ->fetch();
+    }
 
-        return self::$construct->query($query)->bindParams(":nim", $nim)->execute()->fetchColumn();
+    public static function getValidatedPrestasiData(string $nim): array
+    {
+        return self::construct()
+            ->select("*")
+            ->distinct()
+            ->from("prestasi_view")
+            ->where("nim", "?")
+            ->and("is_validate", "?")
+            ->bindParams(1, $nim)
+            ->bindParams(2, 1)
+            ->fetch();
     }
 }
