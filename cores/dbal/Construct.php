@@ -68,17 +68,23 @@ class Construct
     public function call(string $procedureName, array $params): Procedure
     {
         $sql = "EXEC $procedureName ";
-        $parameters = "";
+        $parameters = [];
 
         foreach ($params as $key => $value) {
-            $value = is_string($value) ? "'$value'" : $value;
-            $parameters .= "@$key = $value, ";
+            if (is_null($value)) {
+                $parameters[] = "@$key = NULL";
+            } elseif (is_string($value)) {
+                $parameters[] = "@$key = '" . addslashes($value) . "'";
+            } else {
+                $parameters[] = "@$key = $value";
+            }
         }
-        $sql .= trim($parameters, ", ") . ";";
 
+        $sql .= implode(", ", $parameters) . ";";
 
         return new Procedure($procedureName, $sql);
     }
+
 
     public function alter(string $tableName, callable $callback): Table
     {
