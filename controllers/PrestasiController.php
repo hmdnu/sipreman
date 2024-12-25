@@ -3,23 +3,22 @@
 namespace app\controllers;
 
 use app\cores\Database;
+use app\cores\dbal\Construct;
 use app\cores\Request;
 use app\cores\Response;
 use app\helpers\CompetitionRequest;
 use app\helpers\UUID;
-use app\models\database\prestasiCore\Attachment;
-use app\models\database\prestasiCore\Loa;
-use app\models\database\prestasiCore\PrestasiTeam;
-use app\models\database\prestasiCore\Skkm;
 use Exception;
 use app\models\database\prestasiCore\Prestasi;
 
 class PrestasiController extends BaseController
 {
     private string $baseUploadDir = "./public/uploads";
+    private Construct $construct;
 
     public function __construct()
     {
+        $this->construct = new Construct();
         parent::__construct();
     }
 
@@ -38,6 +37,10 @@ class PrestasiController extends BaseController
         $loaId = UUID::generate();
 
         try {
+            // create procedure for handling insert
+            $this->createLoaAndAttachmentProcedure();
+            $this->createPrestasiTeamSkkmProcedure();
+
             $loaFile = $this->handleFileUpload($file["loa-file"]);
             $certificateFile = $this->handleFileUpload($file["certificate-file"]);
             $photoFile = $this->handleFileUpload($file["photo-file"]);
@@ -46,21 +49,19 @@ class PrestasiController extends BaseController
             $db = Database::getConnection();
             $db->beginTransaction();
 
-            Loa::insert([
-                "id" => $loaId,
+            $this->construct->call("insert_loa_attachment", [
+                "loa_id" => $loaId,
                 "date" => $loaDetails["loa_date"],
                 "loa_number" => $loaDetails["loa_number"],
-                "loa_pdf_path" => $loaFile
-            ]);
+                "loa_pdf_path" => $loaFile,
 
-            Attachment::insert([
-                "id" => $attachmentIds,
-                "loa_id" => $loaId,
+                "attachment_id" => $attachmentIds,
+                "attachment_loa_id" => $loaId,
                 "certificate_path" => $certificateFile,
-                "documentation_photo_path" => $photoFile,
+                "docs_photo_path" => $photoFile,
                 "poster_path" => $flyerFile,
                 "caption" => "ini itu caption bro"
-            ]);
+            ])->execute();
 
             Prestasi::insert(
                 [
@@ -82,27 +83,21 @@ class PrestasiController extends BaseController
 
 
             for ($i = 0; $i < count($studentDetails["nim"]); $i++) {
-                PrestasiTeam::insert(
-                    [
-                        "id" => UUID::generate(),
-                        "nim" => $studentDetails["nim"][$i],
-                        "name" => $studentDetails["names"][$i],
-                        "role" => $studentDetails["roles"][$i],
-                        "supervisor_id" => $competitionDetails["supervisor_id"],
-                        "prestasi_id" => $prestasiId,
-                    ]
-                );
-
-                Skkm::insert([
-                    "id" => UUID::generate(),
-                    "nim" => $studentDetails["nim"][$i],
-                    "prestasi_id" => $prestasiId,
+                $this->construct->call("insert_prestasi_team_skkm", [
+                    "pt_id" => UUID::generate(),
+                    "pt_nim" => $studentDetails["nim"][$i],
+                    "name" => $studentDetails["names"][$i],
+                    "role" => $studentDetails["roles"][$i],
+                    "pt_supervisor_id" => $competitionDetails["supervisor_id"],
+                    "pt_prestasi_id" => $prestasiId,
+                    "skkm_id" => UUID::generate(),
+                    "skkm_nim" => $studentDetails["nim"][$i],
+                    "skkm_prestasi_id" => $prestasiId,
                     "certificate_number" => null,
                     "level" => null,
                     "certificate_path" => null,
-                    "point" => 0
-                ]);
-
+                    "point" => 0,
+                ])->execute();
             }
 
             $db->commit();
@@ -164,5 +159,87 @@ class PrestasiController extends BaseController
             "isOk" => move_uploaded_file($tmpName, $newfilename),
             "filePath" => $newfilename
         ];
+    }
+
+    private function createLoaAndAttachmentProcedure(): void
+    {
+        $this->construct->procedure("insert_loa_attachment")
+            ->as(
+                $this->construct
+                    ->insert("loa")
+                    ->values([
+                        "id" => "@loa_id",
+                        "date" => "@date",
+                        "loa_number" => "@loa_number",
+                        "loa_pdf_path" => "@loa_pdf_path"
+                    ])->getSql()
+                ,
+                $this->construct
+                    ->insert("attachment")
+                    ->values([
+                        "id" => "@attachment_id",
+                        "loa_id" => "@attachment_loa_id",
+                        "certificate_path" => "@certificate_path",
+                        "documentation_photo_path" => "@docs_photo_path",
+                        "poster_path" => "@poster_path",
+                        "caption" => "@caption"
+                    ])->getSql()
+            )
+            ->addParam("loa_id", "nvarchar(255)")
+            ->addParam("date", "date")
+            ->addParam("loa_number", "nvarchar(255)")
+            ->addParam("loa_pdf_path", "nvarchar(255)")
+
+            ->addParam("attachment_id", "nvarchar(255)")
+            ->addParam("attachment_loa_id", "nvarchar(255)")
+            ->addParam("certificate_path", "nvarchar(255)")
+            ->addParam("docs_photo_path", "nvarchar(255)")
+            ->addParam("poster_path", "nvarchar(255)")
+            ->addParam("caption", "nvarchar(255)")
+            ->execute();
+    }
+
+    private function createPrestasiTeamSkkmProcedure(): void
+    {
+        $this->construct->procedure("insert_prestasi_team_skkm")
+            ->as(
+                $this->construct
+                    ->insert("prestasi_team")
+                    ->values([
+                        "id" => "@pt_id",
+                        "nim" => "@pt_nim",
+                        "name" => "@name",
+                        "role" => "@role",
+                        "supervisor_id" => "@pt_supervisor_id",
+                        "prestasi_id" => "@pt_prestasi_id",
+                    ])->getSql(),
+
+                $this->construct
+                    ->insert("skkm")
+                    ->values([
+                        "id" => "@skkm_id",
+                        "nim" => "@skkm_nim",
+                        "prestasi_id" => "@skkm_prestasi_id",
+                        "certificate_number" => "@certificate_number",
+                        "level" => "@level",
+                        "certificate_path" => "@certificate_path",
+                        "point" => "@point"
+                    ])
+                    ->getSql()
+            )
+            ->addParam("pt_id", "nvarchar(255)")
+            ->addParam("pt_nim", "nvarchar(255)")
+            ->addParam("name", "nvarchar(255)")
+            ->addParam("role", "nvarchar(255)")
+            ->addParam("pt_supervisor_id", "nvarchar(255)")
+            ->addParam("pt_prestasi_id", "nvarchar(255)")
+            ->addParam("skkm_id", "nvarchar(255)")
+            ->addParam("skkm_nim", "nvarchar(255)")
+            ->addParam("skkm_prestasi_id", "nvarchar(255)")
+            ->addParam("certificate_number", "nvarchar(255)")
+            ->addParam("level", "nvarchar(255)")
+            ->addParam("certificate_path", "nvarchar(255)")
+            ->addParam("point", "decimal")
+            ->execute();
     }
 }

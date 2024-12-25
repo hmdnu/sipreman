@@ -65,30 +65,34 @@ class Prestasi extends BaseModel
 
     private static function createPrestasiView(): bool
     {
-        return self::construct()
-            ->select(
-                "prestasi_team.nim",
-                "prestasi.competition_name",
-                "loa.loa_number",
-                "prestasi.competition_level",
-                "prestasi_team.role",
-                "skkm.point",
-                "prestasi.is_validate"
-            )
-            ->distinct()
-            ->from("prestasi_team", "pt")
-            ->innerJoin("student", "s")->on("pt.nim", "s.nim")
-            ->innerJoin("prestasi", "p")->on("pt.prestasi_id", "p.id")
-            ->innerJoin("attachment", "a")->on("p.attachment_id", "a.id")
-            ->innerJoin("loa", "l")->on("l.id", "a.loa_id")
-            ->innerJoin("skkm", "s")->on("s.prestasi_id", "p.id")
-            ->view("prestasi_view")
-            ->execute();
+        return self::construct()->view("prestasi_view")->as(
+            self::construct()
+                ->select(
+                    "prestasi_team.nim",
+                    "prestasi.competition_name",
+                    "loa.loa_number",
+                    "prestasi.competition_level",
+                    "prestasi_team.role",
+                    "skkm.point",
+                    "prestasi.is_validate"
+                )
+                ->from("prestasi_team", "pt")
+                ->innerJoin("student", "s")->on("pt.nim", "s.nim")
+                ->innerJoin("prestasi", "p")->on("pt.prestasi_id", "p.id")
+                ->innerJoin("attachment", "a")->on("p.attachment_id", "a.id")
+                ->innerJoin("loa", "l")->on("l.id", "a.loa_id")
+                ->innerJoin("skkm", "s")->on("s.prestasi_id", "p.id")
+                ->getSql()
+        )->execute();
     }
 
     public static function getPrestasiData(string $nim): array
     {
         $view = self::createPrestasiView();
+
+        if (!$view) {
+            return [];
+        };
 
         return self::construct()
             ->select("*")
