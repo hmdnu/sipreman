@@ -25,7 +25,7 @@ class CompetitionRequest
             "supervisor_id" => $this->body["supervisor-nidn"] ?? null,
             "category_name" => $this->body["category-name"] ?? null,
             "competition_name" => $this->body["competition-name"] ?? null,
-            "competition_level" => $this->body["competition-level"] ?? null,
+            "competition_level" => strtolower($this->body["competition-level"]) ?? null,
             "place" => $this->body["place"] ?? null,
             "date_start_competition" => $this->body["date-start-competition"] ?? null,
             "date_end_competition" => $this->body["date-end-competition"] ?? null,
