@@ -9,6 +9,7 @@ use app\cores\dbal\dml\Deletion;
 use app\cores\dbal\dml\Insertion;
 use app\cores\dbal\dml\Selection;
 use app\cores\dbal\dml\Updation;
+use app\cores\dbal\dml\View;
 
 class Construct
 {
@@ -59,15 +60,9 @@ class Construct
         return new Deletion($tableName, $aliasName);
     }
 
-    public function procedure(string $procedureName, callable $callback = null): Procedure
+    public function procedure(string $procedureName): Procedure
     {
-        if (!$callback) {
-            return new Procedure($procedureName);
-        }
-        $selection = new Selection("*");
-        $callback($selection);
-        $sql = $selection->getSql();
-        return new Procedure($procedureName, $sql);
+        return new Procedure($procedureName);
     }
 
     public function call(string $procedureName, array $params): Procedure
@@ -95,5 +90,10 @@ class Construct
         $table->buildAlter();
 
         return $table;
+    }
+
+    public function view(string $viewName): View
+    {
+        return new View($viewName);
     }
 }
