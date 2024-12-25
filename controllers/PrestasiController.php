@@ -8,6 +8,10 @@ use app\cores\Request;
 use app\cores\Response;
 use app\helpers\CompetitionRequest;
 use app\helpers\UUID;
+use app\models\database\championLevel\InternationalChamp;
+use app\models\database\championLevel\NationalChamp;
+use app\models\database\championLevel\ProvinceChamp;
+use app\models\database\championLevel\RegencyChamp;
 use Exception;
 use app\models\database\prestasiCore\Prestasi;
 
@@ -20,6 +24,12 @@ class PrestasiController extends BaseController
     {
         $this->construct = new Construct();
         parent::__construct();
+
+        // create procedure for handling insert
+        Prestasi::createLoaAndAttachmentProcedure();
+        Prestasi::createPrestasiTeamSkkmProcedure();
+
+
     }
 
     public function postPrestasi(Request $req, Response $res): void
@@ -37,9 +47,8 @@ class PrestasiController extends BaseController
         $loaId = UUID::generate();
 
         try {
-            // create procedure for handling insert
-            Prestasi::createLoaAndAttachmentProcedure();
-            Prestasi::createPrestasiTeamSkkmProcedure();
+            // invoke triggers
+            $this->invokeTriggers();
 
             $loaFile = $this->handleFileUpload($file["loa-file"]);
             $certificateFile = $this->handleFileUpload($file["certificate-file"]);
@@ -68,7 +77,7 @@ class PrestasiController extends BaseController
                     "id" => $prestasiId,
                     "competition_name" => $competitionDetails["competition_name"],
                     "category_name" => $competitionDetails["category_name"],
-                    "competition_level" => $competitionDetails["competition_level"],
+                    "competition_level" => strtolower($competitionDetails["competition_level"]),
                     "place" => $competitionDetails["place"],
                     "date_start_competition" => $competitionDetails["date_start_competition"],
                     "date_end_competition" => $competitionDetails["date_end_competition"],
@@ -161,5 +170,11 @@ class PrestasiController extends BaseController
         ];
     }
 
-
+    private function invokeTriggers(): void
+    {
+        InternationalChamp::createInsertTrigger();
+        NationalChamp::createInsertTrigger();
+        ProvinceChamp::createInsertTrigger();
+        RegencyChamp::createInsertTrigger();
+    }
 }

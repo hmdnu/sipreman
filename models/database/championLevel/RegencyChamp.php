@@ -25,6 +25,21 @@ class RegencyChamp extends BaseModel
             ->execute();
     }
 
+    public static function createInsertTrigger(): bool
+    {
+        return self::construct()->query(
+            "CREATE TRIGGER insert_regency_champ ON prestasi_team
+                AFTER INSERT AS
+                 BEGIN
+                    INSERT INTO regency_champ (id, nim)
+                    SELECT
+                        NEWID(),
+                        nim
+                    FROM INSERTED;
+                 END;"
+        )->execute();
+    }
+
     public static function deleteAll(): bool
     {
         return self::construct()->delete(self::TABLE)->execute();
