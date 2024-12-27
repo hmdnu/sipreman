@@ -6,11 +6,11 @@ use app\models\BaseModel;
 
 class Student extends BaseModel
 {
-    public const TABLE = "student";
-    public const NIM = "nim";
-    public const NAME = "name";
-    public const STUDY_PROGRAM_ID = "study_program_id";
-    public const MAJOR_ID = "major_id";
+    public const string TABLE = "student";
+    public const string NIM = "nim";
+    public const string NAME = "name";
+    public const string STUDY_PROGRAM_ID = "study_program_id";
+    public const string MAJOR_ID = "major_id";
 
     public static function insert(array $data): bool
     {

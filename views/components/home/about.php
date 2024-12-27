@@ -10,6 +10,25 @@
                 memotivasi mahasiswa untuk berprestasi.
             </p>
         </div>
+        <div>
+            <!-- data loop -->
+            <template>
+            </template>
+
+            <!-- back/next -->
+            <div>
+
+            </div>
+
+            <!-- button -->
+            <div>
+                <template>
+                    
+                </template>
+            </div>
+        </div>
+
+
         <!-- image section -->
         <div class="flex items-center">
             <div class="relative ml-20 mt-5">

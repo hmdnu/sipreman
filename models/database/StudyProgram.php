@@ -7,11 +7,11 @@ use app\models\BaseModel;
 
 class StudyProgram extends BaseModel
 {
-    public const TABLE = "study_program";
-    public const ID = "id";
-    public const STUDY_PROGRAM_NAME = "study_program_name";
-    public const MAJOR_ID = "major_id";
-    public const TOTAL_VICTORY_STUDY_PROGRAM = "total_victory_study_program";
+    public const string TABLE = "study_program";
+    public const string ID = "id";
+    public const string STUDY_PROGRAM_NAME = "study_program_name";
+    public const string MAJOR_ID = "major_id";
+    public const string TOTAL_VICTORY_STUDY_PROGRAM = "total_victory_study_program";
 
     public static function insert(array $data): bool
     {
