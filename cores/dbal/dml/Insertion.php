@@ -17,6 +17,11 @@ class Insertion extends BaseConstruct implements DML
         $this->tableName = $tableName;
     }
 
+    public function getSql(): string
+    {
+        return $this->buildSql();
+    }
+
     public function values(array $data): self
     {
         $this->columns = array_keys($data);
@@ -31,14 +36,8 @@ class Insertion extends BaseConstruct implements DML
         return $this;
     }
 
-    /**
-     * return boolean, only execute the query
-     * @return bool
-     */
-
-    public function execute(): bool
+    private function buildSql(): string
     {
-
         $columns = [];
         $valueGroups = [];
 
@@ -52,7 +51,7 @@ class Insertion extends BaseConstruct implements DML
             $rowValues = array_slice($this->columnValues, $i, count($this->columns));
             $rowValues = array_map(function ($val) {
 
-                if ($val === "?") {
+                if ($val === "?" || $val[0] === "@") {
                     return $val;
                 }
 
@@ -63,14 +62,22 @@ class Insertion extends BaseConstruct implements DML
         }
 
         // Build SQL string
-        $sql = sprintf(
+        return sprintf(
             "INSERT INTO [%s] (%s) VALUES %s;",
             $this->tableName,
             implode(", ", $columns),
             implode(", ", $valueGroups)
         );
+    }
 
+    /**
+     * return boolean, only execute the query
+     * @return bool
+     */
 
+    public function execute(): bool
+    {
+        $sql = $this->buildSql();
         return $this->executeSql($sql, $this->params);
     }
 

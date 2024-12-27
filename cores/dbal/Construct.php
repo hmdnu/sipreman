@@ -9,6 +9,7 @@ use app\cores\dbal\dml\Deletion;
 use app\cores\dbal\dml\Insertion;
 use app\cores\dbal\dml\Selection;
 use app\cores\dbal\dml\Updation;
+use app\cores\dbal\dml\View;
 
 class Construct
 {
@@ -59,31 +60,31 @@ class Construct
         return new Deletion($tableName, $aliasName);
     }
 
-    public function procedure(string $procedureName, callable $callback = null): Procedure
+    public function procedure(string $procedureName): Procedure
     {
-        if (!$callback) {
-            return new Procedure($procedureName);
-        }
-        $selection = new Selection("*");
-        $callback($selection);
-        $sql = $selection->getSql();
-        return new Procedure($procedureName, $sql);
+        return new Procedure($procedureName);
     }
 
     public function call(string $procedureName, array $params): Procedure
     {
         $sql = "EXEC $procedureName ";
-        $parameters = "";
+        $parameters = [];
 
         foreach ($params as $key => $value) {
-            $value = is_string($value) ? "'$value'" : $value;
-            $parameters .= "@$key = $value, ";
+            if (is_null($value)) {
+                $parameters[] = "@$key = NULL";
+            } elseif (is_string($value)) {
+                $parameters[] = "@$key = '" . addslashes($value) . "'";
+            } else {
+                $parameters[] = "@$key = $value";
+            }
         }
-        $sql .= trim($parameters, ", ") . ";";
 
+        $sql .= implode(", ", $parameters) . ";";
 
         return new Procedure($procedureName, $sql);
     }
+
 
     public function alter(string $tableName, callable $callback): Table
     {
@@ -95,5 +96,10 @@ class Construct
         $table->buildAlter();
 
         return $table;
+    }
+
+    public function view(string $viewName): View
+    {
+        return new View($viewName);
     }
 }

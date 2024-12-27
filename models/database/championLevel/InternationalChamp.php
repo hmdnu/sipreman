@@ -25,6 +25,22 @@ class InternationalChamp extends BaseModel
             ->execute();
     }
 
+
+    public static function createInsertTrigger(): bool
+    {
+        return self::construct()->query(
+            "CREATE TRIGGER insert_inter_champ ON prestasi_team
+                AFTER INSERT AS
+                 BEGIN
+                    INSERT INTO international_champ (id, nim)
+                    SELECT
+                        NEWID(),
+                        nim
+                    FROM INSERTED;
+                 END;"
+        )->execute();
+    }
+
     public static function deleteAll(): bool
     {
         return self::construct()->delete(self::TABLE)->execute();
