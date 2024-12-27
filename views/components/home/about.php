@@ -1,4 +1,4 @@
-<section class="bg-neutral-0 px-10 mt-40 py-20">
+<section id="about" class="bg-neutral-0 px-10 mt-40 py-20">
     <div class="mx-auto flex justify-center">
         <!-- about text -->
         <div class="relative w-[547px] h-[307px] mr-20">

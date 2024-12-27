@@ -6,10 +6,10 @@ use app\models\BaseModel;
 
 class Major extends BaseModel
 {
-    public const string TABLE = "major";
-    public const string ID = "id";
-    public const string MAJOR_NAME = "major_name";
-    public const string TOTAL_VICTORY_MAJOR = "total_victory_major";
+    public const TABLE = "major";
+    public const ID = "id";
+    public const MAJOR_NAME = "major_name";
+    public const TOTAL_VICTORY_MAJOR = "total_victory_major";
 
 
     public static function insert(array $data): bool

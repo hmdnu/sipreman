@@ -1,4 +1,4 @@
-<section class="bg-neutral-100 mt-40 py-20 bg-cover">
+<section id="service" class="bg-neutral-100 mt-40 py-20 bg-cover">
     <div class="max-w-7xl mx-auto text-center">
         <!-- text tittle and sub-tittle-->
         <h2 class="h1 font-semibold text-neutral-900 mb-5">Kami Menawarkan Kemudahan untuk Anda!</h2>

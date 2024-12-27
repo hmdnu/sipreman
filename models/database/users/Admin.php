@@ -6,9 +6,9 @@ use app\models\BaseModel;
 
 class Admin extends BaseModel
 {
-    public const string TABLE = "admin";
-    public const string NIP = "nip";
-    public const string NAME = "name";
+    public const TABLE = "admin";
+    public const NIP = "nip";
+    public const NAME = "name";
 
     public static function insert(array $data): bool
     {
