@@ -70,3 +70,9 @@ input[type="number"] {
     box-shadow: 4px 10px 20px 10px rgba(180, 180, 180, 0.25);
   }
 }
+
+.carousel-image {
+    width: 330px; /* Sesuaikan dengan lebar yang diinginkan */
+    height: 400px; /* Sesuaikan dengan tinggi yang diinginkan */
+    object-fit: cover; /* Menjaga rasio aspek gambar */
+}
