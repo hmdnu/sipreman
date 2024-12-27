@@ -65,30 +65,34 @@ class Prestasi extends BaseModel
 
     private static function createPrestasiView(): bool
     {
-        return self::construct()
-            ->select(
-                "prestasi_team.nim",
-                "prestasi.competition_name",
-                "loa.loa_number",
-                "prestasi.competition_level",
-                "prestasi_team.role",
-                "skkm.point",
-                "prestasi.is_validate"
-            )
-            ->distinct()
-            ->from("prestasi_team", "pt")
-            ->innerJoin("student", "s")->on("pt.nim", "s.nim")
-            ->innerJoin("prestasi", "p")->on("pt.prestasi_id", "p.id")
-            ->innerJoin("attachment", "a")->on("p.attachment_id", "a.id")
-            ->innerJoin("loa", "l")->on("l.id", "a.loa_id")
-            ->innerJoin("skkm", "s")->on("s.prestasi_id", "p.id")
-            ->view("prestasi_view")
-            ->execute();
+        return self::construct()->view("prestasi_view")->as(
+            self::construct()
+                ->select(
+                    "pt.nim",
+                    "p.competition_name",
+                    "l.loa_number",
+                    "p.competition_level",
+                    "pt.role",
+                    "sk.point",
+                    "p.is_validate"
+                )
+                ->from("prestasi_team", "pt")
+                ->innerJoin("student", "s")->on("pt.nim", "s.nim")
+                ->innerJoin("prestasi", "p")->on("pt.prestasi_id", "p.id")
+                ->innerJoin("attachment", "a")->on("p.attachment_id", "a.id")
+                ->innerJoin("loa", "l")->on("l.id", "a.loa_id")
+                ->innerJoin("skkm", "sk")->on("sk.prestasi_id", "p.id")
+                ->getSql()
+        )->execute();
     }
 
     public static function getPrestasiData(string $nim): array
     {
         $view = self::createPrestasiView();
+
+        if (!$view) {
+            return [];
+        };
 
         return self::construct()
             ->select("*")
@@ -110,5 +114,86 @@ class Prestasi extends BaseModel
             ->bindParams(1, $nim)
             ->bindParams(2, 1)
             ->fetch();
+    }
+
+    public static function createLoaAndAttachmentProcedure(): bool
+    {
+        return self::construct()->procedure("insert_loa_attachment")
+            ->as(
+                self::construct()
+                    ->insert("loa")
+                    ->values([
+                        "id" => "@loa_id",
+                        "date" => "@date",
+                        "loa_number" => "@loa_number",
+                        "loa_pdf_path" => "@loa_pdf_path"
+                    ])->getSql()
+                ,
+                self::construct()
+                    ->insert("attachment")
+                    ->values([
+                        "id" => "@attachment_id",
+                        "loa_id" => "@attachment_loa_id",
+                        "certificate_path" => "@certificate_path",
+                        "documentation_photo_path" => "@docs_photo_path",
+                        "poster_path" => "@poster_path",
+                        "caption" => "@caption"
+                    ])->getSql()
+            )
+            ->addParam("loa_id", "nvarchar(255)")
+            ->addParam("date", "date")
+            ->addParam("loa_number", "nvarchar(255)")
+            ->addParam("loa_pdf_path", "nvarchar(255)")
+            ->addParam("attachment_id", "nvarchar(255)")
+            ->addParam("attachment_loa_id", "nvarchar(255)")
+            ->addParam("certificate_path", "nvarchar(255)")
+            ->addParam("docs_photo_path", "nvarchar(255)")
+            ->addParam("poster_path", "nvarchar(255)")
+            ->addParam("caption", "nvarchar(255)")
+            ->execute();
+    }
+
+    public static function createPrestasiTeamSkkmProcedure(): bool
+    {
+        return self::construct()->procedure("insert_prestasi_team_skkm")
+            ->as(
+                self::construct()
+                    ->insert("prestasi_team")
+                    ->values([
+                        "id" => "@pt_id",
+                        "nim" => "@pt_nim",
+                        "name" => "@name",
+                        "role" => "@role",
+                        "supervisor_id" => "@pt_supervisor_id",
+                        "prestasi_id" => "@pt_prestasi_id",
+                    ])->getSql(),
+
+                self::construct()
+                    ->insert("skkm")
+                    ->values([
+                        "id" => "@skkm_id",
+                        "nim" => "@skkm_nim",
+                        "prestasi_id" => "@skkm_prestasi_id",
+                        "certificate_number" => "@certificate_number",
+                        "level" => "@level",
+                        "certificate_path" => "@certificate_path",
+                        "point" => "@point"
+                    ])
+                    ->getSql()
+            )
+            ->addParam("pt_id", "nvarchar(255)")
+            ->addParam("pt_nim", "nvarchar(255)")
+            ->addParam("name", "nvarchar(255)")
+            ->addParam("role", "nvarchar(255)")
+            ->addParam("pt_supervisor_id", "nvarchar(255)")
+            ->addParam("pt_prestasi_id", "nvarchar(255)")
+            ->addParam("skkm_id", "nvarchar(255)")
+            ->addParam("skkm_nim", "nvarchar(255)")
+            ->addParam("skkm_prestasi_id", "nvarchar(255)")
+            ->addParam("certificate_number", "nvarchar(255)")
+            ->addParam("level", "nvarchar(255)")
+            ->addParam("certificate_path", "nvarchar(255)")
+            ->addParam("point", "decimal")
+            ->execute();
     }
 }

@@ -91,24 +91,6 @@ class Selection extends BaseConstruct implements DML
         return $this;
     }
 
-    public function view(string $viewName): self
-    {
-        $sql = str_replace(";", "", $this->sql);
-
-        $this->sql = "IF NOT EXISTS (
-                SELECT 1
-                FROM sys.views
-                WHERE name = '$viewName'
-            ) 
-            BEGIN
-                EXEC sp_executesql N'
-                CREATE VIEW $viewName AS
-                    $sql';
-            END;";
-
-        return $this;
-    }
-
     public function bindParams(string|int $params, mixed $value): self
     {
         $this->params[$params] = $value;

@@ -3,24 +3,33 @@
 namespace app\controllers;
 
 use app\cores\Database;
+use app\cores\dbal\Construct;
 use app\cores\Request;
 use app\cores\Response;
 use app\helpers\CompetitionRequest;
 use app\helpers\UUID;
-use app\models\database\prestasiCore\Attachment;
-use app\models\database\prestasiCore\Loa;
-use app\models\database\prestasiCore\PrestasiTeam;
-use app\models\database\prestasiCore\Skkm;
+use app\models\database\championLevel\InternationalChamp;
+use app\models\database\championLevel\NationalChamp;
+use app\models\database\championLevel\ProvinceChamp;
+use app\models\database\championLevel\RegencyChamp;
 use Exception;
 use app\models\database\prestasiCore\Prestasi;
 
 class PrestasiController extends BaseController
 {
     private string $baseUploadDir = "./public/uploads";
+    private Construct $construct;
 
     public function __construct()
     {
+        $this->construct = new Construct();
         parent::__construct();
+
+        // create procedure for handling insert
+        Prestasi::createLoaAndAttachmentProcedure();
+        Prestasi::createPrestasiTeamSkkmProcedure();
+
+
     }
 
     public function postPrestasi(Request $req, Response $res): void
@@ -38,6 +47,9 @@ class PrestasiController extends BaseController
         $loaId = UUID::generate();
 
         try {
+            // invoke triggers
+            $this->invokeTriggers();
+
             $loaFile = $this->handleFileUpload($file["loa-file"]);
             $certificateFile = $this->handleFileUpload($file["certificate-file"]);
             $photoFile = $this->handleFileUpload($file["photo-file"]);
@@ -46,28 +58,26 @@ class PrestasiController extends BaseController
             $db = Database::getConnection();
             $db->beginTransaction();
 
-            Loa::insert([
-                "id" => $loaId,
+            $this->construct->call("insert_loa_attachment", [
+                "loa_id" => $loaId,
                 "date" => $loaDetails["loa_date"],
                 "loa_number" => $loaDetails["loa_number"],
-                "loa_pdf_path" => $loaFile
-            ]);
+                "loa_pdf_path" => $loaFile,
 
-            Attachment::insert([
-                "id" => $attachmentIds,
-                "loa_id" => $loaId,
+                "attachment_id" => $attachmentIds,
+                "attachment_loa_id" => $loaId,
                 "certificate_path" => $certificateFile,
-                "documentation_photo_path" => $photoFile,
+                "docs_photo_path" => $photoFile,
                 "poster_path" => $flyerFile,
                 "caption" => "ini itu caption bro"
-            ]);
+            ])->execute();
 
             Prestasi::insert(
                 [
                     "id" => $prestasiId,
                     "competition_name" => $competitionDetails["competition_name"],
                     "category_name" => $competitionDetails["category_name"],
-                    "competition_level" => $competitionDetails["competition_level"],
+                    "competition_level" => strtolower($competitionDetails["competition_level"]),
                     "place" => $competitionDetails["place"],
                     "date_start_competition" => $competitionDetails["date_start_competition"],
                     "date_end_competition" => $competitionDetails["date_end_competition"],
@@ -82,27 +92,21 @@ class PrestasiController extends BaseController
 
 
             for ($i = 0; $i < count($studentDetails["nim"]); $i++) {
-                PrestasiTeam::insert(
-                    [
-                        "id" => UUID::generate(),
-                        "nim" => $studentDetails["nim"][$i],
-                        "name" => $studentDetails["names"][$i],
-                        "role" => $studentDetails["roles"][$i],
-                        "supervisor_id" => $competitionDetails["supervisor_id"],
-                        "prestasi_id" => $prestasiId,
-                    ]
-                );
-
-                Skkm::insert([
-                    "id" => UUID::generate(),
-                    "nim" => $studentDetails["nim"][$i],
-                    "prestasi_id" => $prestasiId,
+                $this->construct->call("insert_prestasi_team_skkm", [
+                    "pt_id" => UUID::generate(),
+                    "pt_nim" => $studentDetails["nim"][$i],
+                    "name" => $studentDetails["names"][$i],
+                    "role" => $studentDetails["roles"][$i],
+                    "pt_supervisor_id" => $competitionDetails["supervisor_id"],
+                    "pt_prestasi_id" => $prestasiId,
+                    "skkm_id" => UUID::generate(),
+                    "skkm_nim" => $studentDetails["nim"][$i],
+                    "skkm_prestasi_id" => $prestasiId,
                     "certificate_number" => null,
                     "level" => null,
                     "certificate_path" => null,
-                    "point" => 0
-                ]);
-
+                    "point" => 0,
+                ])->execute();
             }
 
             $db->commit();
@@ -164,5 +168,13 @@ class PrestasiController extends BaseController
             "isOk" => move_uploaded_file($tmpName, $newfilename),
             "filePath" => $newfilename
         ];
+    }
+
+    private function invokeTriggers(): void
+    {
+        InternationalChamp::createInsertTrigger();
+        NationalChamp::createInsertTrigger();
+        ProvinceChamp::createInsertTrigger();
+        RegencyChamp::createInsertTrigger();
     }
 }
