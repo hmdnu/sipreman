@@ -1,4 +1,4 @@
-<section class="bg-neutral-0 px-10 mt-40 py-20">
+<section id="about" class="bg-neutral-0 px-10 mt-40 py-20">
     <div class="mx-auto flex justify-center">
         <!-- about text -->
         <div class="relative w-[547px] h-[307px] mr-20">
@@ -10,6 +10,25 @@
                 memotivasi mahasiswa untuk berprestasi.
             </p>
         </div>
+        <div>
+            <!-- data loop -->
+            <template>
+            </template>
+
+            <!-- back/next -->
+            <div>
+
+            </div>
+
+            <!-- button -->
+            <div>
+                <template>
+                    
+                </template>
+            </div>
+        </div>
+
+
         <!-- image section -->
         <div class="flex items-center">
             <div class="relative ml-20 mt-5">
