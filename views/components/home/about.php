@@ -1,9 +1,9 @@
 <section id="about" class="bg-neutral-0 px-10 mt-40 py-20">
     <div class="mx-auto flex justify-center">
         <!-- about text -->
-        <div class="relative w-[547px] h-[307px] mr-20">
+        <div class="relative w-[500px] h-[307px] mr-20">
             <h1 class="h1 font-semibold text-primary-600 py-8">Apa itu Sistem Pencatatan Prestasi Mahasiswa?</h1>
-            <p class="h4 text-neutral-900 font-regular">
+            <p class="h5 text-neutral-900 font-regular">
                 Platform digital untuk mempermudah pencatatan, pengelolaan, dan validasi prestasi non-akademik.
                 Dengan fitur unggah sertifikat kompetisi yang otomatis mengonversi ke poin SKKM, dashboard
                 statistik year-on-year, dan Recent Winner, sistem ini diharapkan dapat memberikan kemudahan sekaligus
