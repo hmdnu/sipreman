@@ -31,13 +31,13 @@
                 <?php echo app\cores\View::getData()["error"] ?? "" ?>
                 <!-- view checkbox -->
                 <div>
-                    <label for="viewPassword" class="flex gap-1 items-center">
+                    <label for="viewPassword" class="flex gap-1 items-center rounded">
                         <input type="checkbox" name="viewPassword" id="viewPassword" class="size-4">
                         <p class="p1 text-neutral-600">Tampilkan Kata Sandi</p>
                     </label>
                 </div>
 
-                <button class="h5 bg-primary-600 text-white rounded-[15px] px-5 py-3 mt-5" type="submit">Masuk</button>
+                <button class="h5 bg-primary-900 text-white rounded-[15px] px-5 py-3 mt-5" type="submit">Masuk</button>
             </form>
         </div>
 
