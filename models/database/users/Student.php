@@ -29,7 +29,6 @@ class Student extends BaseModel
             ->bindParams(3, $data[self::STUDY_PROGRAM_ID])
             ->bindParams(4, $data[self::MAJOR_ID])
             ->execute();
-
     }
 
     public static function deleteAll(): bool
@@ -45,5 +44,13 @@ class Student extends BaseModel
             ->where(self::NIM, "?")
             ->bindParams(1, $nim)
             ->fetch()[0];
+    }
+
+    public static function getValidatedStudentsData(): array
+    {
+        return self::construct()
+            ->select("*")
+            ->from("student_data_view")
+            ->fetch();
     }
 }
