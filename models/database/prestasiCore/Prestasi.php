@@ -2,6 +2,7 @@
 
 namespace app\models\database\prestasiCore;
 
+use app\constant\ValidationState;
 use app\models\BaseModel;
 
 class Prestasi extends BaseModel
@@ -17,7 +18,7 @@ class Prestasi extends BaseModel
     public const string COMPETITION_SOURCE = "competition_source"; // link to comp
     public const string TOTAL_COLLEGE_ATTENDED = "total_college_attended";
     public const string TOTAL_PARTICIPANT = "total_participant";
-    public const string IS_VALIDATE = "is_validate";
+    public const string VALIDATION_STATE = "validation_state";
     public const string ATTACHMENT_ID = "attachment_id";
     public const string SUPERVISOR_ID = "supervisor_id";
 
@@ -37,7 +38,7 @@ class Prestasi extends BaseModel
                     self::COMPETITION_SOURCE => "?",
                     self::TOTAL_COLLEGE_ATTENDED => "?",
                     self::TOTAL_PARTICIPANT => "?",
-                    self::IS_VALIDATE => "?",
+                    self::VALIDATION_STATE => "?",
                     self::ATTACHMENT_ID => "?",
                     self::SUPERVISOR_ID => "?"
                 ]
@@ -52,7 +53,7 @@ class Prestasi extends BaseModel
             ->bindParams(8, $data[self::COMPETITION_SOURCE])
             ->bindParams(9, $data[self::TOTAL_COLLEGE_ATTENDED])
             ->bindParams(10, $data[self::TOTAL_PARTICIPANT])
-            ->bindParams(11, $data[self::IS_VALIDATE])
+            ->bindParams(11, $data[self::VALIDATION_STATE])
             ->bindParams(12, $data[self::ATTACHMENT_ID])
             ->bindParams(13, $data[self::SUPERVISOR_ID])
             ->execute();
@@ -74,7 +75,7 @@ class Prestasi extends BaseModel
                     "p.competition_level",
                     "pt.role",
                     "sk.point",
-                    "p.is_validate"
+                    "p.validation_state"
                 )
                 ->from("prestasi_team", "pt")
                 ->innerJoin("student", "s")->on("pt.nim", "s.nim")
@@ -110,9 +111,9 @@ class Prestasi extends BaseModel
             ->distinct()
             ->from("prestasi_view")
             ->where("nim", "?")
-            ->and("is_validate", "?")
+            ->and("validation_state", "?")
             ->bindParams(1, $nim)
-            ->bindParams(2, 1)
+            ->bindParams(2, ValidationState::VALID)
             ->fetch();
     }
 
@@ -127,8 +128,7 @@ class Prestasi extends BaseModel
                         "date" => "@date",
                         "loa_number" => "@loa_number",
                         "loa_pdf_path" => "@loa_pdf_path"
-                    ])->getSql()
-                ,
+                    ])->getSql(),
                 self::construct()
                     ->insert("attachment")
                     ->values([
@@ -196,4 +196,6 @@ class Prestasi extends BaseModel
             ->addParam("point", "decimal")
             ->execute();
     }
+
+    public static function getValidatingPrestasi() {}
 }

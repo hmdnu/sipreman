@@ -21,7 +21,7 @@ class m_008PrestasiMigration extends BaseMigration implements Migration
             $table->int("total_college_attended");
             $table->int("total_participant");
             $table->string("supervisor_id");
-            $table->tinyInt("is_validate");
+            $table->string("validation_state");
         })->execute();
     }
 

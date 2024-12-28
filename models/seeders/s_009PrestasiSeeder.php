@@ -1,5 +1,6 @@
 <?php
 
+use app\constant\ValidationState;
 use app\Models\BaseSeeder;
 use app\Models\Database\prestasiCore\Prestasi;
 
@@ -17,7 +18,7 @@ class s_009PrestasiSeeder implements BaseSeeder
         $competitionSource = ["Kementerian Pendidikan", "IEEE", "ICPC", "Google Developer"];
         $totalCollegeAttended = [50, 75, 30, 80];
         $totalParticipant = [150, 225, 90, 240];
-        $isValidate = [1, 1, 1, 0];
+        $validationState = [ValidationState::VALID, ValidationState::VALID, ValidationState::VALID, ValidationState::INVALID];
         $attachmentIds = ["ATT001", "ATT002", "ATT003", "ATT004"];
         $supervisorIds = ["192345601", "192345602", "192345603", "192345604"];
 
@@ -33,7 +34,7 @@ class s_009PrestasiSeeder implements BaseSeeder
                 "competition_source" => $competitionSource[$i],
                 "total_college_attended" => $totalCollegeAttended[$i],
                 "total_participant" => $totalParticipant[$i],
-                "is_validate" => $isValidate[$i],
+                "validation_state" => $validationState[$i],
                 "attachment_id" => $attachmentIds[$i],
                 "supervisor_id" => $supervisorIds[$i]
             ]);
