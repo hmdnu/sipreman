@@ -44,7 +44,14 @@ class Selection extends BaseConstruct implements DML
 
     public function where(string $field, string $value, string $operator = "="): self
     {
+        if ($value === "?") {
+            $value = "?";
+        } else if (is_string($value)) {
+            $value = "'$value'";
+        }
+
         $this->sql = str_replace(";", " ", $this->sql) . "WHERE $field $operator $value;";
+
 
         return $this;
     }
