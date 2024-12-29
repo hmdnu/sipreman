@@ -2,8 +2,6 @@
 
 namespace app\controllers;
 
-use app\constant\Config;
-use app\cores\Database;
 use app\cores\View;
 
 abstract class BaseController
