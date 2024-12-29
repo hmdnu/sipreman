@@ -1,13 +1,14 @@
-<section class="bg-primary-500 w-full h-screen grid place-content-center">
-    <div class="bg-white rounded-[30px] px-14 py-10 flex flex-col items-center justify-center">
+<section class="w-full h-screen grid place-content-center" style="background-image: url('/public/assets/img/login.png'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+    <div class="bg-neutral-0 rounded-[30px] px-20 py-10 w-[530px] h-[530px] flex flex-col items-center justify-center">
 
         <div>
-            <div class="text-center mb-5">
-                <h1 class="font-[Raleway] font-bold h1 text-center text-primary-700">sipreman</h1>
-                <div class="mt-3 flex flex-col">
-                    <h1 class="h2 font-medium">Silahkan Masuk</h1>
-                    <h1 class="h5 text-neutral-600 font-normal">Masukan No induk dan kata sandi anda</h1>
-                </div>
+            <div class="flex items-center justify-center mb-5">
+                <img src="/public/assets/icon/graduation_ungu.png" alt="Graduation Logo" width="40" height="40" class="mr-2">
+                <h1 class="font-[Raleway] font-bold h2 text-primary-700">sipreman</h1>
+            </div>
+            <div class="mt-7 flex text-center flex-col">
+                <h1 class="h3 font-medium text-neutral-900">Silahkan Masuk</h1>
+                <h1 class="h5 text-neutral-600 font-normal mt-2">Masukan nomor induk dan kata sandi</h1>
             </div>
 
 
@@ -36,8 +37,9 @@
                         <p class="p1 text-neutral-600">Tampilkan Kata Sandi</p>
                     </label>
                 </div>
-
-                <button class="h5 bg-primary-900 text-white rounded-[15px] px-5 py-3 mt-5" type="submit">Masuk</button>
+                <div class="flex justify-center">
+                    <button class="p1 bg-primary-600 text-white rounded-[7px] py-3 mt-10" style="width: 150px; height: 40px;">Masuk</button>
+                </div>
             </form>
         </div>
 
