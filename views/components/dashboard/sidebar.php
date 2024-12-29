@@ -6,8 +6,6 @@ use app\cores\View;
 $instance = new Request();
 $currentUrl = $instance->getUrl();
 
-$currentUrl = $_SERVER['REQUEST_URI'];
-
 ?>
 
 <aside class="w-64 bg-[#F9F6FD] shadow-2xl p-6 h-screen fixed flex flex-col justify-between">
