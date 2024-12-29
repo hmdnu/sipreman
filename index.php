@@ -34,7 +34,7 @@ $app::post("/post-prestasi", [PrestasiController::class, "postPrestasi"]);
 // admin routes
 $app::get("/dashboard/admin/:nip", [DashboardAdminController::class, "adminDashboard"], [AdminMiddleware::class]);
 $app::get("/dashboard/admin/:nip/student-data", [DashboardAdminController::class, "adminDataStudent"], [AdminMiddleware::class]);
-$app::get("/dashboard/admin/:nip/student-data/:nim", [DashboardAdminController::class, "studentsData"], [AdminMiddleware::class]);
+$app::get("/dashboard/admin/:nip/student-data/:prestasi-id", [DashboardAdminController::class, "studentsData"], [AdminMiddleware::class]);
 
 $app::get("/dashboard/admin/:nip/validation", [DashboardAdminController::class, "adminValidation"], [AdminMiddleware::class]);
 
