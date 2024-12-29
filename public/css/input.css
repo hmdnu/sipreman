@@ -72,7 +72,16 @@ input[type="number"] {
 }
 
 .carousel-image {
-    width: 330px; /* Sesuaikan dengan lebar yang diinginkan */
-    height: 400px; /* Sesuaikan dengan tinggi yang diinginkan */
-    object-fit: cover; /* Menjaga rasio aspek gambar */
+    width: 330px; 
+    height: 400px; 
+    object-fit: cover; 
+}
+
+.sidebar-link:hover {
+    background-color: #6F38C5;
+    color: white;
+}
+
+.sidebar-link:hover img {
+    filter: brightness(0) invert(1); 
 }
