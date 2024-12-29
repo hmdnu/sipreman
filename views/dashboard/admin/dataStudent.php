@@ -2,6 +2,7 @@
 
 use app\cores\View;
 
+
 ?>
 
 <section>
@@ -75,7 +76,7 @@ use app\cores\View;
                         $studentData = View::getData()["studentData"];
 
                         foreach ($studentData as $key => $data) {
-                            echo "<tr class='border-b cursor-pointer transition-all hover:bg-slate-200'>
+                            echo "<tr class='border-b'>
                                 <td class='px-4 py-2 text-center'>2341712341</td>
                                 <td class='px-4 py-2'>{$data["name"]}</td>
                                 <td class='px-4 py-2'>{$data["major_name"]}</td>
