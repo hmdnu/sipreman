@@ -15,13 +15,14 @@ class m_030StudentsDataView extends BaseMigration implements Migration
                 "p.competition_name",
                 "m.major_name",
                 "sp.study_program_name",
-                "p.validation_state"
+                "p.validation_state",
+                "pt.role",
+                "pt.prestasi_id"
             )->from("prestasi_team", "pt")
                 ->innerJoin("prestasi", "p")->on("pt.prestasi_id", "p.id")
                 ->innerJoin("student", "s")->on("pt.nim", "s.nim")
                 ->innerJoin("study_program", "sp")->on("s.study_program_id", "sp.id")
                 ->innerJoin("major", "m")->on("s.major_id", "m.id")
-                ->where("p.validation_state", "VALID")
                 ->getSql()
         )->execute();
     }
