@@ -5,7 +5,6 @@ namespace app\middlewares;
 use app\cores\Request;
 use app\cores\Response;
 use app\cores\Session;
-use app\helpers\Dump;
 use app\models\database\users\Admin;
 
 class AdminMiddleware implements Middleware

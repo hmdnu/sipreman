@@ -34,12 +34,11 @@ class Admin extends BaseModel
 
     public static function findOne(string $nip): ?array
     {
-
         return self::construct()
             ->select(self::NIP, self::NAME)
             ->from(self::TABLE)
             ->where(self::NIP, "?")
             ->bindParams(1, $nip)
-            ->fetch();
+            ->fetch()[0];
     }
 }

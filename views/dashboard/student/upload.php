@@ -35,9 +35,9 @@ use app\cores\View;
 </section>
 
 <script type="module">
-    import fragments from "/public/js/fragments/studentDashboard.js"
+import fragments from "/public/js/fragments/studentDashboard.js"
 
-    <?php
+<?php
     $studyPrograms = array_map(function ($studyProgram) {
         return $studyProgram["study_program_name"];
     }, View::getData()["studentData"]["studyPrograms"]);
@@ -51,35 +51,30 @@ use app\cores\View;
     }, View::getData()["studentData"]["majors"]);
     ?>
 
-    const supervisors = <?php echo json_encode($supervisors) ?>;
-    const studyPrograms = <?php echo json_encode($studyPrograms) ?>;
-    const majors = <?php echo json_encode($majors) ?>;
+const supervisors = <?php echo json_encode($supervisors) ?>;
+const studyPrograms = <?php echo json_encode($studyPrograms) ?>;
+const majors = <?php echo json_encode($majors) ?>;
 
-    $(() => {
-        const states = {
-            student: 1,
-            supervisor: 1
-        }
+$(() => {
+    const states = {
+        student: 1,
+        supervisor: 1
+    }
 
-        $("#add-student-btn").on("click", () => {
-            states.student++;
-            $("#container-student-input").append(fragments.getStudentInputFragment(states.student,
-                studyPrograms, majors));
-        })
-
-        $("#add-supervisor-btn").on("click", () => {
-            states.supervisor++;
-            $("#container-supervisor-input").append(fragments.getSupervisorInputFragment(states
-                .supervisor, supervisors));
-        })
-
-        $("#logout-form").on("submit", (e) => {
-            const confirmation = confirm("Logout?");
-
-            if (!confirmation) {
-                e.preventDefault();
-            }
-        })
-
+    $("#add-student-btn").on("click", () => {
+        states.student++;
+        $("#container-student-input").append(fragments.getStudentInputFragment(states.student,
+            studyPrograms, majors));
     })
+
+
+    $("#logout-form").on("submit", (e) => {
+        const confirmation = confirm("Logout?");
+
+        if (!confirmation) {
+            e.preventDefault();
+        }
+    })
+
+})
 </script>

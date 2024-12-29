@@ -15,18 +15,18 @@
             <form action="/post-login" method="post" class="flex flex-col gap-3">
                 <!-- no induk -->
                 <div>
-                    <label for="noInduk" class="flex flex-col gap-3 mt-8">
-                        <h5 class="h6 text-neutral-600 font-medium">No Induk</h5>
-                        <input type="text" name="noInduk" id="noInduk"
-                            class="px-5 py-2 h6 text-neutral-600 bg-neutral-100 border-2 border-neutral-200 rounded-md">
+                    <label for="noInduk" class="flex flex-col gap-3">
+                        <h5 class="h6 text-neutral-600">No Induk</h5>
+                        <input type="text" name="noInduk" id="noInduk" value="100321101"
+                            class="px-5 py-2 h6 text-neutral-600 bg-neutral-100 border border-neutral-200 rounded-md">
                     </label>
                 </div>
                 <!-- password -->
                 <div>
                     <label for="password" class="flex flex-col gap-3">
-                        <h5 class="h6 text-neutral-600 font-medium">Kata Sandi</h5>
-                        <input type="password" name="password" id="password"
-                            class="px-5 py-2 h6 text-neutral-600 bg-neutral-100 border-2 border-neutral-200 rounded-md">
+                        <h5 class="h6 text-neutral-600">Password</h5>
+                        <input type="password" name="password" id="password" value="admin1"
+                            class="px-5 py-2 h6 text-neutral-600 bg-neutral-100 border border-neutral-200 rounded-md">
                     </label>
                 </div>
                 <?php echo app\cores\View::getData()["error"] ?? "" ?>
@@ -51,11 +51,10 @@
 
 <script>
     $(() => {
-        $("#viewPassword").on("change", function() {
+        $(" #viewPassword").on("change", function() {
             const passwordField = $("#password");
-            const isChecked = $(this).is(":checked");
-
-            // Toggle the type attribute of the password field
+            const
+                isChecked = $(this).is(":checked"); // Toggle the type attribute of the password field
             passwordField.attr("type", isChecked ? "text" : "password");
         });
     });

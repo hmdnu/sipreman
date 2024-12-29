@@ -32,13 +32,13 @@ use app\cores\View;
             </a>
 
             <!-- student data -->
-            <a href="/dashboard/admin/<?php echo View::getData()["adminData"]["nip"] ?>/validation"
+            <a href="/dashboard/admin/<?php echo View::getData()["adminData"]["nip"] ?>/student-data"
                 class="text-[12px] font-medium w-full flex items-center gap-2 py-2 px-4 bg-white text-gray-700 border border-gray-300 rounded-lg shadow hover:bg-[#6F38C5] hover:text-white active:bg-[#6F38C5] active:text-white transition duration-300">
                 <img src="/public/assets/icon/adm_dataStudent.png" alt="Icon Data Student" class="h-4 w-4" />
                 Data Mahasiswa
             </a>
             <!-- validation -->
-            <a href="/dashboard/admin/<?php echo View::getData()["adminData"]["nip"] ?>/point"
+            <a href="/dashboard/admin/<?php echo View::getData()["adminData"]["nip"] ?>/validation"
                 class="text-[12px] font-medium w-full flex items-center gap-2 py-2 px-4 bg-white text-gray-700 border border-gray-300 rounded-lg shadow hover:bg-[#6F38C5] hover:text-white active:bg-[#6F38C5] active:text-white transition duration-300">
                 <img src="/public/assets/icon/adm_validasi.png" alt="Icon Validation Admin" class="h-4 w-4" />
                 Validasi

@@ -2,16 +2,13 @@
 
 namespace app\controllers;
 
+use app\constant\ValidationState;
 use app\cores\Database;
 use app\cores\dbal\Construct;
 use app\cores\Request;
 use app\cores\Response;
 use app\helpers\CompetitionRequest;
 use app\helpers\UUID;
-use app\models\database\championLevel\InternationalChamp;
-use app\models\database\championLevel\NationalChamp;
-use app\models\database\championLevel\ProvinceChamp;
-use app\models\database\championLevel\RegencyChamp;
 use Exception;
 use app\models\database\prestasiCore\Prestasi;
 
@@ -24,12 +21,6 @@ class PrestasiController extends BaseController
     {
         $this->construct = new Construct();
         parent::__construct();
-
-        // create procedure for handling insert
-        Prestasi::createLoaAndAttachmentProcedure();
-        Prestasi::createPrestasiTeamSkkmProcedure();
-
-
     }
 
     public function postPrestasi(Request $req, Response $res): void
@@ -38,6 +29,7 @@ class PrestasiController extends BaseController
         $file = $req->file();
 
         $competitionRequest = new CompetitionRequest($body);
+
         $studentDetails = $competitionRequest->getStudentDetails();
         $competitionDetails = $competitionRequest->getCompetitionDetails();
         $loaDetails = $competitionRequest->getLoaDetails();
@@ -47,8 +39,6 @@ class PrestasiController extends BaseController
         $loaId = UUID::generate();
 
         try {
-            // invoke triggers
-            $this->invokeTriggers();
 
             $loaFile = $this->handleFileUpload($file["loa-file"]);
             $certificateFile = $this->handleFileUpload($file["certificate-file"]);
@@ -84,7 +74,7 @@ class PrestasiController extends BaseController
                     "competition_source" => $competitionDetails["competition_source"],
                     "total_college_attended" => $competitionDetails["total_college_attended"],
                     "total_participant" => $competitionDetails["total_participant"],
-                    "is_validate" => 0,
+                    "validation_state" => ValidationState::WAITING,
                     "attachment_id" => $attachmentIds,
                     "supervisor_id" => $competitionDetails["supervisor_id"],
                 ]
@@ -111,7 +101,7 @@ class PrestasiController extends BaseController
 
             $db->commit();
             echo "sukses";
-        } catch (\PDOException|Exception $e) {
+        } catch (\PDOException | Exception $e) {
             var_dump($e->getMessage());
         }
     }
@@ -168,13 +158,5 @@ class PrestasiController extends BaseController
             "isOk" => move_uploaded_file($tmpName, $newfilename),
             "filePath" => $newfilename
         ];
-    }
-
-    private function invokeTriggers(): void
-    {
-        InternationalChamp::createInsertTrigger();
-        NationalChamp::createInsertTrigger();
-        ProvinceChamp::createInsertTrigger();
-        RegencyChamp::createInsertTrigger();
     }
 }
