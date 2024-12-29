@@ -76,12 +76,3 @@ input[type="number"] {
     height: 400px; 
     object-fit: cover; 
 }
-
-.sidebar-link:hover {
-    background-color: #6F38C5;
-    color: white;
-}
-
-.sidebar-link:hover img {
-    filter: brightness(0) invert(1); 
-}
