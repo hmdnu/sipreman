@@ -46,7 +46,8 @@ class DashboardAdminController extends BaseController
             $validatingPrestasi = Prestasi::getValidatingPrestasi();
 
             $this->view("dashboard/admin/validation", "Validasi Mahasiswa", [
-                "adminData" => $adminData
+                "adminData" => $adminData,
+                "validatingPrestasiData" => $validatingPrestasi
             ]);
         } catch (\PDOException $err) {
             var_dump("error bang", $err->getMessage());
@@ -68,13 +69,15 @@ class DashboardAdminController extends BaseController
         }
     }
 
-    public function studentsData()
+    public function studentsData(Request $req, Response $res)
     {
         $adminData = $this->getAdminData($this->nip);
+        $prestasiData = Student::getStudentPrestasiData($req->getParams("prestasi-id"));
 
 
         $this->view("dashboard/admin/validatingStudentData", "Validating Data", [
-            "adminData" => $adminData
+            "adminData" => $adminData,
+            "prestasiData" => $prestasiData
         ]);
     }
 
