@@ -16,7 +16,7 @@
                 <div>
                     <label for="noInduk" class="flex flex-col gap-3">
                         <h5 class="h6 text-neutral-600">No Induk</h5>
-                        <input type="text" name="noInduk" id="noInduk"
+                        <input type="text" name="noInduk" id="noInduk" value="100321101"
                             class="px-5 py-2 h6 text-neutral-600 bg-neutral-100 border border-neutral-200 rounded-md">
                     </label>
                 </div>
@@ -24,20 +24,20 @@
                 <div>
                     <label for="password" class="flex flex-col gap-3">
                         <h5 class="h6 text-neutral-600">Password</h5>
-                        <input type="password" name="password" id="password"
+                        <input type="password" name="password" id="password" value="admin1"
                             class="px-5 py-2 h6 text-neutral-600 bg-neutral-100 border border-neutral-200 rounded-md">
                     </label>
                 </div>
                 <?php echo app\cores\View::getData()["error"] ?? "" ?>
                 <!-- view checkbox -->
                 <div>
-                    <label for="viewPassword" class="flex gap-1 items-center">
+                    <label for="viewPassword" class="flex gap-1 items-center rounded">
                         <input type="checkbox" name="viewPassword" id="viewPassword" class="size-4">
                         <p class="p1 text-neutral-600">Tampilkan Kata Sandi</p>
                     </label>
                 </div>
 
-                <button class="h5 bg-primary-600 text-white rounded-[15px] px-5 py-3 mt-5" type="submit">Masuk</button>
+                <button class="h5 bg-primary-900 text-white rounded-[15px] px-5 py-3 mt-5" type="submit">Masuk</button>
             </form>
         </div>
 
@@ -48,13 +48,12 @@
 
 
 <script>
-$(() => {
-    $("#viewPassword").on("change", function() {
-        const passwordField = $("#password");
-        const isChecked = $(this).is(":checked");
-
-        // Toggle the type attribute of the password field
-        passwordField.attr("type", isChecked ? "text" : "password");
+    $(() => {
+        $(" #viewPassword").on("change", function() {
+            const passwordField = $("#password");
+            const
+                isChecked = $(this).is(":checked"); // Toggle the type attribute of the password field
+            passwordField.attr("type", isChecked ? "text" : "password");
+        });
     });
-});
 </script>
