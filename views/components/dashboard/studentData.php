@@ -54,7 +54,7 @@ use app\cores\View;
         <section class="flex gap-4 mb-2">
             <!-- table 1 input student -->
             <div class="w-1/2 border-neutral-200 rounded-lg overflow-hidden">
-                <table id="student-table" class="p1 w-full text-left border-collapse">
+                <table id="student-table" class="p2 w-full text-left border-collapse">
                     <thead class="bg-primary-0">
                         <tr>
                             <th class="p2 font-medium px-4 py-2 border">No</th>
@@ -66,7 +66,7 @@ use app\cores\View;
                             <td class="p2 font-medium px-4 py-1 border">1</td>
                             <td class="p3 px-4 py-2 border">
                                 <input required type="number" name="student-nim[]" id="student-nim"
-                                    class="p2 border border-gray-300 rounded-lg p-2 focus:outline-1 focus:ring-1 placeholder:p2"
+                                    class="text-sm p3 border border-gray-300 rounded-lg p-2 focus:outline-1 focus:ring-1 placeholder:p2"
                                     placeholder="Masukkan NIM" />
                             </td>
                         </tr>
@@ -86,7 +86,7 @@ use app\cores\View;
                         <tr>
                             <td class="p3 px-4 py-2 border">
                                 <input required type="text" name="student-name[]" id="student-name"
-                                    class="p2 border border-gray-300 rounded-lg p-2 focus:outline-1 focus:ring-1 placeholder:p2"
+                                    class="text-sm p2 border border-gray-300 rounded-lg p-2 focus:outline-1 focus:ring-1 placeholder:p2"
                                     placeholder="Masukkan Nama" />
                             </td>
                         </tr>
@@ -99,7 +99,7 @@ use app\cores\View;
                 <table id="role-table" class="p1 w-full text-left border-collapse">
                     <thead class="bg-primary-0">
                         <tr>
-                            <th class="p2 font-medium px-4 py-2 border">Peran</th>
+                            <th class="text-sm font-medium px-4 py-2 border">Peran</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -116,14 +116,14 @@ use app\cores\View;
                     </tbody>
                 </table>
             </div>
-    </section>
+        </section>
 
-    <button id="add-student-btn"
-        class="text-[11px] h-15 w-30 mt-4 bg-[#49B195] text-white py-2 px-5 rounded-[3px] hover:bg-secondary-800 hover:text-white active:bg-secondary-800 active:text-white transition duration-300 mr-">
-        Tambah Data
-    </button>
-    <button id="remove-student-btn"
-        class="text-[11px] h-15 w-30 mt-4 bg-neutral-800 text-white py-2 px-5 rounded-[3px] hover:bg-neutral-800 hover:text-white active:bg-neutral-800 active:text-white transition duration-300">
-        Hapus
-    </button>
-</section>
+        <button id="add-student-btn"
+            class="text-[11px] h-15 w-30 mt-4 bg-[#49B195] text-white py-2 px-5 rounded-[3px] hover:bg-secondary-800 hover:text-white active:bg-secondary-800 active:text-white transition duration-300 mr-">
+            Tambah Data
+        </button>
+        <button id="remove-student-btn"
+            class="text-[11px] h-15 w-30 mt-4 bg-neutral-800 text-white py-2 px-5 rounded-[3px] hover:bg-neutral-800 hover:text-white active:bg-neutral-800 active:text-white transition duration-300">
+            Hapus
+        </button>
+    </section>
