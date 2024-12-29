@@ -17,7 +17,7 @@
                 <div>
                     <label for="noInduk" class="flex flex-col gap-3 mt-8">
                         <h5 class="h6 text-neutral-600 font-medium">No Induk</h5>
-                        <input name="noInduk" id="noInduk"
+                        <input type="text" name="noInduk" id="noInduk"
                             class="px-5 py-2 h6 text-neutral-600 bg-neutral-100 border-2 border-neutral-200 rounded-md">
                     </label>
                 </div>
@@ -25,7 +25,7 @@
                 <div>
                     <label for="password" class="flex flex-col gap-3">
                         <h5 class="h6 text-neutral-600 font-medium">Kata Sandi</h5>
-                        <input name="password" id="password"
+                        <input type="password" name="password" id="password"
                             class="px-5 py-2 h6 text-neutral-600 bg-neutral-100 border-2 border-neutral-200 rounded-md">
                     </label>
                 </div>
