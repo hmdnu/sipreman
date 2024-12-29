@@ -117,13 +117,14 @@ use app\cores\View;
                 </table>
             </div>
         </section>
-
-        <button id="add-student-btn"
-            class="text-[11px] h-15 w-30 mt-4 bg-[#49B195] text-white py-2 px-5 rounded-[3px] hover:bg-secondary-800 hover:text-white active:bg-secondary-800 active:text-white transition duration-300 mr-">
-            Tambah Data
-        </button>
-        <button id="remove-student-btn"
-            class="text-[11px] h-15 w-30 mt-4 bg-neutral-800 text-white py-2 px-5 rounded-[3px] hover:bg-neutral-800 hover:text-white active:bg-neutral-800 active:text-white transition duration-300">
-            Hapus
-        </button>
     </section>
+
+    <button type="button" id="add-student-btn"
+        class="text-[11px] h-15 w-30 mt-4 bg-[#49B195] text-white py-2 px-5 rounded-[3px] hover:bg-secondary-800 hover:text-white active:bg-secondary-800 active:text-white transition duration-300 mr-">
+        Tambah Data
+    </button>
+
+    <button type="button" id="delete-student-btn"
+        class="text-[11px] h-15 w-30 mt-4 bg-[#49B195] text-white py-2 px-5 rounded-[3px] hover:bg-secondary-800 hover:text-white active:bg-secondary-800 active:text-white transition duration-300 mr-">
+        Hapus
+    </button>

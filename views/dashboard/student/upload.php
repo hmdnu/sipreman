@@ -57,16 +57,29 @@ const majors = <?php echo json_encode($majors) ?>;
 
 $(() => {
     const states = {
-        student: 1,
-        supervisor: 1
+        count: 1,
     }
 
     $("#add-student-btn").on("click", () => {
-        states.student++;
-        $("#container-student-input").append(fragments.getStudentInputFragment(states.student,
-            studyPrograms, majors));
+        states.count++;
+        const fragment = fragments.getStudentInputFragment(states.count, studyPrograms, majors);
+
+        $("#container-student-input").append(
+            `<div id="student-fragment-${states.count}">${fragment}</div>`);
+
+        console.log(states)
+
     })
 
+    $("#delete-student-btn").on("click", () => {
+        $(`#student-fragment-${states.count}`).remove();
+
+        if (states.count <= 1) {
+            return;
+        }
+
+        states.count--;
+    })
 
     $("#logout-form").on("submit", (e) => {
         const confirmation = confirm("Logout?");

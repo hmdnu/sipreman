@@ -1,10 +1,9 @@
 function getStudentInputFragment(number, studyPrograms, majors) {
-    const studyProgramOptions = studyPrograms.map((program) => `"<option value="${program}">${program}</option>"`).join("");
-    const majorsOptions = majors.map((major) => `"<option value="${major}">${major}</option>"`);
+  const studyProgramOptions = studyPrograms.map((program) => `"<option value="${program}">${program}</option>"`).join("");
+  const majorsOptions = majors.map((major) => `"<option value="${major}">${major}</option>"`);
 
-    return `
+  return `
     <section id="container-student-input">
-
         <section class="flex gap-5 mt-10">
             <div class="mb-6">
                 <label for="study-program" class="p1 block font-medium text-neutral-900 mb-2">Program
@@ -97,35 +96,6 @@ function getStudentInputFragment(number, studyPrograms, majors) {
     </section>`;
 }
 
-function getSupervisorInputFragment(number, supervisors) {
-    const options = supervisors.map((supervisor) => `"<option value="${supervisor.name}">${supervisor.name}</option>"`).join("");
-
-    return `<div class="border border-gray-300 rounded-b-lg overflow-hidden mb-2">
-            <table id="data-dosen-table" class="text-[14px] w-1/2 text-left border-collapse">
-                <thead class="bg-gray-100">
-                    <tr>
-                        <th class="text-[12px] px-4 py-2 border">No</th>
-                        <th class="text-[12px] px-4 py-2 border">Nama Dosen</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="text-[12px] px-4 py-2 border">${number}</td>
-                        <td class="text-[12px] px-4 py-2 border">
-                            <select
-                                name="supervisor-name[]"
-                                class="text-[12px] w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
-                                <option value="" disabled selected>Pilih Dosen</option>
-                                ${options}
-                            </select>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>`;
-}
-
 export default {
-    getStudentInputFragment,
-    getSupervisorInputFragment,
+  getStudentInputFragment,
 };
