@@ -14,7 +14,6 @@ use app\cores\View;
 <section class="mb-6 mt-5">
     <!-- add study program -->
     <section id="container-student-input">
-
         <section class="flex gap-5">
             <div class="mb-6">
                 <label for="study-program" class="p1 block font-medium text-neutral-900 mb-2">Program
@@ -52,7 +51,7 @@ use app\cores\View;
             </div>
         </section>
 
-        <tion class="flex gap-4 mb-2">
+        <section class="flex gap-4 mb-2">
             <!-- table 1 input student -->
             <div class="w-1/2 border-neutral-200 rounded-lg overflow-hidden">
                 <table id="student-table" class="p1 w-full text-left border-collapse">
@@ -117,8 +116,8 @@ use app\cores\View;
                     </tbody>
                 </table>
             </div>
-
     </section>
+
     <button id="add-student-btn"
         class="text-[11px] h-15 w-30 mt-4 bg-[#49B195] text-white py-2 px-5 rounded-[3px] hover:bg-secondary-800 hover:text-white active:bg-secondary-800 active:text-white transition duration-300 mr-">
         Tambah Data
