@@ -18,14 +18,14 @@ use app\cores\View;
             <div class="flex justify-start items-center mt-8 space-x-4">
                 <!-- button save-->
                 <button
-                        class="flex items-center text-[14px] font-semibold bg-[#49B195] text-white py-2 px-5 rounded-md hover:bg-[#6F38C5] transition shadow-lg">
+                    class="flex items-center text-[14px] font-semibold bg-[#49B195] text-white py-2 px-5 rounded-md hover:bg-[#6F38C5] transition shadow-lg">
                     <img src="/public/assets/icon/save_icon.png" alt="save icon" class="w-4 h-5 mr-2">
                     Simpan
                 </button>
 
                 <!-- button back -->
                 <button type="submit"
-                        class="flex items-center text-[14px] font-semibold bg-gray-200 text-gray-700 py-2 px-5 rounded-md hover:bg-gray-300 transition shadow-lg">
+                    class="flex items-center text-[14px] font-semibold bg-gray-200 text-gray-700 py-2 px-5 rounded-md hover:bg-gray-300 transition shadow-lg">
                     <img src="/public/assets/icon/back_icon.png" alt="back Icon" class="w-5 h-5 mr-2">
                     Kembali
                 </button>

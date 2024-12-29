@@ -13,7 +13,7 @@
         <div class="flex justify-center items-center min-h-screen">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <!-- card 1 -->
-                <div role="status" class="max-w-sm p-4 border border-neutral-200 rounded shadow md:p-6 dark:border-neutral-600 mt-10">
+                <div role="status" class="max-w-sm p-4 border-1 border-neutral-100 rounded shadow md:p-6 dark:border-neutral-600 mt-10">
                     <div class="flex items-center justify-center h-48 mb-4">
                         <img src="/public/assets/img/img4.jpg" class="w-full h-full object-cover rounded" alt="Achievement Image">
                     </div>
@@ -37,7 +37,7 @@
                     </div>
                 </div>
                 <!-- card 2 -->
-                <div role="status" class="max-w-sm p-4 border border-neutral-200 rounded shadow md:p-6 dark:border-neutral-600 mt-10">
+                <div role="status" class="max-w-sm p-4 border-1 border-neutral-100 rounded shadow md:p-6 dark:border-neutral-600 mt-10">
                     <div class="flex items-center justify-center h-48 mb-4">
                         <img src="/public/assets/img/img5.jpg" class="w-full h-full object-cover rounded" alt="Achievement Image">
                     </div>
@@ -61,7 +61,7 @@
                     </div>
                 </div>
                 <!-- Card 3 -->
-                <div role="status" class="max-w-sm p-4 border border-neutral-200 rounded shadow md:p-6 dark:border-neutral-600 mt-2">
+                <div role="status" class="max-w-sm p-4 border-1 border-neutral-100 rounded shadow md:p-6 dark:border-neutral-600 mt-2">
                     <div class="flex items-center justify-center h-48 mb-4">
                         <img src="/public/assets/img/img6.jpg" class="w-full h-full object-cover rounded" alt="Achievement Image">
                     </div>
@@ -85,7 +85,7 @@
                     </div>
                 </div>
                 <!-- card 4 -->
-                <div role="status" class="max-w-sm p-4 border border-neutral-200 rounded shadow md:p-6 dark:border-neutral-600 mt-2">
+                <div role="status" class="max-w-sm p-4 border-1 border-neutral-100 rounded shadow md:p-6 dark:border-neutral-600 mt-2">
                     <div class="flex items-center justify-center h-48 mb-4">
                         <img src="/public/assets/img/img7.jpg" class="w-full h-full object-cover rounded" alt="Achievement Image">
                     </div>
