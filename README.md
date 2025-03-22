@@ -1,7 +1,7 @@
 # Project Based Learning 
 ## Sistem Informasi Prestasi Mahasiswa
 
-Note: this docs may be a bit missleading because im too lazy to edit it to new one, and this project is maybe 40% away of being complete and no i wont be finishing it.
+Note: this docs may be a bit missleading because im too lazy to edit it to new one, and this project is maybe 40% away of being complete and no i wont be finishing it. Feel free to contribute!!
 
 Jurusan Teknologi Informasi, Prodi Sistem Informas Bisnis, Politeknik Negeri Malang.
 
